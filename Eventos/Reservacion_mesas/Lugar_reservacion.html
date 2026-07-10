@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservar Mesa - Pupusas Lorena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../CSS_archivos/Lugar_detalles.css">
+    <link rel="icon" href="../../Imagenes/pupusas_logo.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+  <header class="navbar">
+    <div class="nav-container">
+        <a href="../../pup_lorena.html" class="logo">
+            <img src="../../Imagenes/images.png" alt="Logo Pupusas" class="logo-img">
+            <span class="logo-texto">Pupusas Lorena</span>
+        </a>
+        <nav class="nav-links">
+            <a href="../../pup_lorena.html" class="nav-item">Inicio</a>
+            <a href="../../Menu_pupusas/menu_seccion.html" class="nav-item">Menú</a>
+            <a href="../../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
+            <a href="../eventos_pagi.html" class="nav-item active">Eventos</a> <!-- Mantiene 'Eventos' como activo por la misma lógica de flujo -->
+            <a href="../../Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
+            <a href="../../Menu_pupusas/Registro_ventas/Ventas_recoleccion.html" class="btn-nav">Pide Ahora</a>
+        </nav>
+    </div>
+</header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content container">
+        <div class="admin-card full-width">
+            <div class="admin-card-header-left">
+                <h2>📅 Reservaciones de Mesas</h2>
+                <p>Asegura tu lugar para disfrutar las pupusas el fin de semana.</p>
+            </div>
+            
+            <div class="reservation-grid">
+                <!-- Formulario -->
+                <form class="admin-form">
+                    <div class="form-group">
+                        <label for="res-name">Nombre de la Reserva</label>
+                        <input type="text" id="res-name" placeholder="Ej. Familia Martínez" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date">Fecha</label>
+                            <input type="date" id="res-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="res-time">Hora</label>
+                            <input type="time" id="res-time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-people">Cantidad de Personas</label>
+                        <input type="number" id="res-people" min="1" max="20" placeholder="4" required>
+                    </div>
+                    <button type="submit" class="btn-submit btn-primary">Confirmar Reserva</button>
+                    <div class="back-link-container">
+                        <a href="../eventos_pagi.html" class="back-link">Volver a Eventos</a>
+                    </div>
+                </form>
+
+                <!-- Panel informativo derecho -->
+                <div class="reservation-info">
+                    <h3>Mesas Disponibles Hoy</h3>
+                    <div class="table-status">
+                        <div class="status-item available"><span class="dot green"></span>Mesa 1 (2-4 pers) - Disponible</div>
+                        <div class="status-item reserved"><span class="dot red"></span>Mesa 2 (Familiar) - Reservada</div>
+                        <div class="status-item available"><span class="dot green"></span>Mesa 3 (Terraza) - Disponible</div>
+                    </div>
+                    <p class="note"><strong>Nota:</strong> Las reservaciones automáticas tienen una tolerancia máxima de 15 minutos.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+     <footer id="contacto" class="footer">
+        <div class="container text-center">
+            <h3>¿Antojo de pupusas?</h3>
+            <p>Escríbenos directamente o visítanos los fines de semana.</p>
+            <a href="https://wa.me/tu-numero-aqui" target="_blank" class="btn btn-whatsapp">Pedir por WhatsApp</a>
+            <p class="copyright">&copy; 2026 Pupusas Lorena. Sabor y comodidad a cada hora!</p>
+        </div>
+    </footer>
+
+</body>
+</html>

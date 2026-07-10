@@ -1,0 +1,272 @@
+/* VARIABLES DE DISEÑO (Colores de la Vaca Púrpura de Pupusas) */
+:root {
+    --primary: #D97706;       /* Terracota Comal */
+    --primary-hover: #B45309; /* Terracota Oscuro */
+    --secondary: #16A34A;     /* Verde Curtido */
+    --accent: #DC2626;        /* Rojo Tomate Frito */
+    --bg-warm: #FFFBEB;       /* Blanco Maíz Cálido */
+    --dark: #1F2937;          /* Gris oscuro para textos legibles */
+    --white: #FFFFFF;
+}
+
+/* ESTILOS GLOBALES */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-warm);
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+h1, h2, h3 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--dark);
+    font-weight: 700;
+}
+
+/* HEADER & NAVBAR */
+/* ================= BARRA DE NAVEGACIÓN UNIFICADA ================= */
+/* ================= BARRA DE NAVEGACIÓN UNIFICADA ================= */
+.navbar {
+    background-color: #FFFFFF;
+    width: 100%;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+.logo-texto {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #D97706; /* Color principal */
+}
+
+/* Enlaces de navegación con espaciado rígido y exacto */
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Evita que los nombres bailen o se junten */
+}
+
+.nav-item {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600; /* Peso consistente en todas las páginas */
+    color: #1F2937;
+    text-decoration: none;
+    padding: 6px 0;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent; /* Reserva el espacio para que el texto no salte al activarse */
+}
+
+/* El brillo amarillo/naranja idéntico al Index */
+.nav-item:hover, 
+.nav-item.active {
+    color: #D97706;
+    border-bottom: 2px solid #D97706;
+    text-shadow: 0 0 8px rgba(217, 119, 6, 0.3); /* Efecto de brillo */
+}
+
+/* Botón Destacado "Pide Ahora" */
+.btn-nav {
+    font-family: 'Inter', sans-serif;
+    background-color: #DC2626;
+    color: #FFFFFF !important;
+    text-decoration: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-nav:hover {
+    background-color: #B91C1C;
+    transform: scale(1.03);
+}
+
+/* Ajuste Responsivo básico */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+.eventos-main-box {
+    width: 100%;
+    max-width: 800px;          /* Limita el ancho para que se vea centrado y elegante */
+    margin: 40px auto;         /* Centra todo el bloque en la pantalla */
+    padding: 40px 20px;
+    background-color: #fa9292; /* Tu color de fondo seleccionado */
+    border-radius: 12px;       /* Suaviza las esquinas del bloque principal */
+    display: flex;
+    flex-direction: column;    /* Ordena todo estrictamente hacia abajo */
+    align-items: center;       /* Centra perfectamente todos los elementos internos */
+    text-align: center;
+}
+
+/* 1. Ajuste del Título Superior */
+.eventos-titulo {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: var(--dark);
+    margin-bottom: 25px;
+}
+
+/* 2. Ajuste de la Foto Centrada */
+.eventos-media-centrada {
+    width: 100%;
+    max-width: 550px;          /* Evita que la foto sea gigantesca */
+    margin-bottom: 30px;
+}
+
+.foto-eventos {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;        /* Esquinas un poco curvas para la foto */
+    object-fit: cover;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: block;
+}
+
+/* 3. Bloque de Texto Medio */
+.eventos-descripcion-container {
+    max-width: 600px;
+    margin-bottom: 30px;
+}
+
+.eventos-descripcion {
+    font-size: 1.15rem;
+    color: #000000;
+    margin-bottom: 15px;
+}
+
+.eventos-descripcion:last-child {
+    margin-bottom: 0;
+}
+
+/* 4. Espacio de Redes Sociales */
+.social-box {
+    margin-bottom: 35px;
+}
+
+.social-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 15px;
+}
+
+.social-logos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.logo-red {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    border-radius: 50%;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    transition: transform 0.2s;
+}
+
+.logo-red:hover {
+    transform: scale(1.1);
+}
+
+/* 5. Botón de Enlace al Menú */
+.btn-ir-menu {
+    background-color:#dd065c;
+    color: var(--white);
+    padding: 14px 35px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-ir-menu:hover {
+    background-color:#b42b62;
+    transform: translateY(-2px);
+}
+
+/* FOOTER */
+.footer {
+    background-color: var(--dark);
+    color: var(--white);
+    padding: 25px 0;
+}
+
+.footer h3 {
+    color: var(--white);
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.btn-whatsapp {
+    background-color: #25D366;
+    color: var(--white);
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+}
+
+.copyright {
+    margin-top: 25px;
+    font-size: 0.85rem;
+    opacity: 0.6;
+}

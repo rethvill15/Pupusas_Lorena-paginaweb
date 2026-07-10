@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmar Pedido - Pupusas Lorena</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../CSS_archivos/Compra_detalle.css">
+    <link rel="icon" href="../../Imagenes/pupusas_logo.png" type="image/x-icon">
+
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="navbar">
+    <div class="nav-container">
+        <a href="../../pup_lorena.html" class="logo">
+            <img src="../../Imagenes/images.png" alt="Logo Pupusas" class="logo-img">
+            <span class="logo-texto">Pupusas Lorena</span>
+        </a>
+        <nav class="nav-links">
+            <a href="../../pup_lorena.html" class="nav-item">Inicio</a>
+            <a href="../menu_seccion.html" class="nav-item active">Menú</a> <!-- Mantiene 'Menú' como activo al ser una sección interna del mismo -->
+            <a href="../../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
+            <a href="../../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
+            <a href="../../Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
+            <a href="Ventas_recoleccion.html" class="btn-nav">Pide Ahora</a>
+        </nav>
+    </div>
+</header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content container">
+        <div class="admin-card">
+            <div class="admin-card-header">
+                <span class="icon-title">💰</span>
+                <h2>Registro de Ventas</h2>
+                <p>Ingresa las órdenes del comal directamente al historial.</p>
+            </div>
+            <form class="admin-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="order-id">N° Pedido</label>
+                        <input type="text" id="order-id" placeholder="#1024" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="order-total">Total ($)</label>
+                        <input type="number" step="0.01" id="order-total" placeholder="0.00" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="order-details">Detalle del Pedido</label>
+                    <input type="text" id="order-details" placeholder="Ej. 3 Revueltas + 1 Coca Cola" required>
+                </div>
+                <div class="form-group">
+                    <label for="payment-method">Método de Pago</label>
+                    <select id="payment-method">
+                        <option value="efectivo">Efectivo</option>
+                        <option value="tarjeta">Tarjeta de Crédito/Débito</option>
+                        <option value="transferencia">Transferencia / Sinpe / Chivo</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-submit btn-secondary">Registrar Venta</button>
+                <div class="back-link-container">
+                    <a href="../menu_seccion.html" class="back-link">Volver al Menú</a>
+                </div>
+            </form>
+        </div>
+    </main>
+
+     <footer id="contacto" class="footer">
+        <div class="container text-center">
+            <h3>¿Antojo de pupusas?</h3>
+            <p>Escríbenos directamente o visítanos los fines de semana.</p>
+            <a href="https://wa.me/tu-numero-aqui" target="_blank" class="btn btn-whatsapp">Pedir por WhatsApp</a>
+            <p class="copyright">&copy; 2026 Pupusas Lorena. Sabor y comodidad a cada hora!</p>
+        </div>
+    </footer>
+
+</body>
+</html>
