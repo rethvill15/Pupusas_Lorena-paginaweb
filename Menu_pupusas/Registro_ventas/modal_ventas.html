@@ -1,0 +1,183 @@
+
+
+    <div class="modal-ventas">
+
+    <div class="modal-header">
+        <h2>🍽 Realizar Pedido</h2>
+        <p>Complete la información para registrar su compra.</p>
+    </div>
+
+    <form id="formVentas">
+
+        <!-- Datos del Cliente -->
+
+        <div class="form-section">
+
+            <h3>Datos del Cliente</h3>
+
+            <div class="form-group">
+                <label for="cliente">
+                    Nombre Completo
+                </label>
+
+                <input
+                    type="text"
+                    id="cliente"
+                    placeholder="Ejemplo: Juan Pérez"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">
+                    Teléfono
+                </label>
+
+                <input
+                    type="tel"
+                    id="telefono"
+                    placeholder="8888-8888"
+                    required>
+            </div>
+
+        </div>
+
+        <!-- Pedido -->
+
+        <div class="form-section">
+
+            <h3>Pedido</h3>
+
+            <div class="form-group">
+
+                <label for="producto">
+
+                    Producto
+
+                </label>
+
+                <input
+                    type="text"
+                    id="producto"
+                    readonly>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="cantidad">
+
+                        Cantidad
+
+                    </label>
+
+                    <input
+                        type="number"
+                        id="cantidad"
+                        value="1"
+                        min="1">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="precio">
+
+                        Precio Unitario
+
+                    </label>
+
+                    <input
+                        type="text"
+                        id="precio"
+                        readonly>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="observaciones">
+
+                    Observaciones
+
+                </label>
+
+                <textarea
+                    id="observaciones"
+                    rows="4"
+                    placeholder="Sin cebolla, extra queso, etc."></textarea>
+
+            </div>
+
+        </div>
+
+        <!-- Pago -->
+
+        <div class="form-section">
+
+            <h3>Pago</h3>
+
+            <div class="form-group">
+
+                <label for="metodo">
+
+                    Método de Pago
+
+                </label>
+
+                <select id="metodo">
+
+                    <option>Efectivo</option>
+
+                    <option>Tarjeta</option>
+
+                    <option>Transferencia</option>
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="text" id="total" readonly>
+
+                    Total
+
+                </input>
+
+                <input
+                    type="text"
+                    id="total"
+                    readonly>
+
+            </div>
+
+        </div>
+
+        <div class="acciones">
+
+            <button
+                type="submit"
+                class="btn-primary">
+
+                Confirmar Pedido
+
+            </button>
+
+            <button
+                type="button"
+                class="btn-secondary"
+                onclick="cerrarModal()">
+
+                Cancelar
+
+            </button>
+
+        </div>
+
+    </form>
+
+</div>

@@ -24,7 +24,7 @@
             <a href="Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
             <a href="Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
             <a href="Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
-            <a href="Menu_pupusas/Registro_ventas/Ventas_recoleccion.html" class="btn-nav">Pide Ahora</a>
+            <a href="#" class="btn-nav" onclick="abrirModal('Menu_pupusas/Registro_ventas/Ventas_recoleccion.html');return false;">Pide Ahora</a>
         </nav>
     </div>
 </header>
@@ -104,5 +104,26 @@
         </div>
     </footer>
 
+    <div id="modalOverlay" class="modal-overlay">
+
+    <div class="modal-window">
+
+        <button
+            id="cerrarModal"
+            class="modal-close">
+
+            &times;
+
+        </button>
+
+        <div id="modalContenido">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="JS_archivos/modal.js"></script>
 </body>
 </html>

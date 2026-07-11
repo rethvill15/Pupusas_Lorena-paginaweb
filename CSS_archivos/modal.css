@@ -1,0 +1,220 @@
+    .modal-overlay{
+
+position:fixed;
+
+inset:0;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(0,0,0,.55);
+
+backdrop-filter:blur(6px);
+
+z-index:9999;
+
+}
+
+.modal-overlay.active{
+
+display:flex;
+
+animation:fade .25s;
+
+}
+
+.modal-window{
+
+background:#fff;
+
+width:min(900px,95vw);
+
+max-height:90vh;
+
+overflow:auto;
+
+border-radius:18px;
+
+box-shadow:0 20px 60px rgba(0,0,0,.35);
+
+position:relative;
+
+animation:popup .3s ease;
+
+}
+
+.modal-close{
+
+position:absolute;
+
+right:15px;
+
+top:15px;
+
+width:40px;
+
+height:40px;
+
+border:none;
+
+border-radius:50%;
+
+cursor:pointer;
+
+font-size:28px;
+
+background:#f2f2f2;
+
+transition:.25s;
+
+}
+
+.modal-close:hover{
+
+transform:scale(1.1);
+
+}
+
+@keyframes popup{
+
+from{
+
+opacity:0;
+
+transform:translateY(-20px) scale(.95);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+.loading{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+height:250px;
+
+font-size:20px;
+
+font-weight:bold;
+
+color:#555;
+
+}
+
+.form-section{
+
+    margin-bottom:30px;
+
+}
+
+.form-row{
+
+    display:flex;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    flex:1;
+
+}
+
+.form-group label{
+
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+
+    padding:12px;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+    font-size:15px;
+
+    transition:.25s;
+
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+
+    outline:none;
+
+    border-color:#d97706;
+
+    box-shadow:0 0 0 4px rgba(217,119,6,.15);
+
+}
+
+.acciones{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:15px;
+
+    margin-top:30px;
+
+}
+
+.loading{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    height:250px;
+
+    font-size:20px;
+
+}
