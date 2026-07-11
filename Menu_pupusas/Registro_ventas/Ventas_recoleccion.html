@@ -79,5 +79,32 @@
         </div>
     </footer>
 
+        <div id="popup-ventas" class="popup-overlay">
+            <div class="popup-contenido">
+                <span class="popup-cerrar" id="cerrar-vta">&times;</span>
+                <h2 style="color: var(--accent);">¡Pedido en Comal! 🔥</h2>
+                <p style="margin-top: 15px;">Tu orden de pupusas ha sido procesada. Prepara el apetito, te avisaremos cuando esté lista para recolección.</p>
+                <button class="btn-nav" id="aceptar-vta" style="margin-top: 20px; background-color: var(--primary);">¡Excelente!</button>
+            </div>
+        </div>
+
+    <script>
+    const formVentas = document.querySelector('form');
+    const popupVta = document.getElementById('popup-ventas');
+    const cerrarVta = document.getElementById('cerrar-vta');
+    const aceptarVta = document.getElementById('aceptar-vta');
+
+    if(formVentas) {
+        formVentas.addEventListener('submit', (e) => {
+            e.preventDefault();
+            popupVta.style.display = 'flex';
+        });
+    }
+
+    cerrarVta.addEventListener('click', () => popupVta.style.display = 'none');
+    aceptarVta.addEventListener('click', () => popupVta.style.display = 'none');
+</script>    
+
+
 </body>
 </html>
