@@ -70,35 +70,7 @@
         </div>
     </footer>
 
-    <div id="popup-registro" class="popup-overlay">
-    <div class="popup-contenido">
-        <span class="popup-cerrar" id="cerrar-reg">&times;</span>
-        <div class="popup-header">
-            <h2 style="color: var(--secondary);">¡Usuario Registrado!</h2>
-        </div>
-        <p style="margin-top: 15px;">El perfil ha sido guardado exitosamente en el sistema de Pupusas Lorena.</p>
-        <button class="btn-nav" id="aceptar-reg" style="margin-top: 20px; width: 100%;">Aceptar</button>
-    </div>
-
-    <script>
-    const formulario = document.querySelector('form'); // Busca tu formulario
-    const popupReg = document.getElementById('popup-registro');
-    const cerrarReg = document.getElementById('cerrar-reg');
-    const aceptarReg = document.getElementById('aceptar-reg');
-
-    // Intercepta el envío del formulario para mostrar el Pop-up primero
-    if(formulario) {
-        formulario.addEventListener('submit', (e) => {
-            e.preventDefault(); // Evita que la página se recargue inmediatamente
-            popupReg.style.display = 'flex';
-        });
-    }
-
-    // Funciones para ocultar el cartel
-    cerrarReg.addEventListener('click', () => popupReg.style.display = 'none');
-    aceptarReg.addEventListener('click', () => popupReg.style.display = 'none');
-</script>
-</div>
+    
 
 </body>
 </html>
