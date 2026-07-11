@@ -24,7 +24,7 @@
             <a href="../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
             <a href="../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
             <a href="../Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
-            <a href="#" class="btn-nav" onclick="abrirModal('Menu_pupusas/Registro_ventas/Ventas_recoleccion.html');return false;">Pide Ahora</a>
+            <a href="#" class="btn-nav" onclick="abrirModal('Registro_ventas/modal_ventas.html');return false;">Pide Ahora</a>
         </nav>
     </div>
 </header>
@@ -110,7 +110,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa de queso Sencilla</h3>
                         <p>Una pupusa de queso sencillo pero bien disfrutable.</p>
-                        <a href="#" onclick="abrirModal(
+                        <a href="#"  onclick="abrirModal(
 'Registro_ventas/modal_ventas.html',
 {
 producto:'Pupusa Revuelta',
@@ -185,7 +185,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Queso y Frijol</h3>
                         <p>Una mexcla de Queso y Frijol en una pupusa.</p>
-                        <a href="#" onclick="abrirModal(
+                        <a href="#"  onclick="abrirModal(
 'Registro_ventas/modal_ventas.html',
 {
 producto:'Pupusa Revuelta',
@@ -230,14 +230,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Queso y Chicharron</h3>
                         <p>Una mexcla de Queso y Chicharron en una pupusa..</p>
-                        <a href="#" onclick="abrirModal(
+                        < onclick="abrirModal(
 'Registro_ventas/modal_ventas.html',
 {
 producto:'Pupusa Revuelta',
 precio:1.50
 });
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</>
                     </div>
                 </div>
                 <div class="product-card">
@@ -299,7 +299,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Cheesecake</h3>
                         <p>Un suave y dulce pedazo cheesecake.</p>
-                        <a href="#" onclick="abrirModal(
+                        <a  onclick="abrirModal(
 'Registro_ventas/modal_ventas.html',
 {
 producto:'Pupusa Revuelta',
@@ -335,7 +335,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Coca Cola</h3>
                         <p>Una botella de 16oz de Coca Cola</p>
-                        <a href="#" onclick="abrirModal(
+                        <a  onclick="abrirModal(
 'Registro_ventas/modal_ventas.html',
 {
 producto:'Pupusa Revuelta',
@@ -350,7 +350,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Sprite</h3>
                         <p>Una botella de 12oz de Sprite</p>
-                        <a href="#" onclick="abrirModal(
+                        <a  onclick="abrirModal(
    'Registro_ventas/modal_ventas.html',
    {
       producto:'Combo de Evento',
@@ -394,7 +394,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Jamaica</h3>
                         <p>Un vaso de jamaica .</p>
-                        <a href="#" onclick="abrirModal(
+                        <a href="#"  onclick="abrirModal(
    'Registro_ventas/modal_ventas.html',
    {
       producto:'Combo de Evento',
@@ -409,7 +409,7 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Limonada</h3>
                         <p>Un Vaso de Limonada.</p>
-                        <a href="#" onclick="abrirModal(
+                        <a href="#"  onclick="abrirModal(
    'Registro_ventas/modal_ventas.html',
    {
       producto:'Combo de Evento',
@@ -432,6 +432,26 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
             <p class="copyright">&copy; 2026 Pupusas Lorena. Sabor y comodidad a cada hora!</p>
         </div>
     </footer>
+
+    <div id="modalOverlay" class="modal-overlay">
+
+    <div class="modal-window">
+
+        <button
+            id="cerrarModal"
+            class="modal-close">
+
+            &times;
+
+        </button>
+
+        <div id="modalContenido"></div>
+
+    </div>
+
+</div>
+
+<script src="../JS_archivos/modal.js"></script>
     
 </body>
 </html>

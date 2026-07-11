@@ -79,6 +79,20 @@ function inicializarFormulario(datos){
     const precio = document.getElementById("precio");
     const cantidad = document.getElementById("cantidad");
     const total = document.getElementById("total");
+    const formulario = document.getElementById("formVentas");
+    
+
+    cantidad.addEventListener("input", () => {
+
+        if(cantidad.value < 1){
+
+        cantidad.value = 1;
+
+        }
+        actualizarTotal();
+
+    });
+
 
     if(producto && datos.producto){
 
@@ -94,39 +108,82 @@ function inicializarFormulario(datos){
 
     actualizarTotal();
 
-    if(cantidad){
 
-        cantidad.addEventListener("input", actualizarTotal);
+    const cancelar = document.getElementById("cancelar");
 
-    }
+if (cancelar) {
 
-    function actualizarTotal(){
+    cancelar.addEventListener("click", () => {
 
-        if(!precio || !cantidad || !total) return;
+        limpiarFormulario();
 
-        const p = Number(datos.precio || 0);
-        const c = Number(cantidad.value);
-
-        total.value = "$" + (p*c).toFixed(2);
-
-    }
-
-}
-
-document.querySelectorAll(".btn-ordenar").forEach(boton => {
-
-    boton.addEventListener("click", function(e){
-
-        e.preventDefault();
-
-        abrirModal(
-            "Registro_ventas/modal_ventas.html",
-            {
-                producto: this.dataset.producto,
-                precio: Number(this.dataset.precio)
-            }
-        );
+        cerrarModal();
 
     });
 
+    if(formulario){
+
+    formulario.addEventListener("submit",(e)=>{
+
+        e.preventDefault();
+
+        alert("Pedido registrado correctamente.");
+
+        limpiarFormulario();
+
+        cerrarModal();
+
+    });
+
+}
+
+}
+
+    formulario.addEventListener("submit",(e)=>{
+
+    e.preventDefault();
+
+    alert("Pedido registrado correctamente.");
+
 });
+
+}
+
+
+function actualizarTotal(){
+
+    const precio = parseFloat(
+        document.getElementById("precio").value
+    );
+
+    const cantidad = parseInt(
+        document.getElementById("cantidad").value
+    );
+
+    document.getElementById("total").value =
+        (precio * cantidad).toFixed(2);
+
+}   
+
+
+
+function limpiarFormulario() {
+    const formulario = document.getElementById("formVentas");
+
+    if (!formulario) return;
+
+    formulario.reset();
+
+    document.getElementById("producto").value = "";
+    document.getElementById("precio").value = "";
+    document.getElementById("cantidad").value = 1;
+    document.getElementById("total").value = "";
+    
+}
+
+
+
+
+
+
+

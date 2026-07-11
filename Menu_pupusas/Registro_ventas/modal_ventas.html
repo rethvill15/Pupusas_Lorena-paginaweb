@@ -76,7 +76,8 @@
                         type="number"
                         id="cantidad"
                         value="1"
-                        min="1">
+                        min="1" 
+                        required>
 
                 </div>
 
@@ -142,16 +143,10 @@
 
             <div class="form-group">
 
-                <input type="text" id="total" readonly>
+                    <label for="">Total</label>
+                    <input type="text" id="total" readonly>
+                
 
-                    Total
-
-                </input>
-
-                <input
-                    type="text"
-                    id="total"
-                    readonly>
 
             </div>
 
@@ -170,7 +165,8 @@
             <button
                 type="button"
                 class="btn-secondary"
-                onclick="cerrarModal()">
+                onclick="cerrarModal()"
+                id="cancelar">
 
                 Cancelar
 
