@@ -3,65 +3,55 @@
 
     async function abrirModal(url, datos = {}) {
 
-        console.log("abrirModal fue llamada");
-        console.log(url);
-        console.log(datos);
+    overlay.classList.add("active");
 
-        if (!overlay || !contenido) {
+document.body.style.overflow = "hidden";
 
-        console.error("No existe el modal.");
+contenido.innerHTML = `
+<div class="loading">
+Cargando...
+</div>
+`;
 
-        return;
+try{
 
+    const respuesta = await fetch(url);
+
+    if(!respuesta.ok){
+        throw new Error("No se pudo cargar el formulario.");
     }
 
-        overlay.classList.add("active");
-        document.body.style.overflow = "hidden";
+    const texto = await respuesta.text();
 
-        contenido.innerHTML = `
-            <div class="loading">
-                Cargando...
-            </div>
-        `;
+    const parser = new DOMParser();
 
-        try {
+    const documento =
+        parser.parseFromString(texto,"text/html");
 
-            const respuesta = await fetch(url);
-            if (!respuesta.ok) {
-                throw new Error("No se pudo cargar el archivo.");
+    const nuevoContenido =
+        documento.querySelector(".modal-ventas");
+
+    if(!nuevoContenido){
+        throw new Error("No se encontró .modal-ventas");
+    }
+
+    contenido.innerHTML="";
+
+    contenido.appendChild(nuevoContenido);
+
+    inicializarFormulario(datos);
+
+}catch(error){
+
+    contenido.innerHTML=`
+    <div class="loading">
+        Error al cargar el formulario.
+    </div>
+    `;
+
+    console.error(error);
+
 }
-
-            const texto = await respuesta.text();
-
-            const parser = new DOMParser();
-            const documento = parser.parseFromString(texto, "text/html");
-    
-            const nuevoContenido = documento.querySelector(".modal-ventas");
-
-            if (!nuevoContenido) {
-                throw new Error("No se encontró el formulario (.modal-ventas)");
-            }
-
-          
-
-    
-
-            contenido.innerHTML = "";
-            contenido.appendChild(nuevoContenido);
-
-            inicializarFormulario(datos);
-
-        } catch (error) {
-
-            contenido.innerHTML = `
-                <div class="loading">
-                    Error al cargar el formulario.
-                </div>
-            `;
-
-            console.error(error);
-
-        }
 
     }
 
