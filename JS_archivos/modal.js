@@ -1,185 +1,221 @@
-const overlay = document.getElementById("modalOverlay");
-const contenido = document.getElementById("modalContenido");
+    const overlay = document.getElementById("modalOverlay");
+    const contenido = document.getElementById("modalContenido");
 
-async function abrirModal(url, datos = {}) {
+    async function abrirModal(url, datos = {}) {
 
-    overlay.classList.add("active");
-    document.body.style.overflow = "hidden";
+        console.log("abrirModal fue llamada");
+        console.log(url);
+        console.log(datos);
 
-    contenido.innerHTML = `
-        <div class="loading">
-            Cargando...
-        </div>
-    `;
+        if (!overlay || !contenido) {
 
-    try {
+        console.error("No existe el modal.");
 
-        const respuesta = await fetch(url);
-        const texto = await respuesta.text();
+        return;
 
-        const parser = new DOMParser();
-        const documento = parser.parseFromString(texto, "text/html");
+    }
 
-        const nuevoContenido = documento.querySelector(".modal-ventas");
-
-        contenido.innerHTML = "";
-        contenido.appendChild(nuevoContenido);
-
-        inicializarFormulario(datos);
-
-    } catch (error) {
+        overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
 
         contenido.innerHTML = `
             <div class="loading">
-                Error al cargar el formulario.
+                Cargando...
             </div>
         `;
 
-        console.error(error);
+        try {
+
+            const respuesta = await fetch(url);
+            if (!respuesta.ok) {
+                throw new Error("No se pudo cargar el archivo.");
+}
+
+            const texto = await respuesta.text();
+
+            const parser = new DOMParser();
+            const documento = parser.parseFromString(texto, "text/html");
+    
+            const nuevoContenido = documento.querySelector(".modal-ventas");
+
+            if (!nuevoContenido) {
+                throw new Error("No se encontró el formulario (.modal-ventas)");
+            }
+
+          
+
+    
+
+            contenido.innerHTML = "";
+            contenido.appendChild(nuevoContenido);
+
+            inicializarFormulario(datos);
+
+        } catch (error) {
+
+            contenido.innerHTML = `
+                <div class="loading">
+                    Error al cargar el formulario.
+                </div>
+            `;
+
+            console.error(error);
+
+        }
 
     }
 
-}
+    function cerrarModal() {
 
-function cerrarModal() {
+        overlay.classList.remove("active");
 
-    overlay.classList.remove("active");
+        document.body.style.overflow = "";
 
-    document.body.style.overflow = "";
+        if (document.getElementById("formVentas")) {
+
+    limpiarFormulario();
+
+    }
 
     contenido.innerHTML = "";
 
-}
-
-document.getElementById("cerrarModal").onclick = cerrarModal;
-
-overlay.addEventListener("click", function(e){
-
-    if(e.target === overlay){
-
-        cerrarModal();
-
     }
 
-});
+    const botonCerrar = document.getElementById("cerrarModal");
 
-document.addEventListener("keydown", function(e){
-
-    if(e.key === "Escape"){
-
-        cerrarModal();
-
+    if (botonCerrar) {
+        botonCerrar.onclick = cerrarModal;
     }
 
-});
+    overlay.addEventListener("click", function(e){
 
-function inicializarFormulario(datos){
+        if(e.target === overlay){
 
-    const producto = document.getElementById("producto");
-    const precio = document.getElementById("precio");
-    const cantidad = document.getElementById("cantidad");
-    const total = document.getElementById("total");
-    const formulario = document.getElementById("formVentas");
-    
-
-    cantidad.addEventListener("input", () => {
-
-        if(cantidad.value < 1){
-
-        cantidad.value = 1;
+            cerrarModal();
 
         }
+
+    });
+
+    document.addEventListener("keydown", function(e){
+
+        if(e.key === "Escape"){
+
+            cerrarModal();
+
+        }
+
+    });
+
+    function inicializarFormulario(datos){
+
+        const producto = document.getElementById("producto");
+        const precio = document.getElementById("precio");
+        const cantidad = document.getElementById("cantidad");
+        const total = document.getElementById("total");
+        const formulario = document.getElementById("formVentas");
+
+        if (!producto || !precio || !cantidad || !total || !formulario) {
+        console.error("No se encontraron todos los elementos del formulario.");
+        return;
+        }   
+        
+
+        cantidad.addEventListener("input", () => {
+
+            if (Number(cantidad.value) < 1 || isNaN(cantidad.value)) {
+        cantidad.value = 1;
+    }
+            actualizarTotal();
+
+        });
+
+
+        if(producto && datos.producto){
+            producto.value = datos.producto;
+
+        }
+
+        if(precio && datos.precio){
+            precio.value = Number(datos.precio).toFixed(2);
+
+        }
+
         actualizarTotal();
 
-    });
 
+        const cancelar = document.getElementById("cancelar");
 
-    if(producto && datos.producto){
+    if (cancelar) {
 
-        producto.value = datos.producto;
+        cancelar.addEventListener("click", () => {
+
+            
+
+            cerrarModal();
+
+        });
+
+        
+
+            
+
+        formulario.addEventListener("submit", (e) => {
+
+            e.preventDefault();
+
+            alert("Pedido registrado correctamente.");
+
+            limpiarFormulario();
+
+            cerrarModal();
+
+        });
+
+        };
 
     }
 
-    if(precio && datos.precio){
 
-        precio.value = "$" + Number(datos.precio).toFixed(2);
+
+    function actualizarTotal(){
+
+        const precio = Number(
+            document.getElementById("precio").value
+        );
+
+        const cantidad = Number(
+            document.getElementById("cantidad").value
+        );
+
+        if (isNaN(precio) || isNaN(cantidad)) {
+
+        document.getElementById("total").value = "";
+
+        return;
 
     }
 
-    actualizarTotal();
+        document.getElementById("total").value =
+            (precio * cantidad).toFixed(2);
 
-
-    const cancelar = document.getElementById("cancelar");
-
-if (cancelar) {
-
-    cancelar.addEventListener("click", () => {
-
-        limpiarFormulario();
-
-        cerrarModal();
-
-    });
-
-    if(formulario){
-
-    formulario.addEventListener("submit",(e)=>{
-
-        e.preventDefault();
-
-        alert("Pedido registrado correctamente.");
-
-        limpiarFormulario();
-
-        cerrarModal();
-
-    });
-
-}
-
-}
-
-    formulario.addEventListener("submit",(e)=>{
-
-    e.preventDefault();
-
-    alert("Pedido registrado correctamente.");
-
-});
-
-}
-
-
-function actualizarTotal(){
-
-    const precio = parseFloat(
-        document.getElementById("precio").value
-    );
-
-    const cantidad = parseInt(
-        document.getElementById("cantidad").value
-    );
-
-    document.getElementById("total").value =
-        (precio * cantidad).toFixed(2);
-
-}   
+    }   
 
 
 
-function limpiarFormulario() {
-    const formulario = document.getElementById("formVentas");
+    function limpiarFormulario() {
+        const formulario = document.getElementById("formVentas");
 
-    if (!formulario) return;
+        if (!formulario) return;
 
-    formulario.reset();
+        formulario.reset();
 
-    document.getElementById("producto").value = "";
-    document.getElementById("precio").value = "";
-    document.getElementById("cantidad").value = 1;
-    document.getElementById("total").value = "";
-    
-}
+        document.getElementById("producto").value = "";
+        document.getElementById("precio").value = "";
+        document.getElementById("cantidad").value = 1;
+        document.getElementById("total").value = "";
+        
+    }
 
 
 

@@ -7,7 +7,7 @@
         <p>Complete la información para registrar su compra.</p>
     </div>
 
-    <form id="formVentas">
+    <form id="formVentas" autocomplete="off">
 
         <!-- Datos del Cliente -->
 
@@ -36,6 +36,7 @@
                     type="tel"
                     id="telefono"
                     placeholder="8888-8888"
+                    pattern="[0-9]{4}-?[0-9]{4}"
                     required>
             </div>
 
@@ -129,7 +130,7 @@
 
                 </label>
 
-                <select id="metodo">
+                <select id="metodo" name="metodo">
 
                     <option>Efectivo</option>
 
@@ -165,7 +166,6 @@
             <button
                 type="button"
                 class="btn-secondary"
-                onclick="cerrarModal()"
                 id="cancelar">
 
                 Cancelar
