@@ -8,13 +8,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS_archivos/registro_detalles.css">
+    <link rel="stylesheet" href="../CSS_archivos/modal.css">
     <link rel="icon" href="../Imagenes/pupusas_logo.png" type="image/x-icon">
 
 </head>
 <body>
 
     <!-- BARRA DE NAVEGACIÓN -->
-   <header class="navbar">
+    <header class="navbar">
     <div class="nav-container">
         <a href="../pup_lorena.html" class="logo">
             <img src="../Imagenes/images.png" alt="Logo Pupusas" class="logo-img">
@@ -26,7 +27,8 @@
             <a href="../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
             <a href="../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
             <a href="Registro_user.html" class="nav-item active">Usuarios</a>
-            <a href="../Menu_pupusas/Registro_ventas/Ventas_recoleccion.html" class="btn-nav">Pide Ahora</a>
+            <a  class="btn-nav" onclick="abrirModal('../Menu_pupusas/Registro_ventas/modal_ventas.html');return false;">Pide Ahora</a>
+
         </nav>
     </div>
 </header>
@@ -70,10 +72,26 @@
         </div>
     </footer>
 
-    
+<div id="modalOverlay" class="modal-overlay">
 
-</body>
-</html>
+    <div class="modal-window">
 
+        <button
+            id="cerrarModal"
+            class="modal-close">
+
+            &times;
+
+        </button>
+
+        <div id="modalContenido">
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="../JS_archivos/modal.js"></script>
 </body>
 </html>
