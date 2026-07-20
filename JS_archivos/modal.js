@@ -29,7 +29,8 @@ try{
         parser.parseFromString(texto,"text/html");
 
     const nuevoContenido =
-        documento.querySelector(".modal-ventas");
+        documento.querySelector(".modal-ventas")||
+        documento.querySelector(".modal-reservacion");
 
     if(!nuevoContenido){
         throw new Error("No se encontró .modal-ventas");
@@ -50,6 +51,12 @@ try{
     `;
 
     console.error(error);
+
+}
+
+if (nuevoContenido.classList.contains("modal-ventas")) {
+
+    inicializarFormulario(datos);
 
 }
 
