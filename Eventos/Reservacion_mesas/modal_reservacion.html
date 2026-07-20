@@ -1,0 +1,57 @@
+
+
+<div class="modal-reservacion">
+
+    <div class="modal-header">
+
+        <h2>📅 Reservar Mesa</h2>
+
+        <p>Complete la información para reservar una mesa.</p>
+
+    </div>
+
+    <div class="reservation-grid" >
+
+        <form id="formReservacion" autocomplete="off">
+
+            <h3 class="section-title">
+            Información de la Reservación
+            </h3>
+
+            <div class="form-group">
+                        <label for="res-name">Nombre de la Reserva</label>
+                        <input type="text" id="res-name" name="res-name" placeholder="Ej. Familia Martínez" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="res-date">Fecha</label>
+                            <input type="date" id="res-date" name="res-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="res-time">Hora</label>
+                            <input type="time" id="res-time" name="res-time" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="res-people">Cantidad de Personas</label>
+                        <input type="number" id="res-people" name="res-people" min="1" max="20" placeholder="4" required>
+                    </div>
+                    <button type="submit" class="btn-submit btn-primary">Confirmar Reserva</button>
+
+        </form>
+
+        <div class="reservation-info">
+
+            <h3>🪑 Disponibilidad de Mesas</h3>
+                    <div class="table-status">
+                        <div class="status-item available"><span class="dot green"></span>Mesa 1 (2-4 pers) - Disponible</div>
+                        <div class="status-item reserved"><span class="dot red"></span>Mesa 2 (Familiar) - Reservada</div>
+                        <div class="status-item available"><span class="dot green"></span>Mesa 3 (Terraza) - Disponible</div>
+                    </div>
+                    <p class="note"><strong>Importante:</strong> Su reservación se mantendrá durante un máximo de 15 minutos después de la hora seleccionada.</p>
+
+        </div>
+
+    </div>
+
+</div>

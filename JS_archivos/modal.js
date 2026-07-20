@@ -33,32 +33,37 @@ try{
         documento.querySelector(".modal-reservacion");
 
     if(!nuevoContenido){
-        throw new Error("No se encontró .modal-ventas");
+        throw new Error("No se encontró un contenido de modal valido.");
     }
 
     contenido.innerHTML="";
 
     contenido.appendChild(nuevoContenido);
 
+    if (nuevoContenido.classList.contains("modal-ventas")) {
+
     inicializarFormulario(datos);
+
+}
+
+if(nuevoContenido.classList.contains("modal-reservacion")){
+
+    inicializarReservacion();
+
+}
 
 }catch(error){
 
     contenido.innerHTML=`
     <div class="loading">
-        Error al cargar el formulario.
+        No se encontró un contenido de modal válido.  
     </div>
     `;
 
-    console.error(error);
+    console.error("Error cargando modal:", error);
 
 }
 
-if (nuevoContenido.classList.contains("modal-ventas")) {
-
-    inicializarFormulario(datos);
-
-}
 
     }
 
@@ -73,6 +78,15 @@ if (nuevoContenido.classList.contains("modal-ventas")) {
     limpiarFormulario();
 
     }
+
+
+if (document.getElementById("formReservacion")) {
+
+    limpiarReservacion();
+
+}
+
+
 
     contenido.innerHTML = "";
 
@@ -213,6 +227,42 @@ if (nuevoContenido.classList.contains("modal-ventas")) {
         document.getElementById("total").value = "";
         
     }
+
+    function inicializarReservacion(){
+        const formulario =
+        document.getElementById("formReservacion");
+
+    if(!formulario){
+
+        return;
+
+    }
+
+    formulario.addEventListener("submit",(e)=>{
+
+        e.preventDefault();
+
+        alert("Reservación registrada correctamente.");
+
+        limpiarReservacion();
+
+        cerrarModal();
+
+    });
+
+}
+
+function limpiarReservacion(){
+    const formulario =
+document.getElementById("formReservacion");
+
+if(formulario){
+
+    formulario.reset();
+
+}
+
+}
 
 
 
