@@ -1,17 +1,39 @@
     const overlay = document.getElementById("modalOverlay");
     const contenido = document.getElementById("modalContenido");
+    let modalAbierto = false;
+
+/* ==========================
+Apertura del modal
+========================== */
 
     async function abrirModal(url, datos = {}) {
 
+    if(!overlay || !contenido){
+
+    console.error("No existe el modal.");
+
+    return;
+
+    } 
+
+
+    if(modalAbierto){
+
+    return;
+
+    }
+
+    modalAbierto = true;
+
     overlay.classList.add("active");
 
-document.body.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
 
-contenido.innerHTML = `
-<div class="loading">
-Cargando...
-</div>
-`;
+    contenido.innerHTML = `
+    <div class="loading">
+    Cargando...
+    </div>
+        `;
 
 try{
 
@@ -46,7 +68,7 @@ try{
 
 }
 
-if(nuevoContenido.classList.contains("modal-reservacion")){
+else if (nuevoContenido.classList.contains("modal-reservacion")){
 
     inicializarReservacion();
 
@@ -54,42 +76,46 @@ if(nuevoContenido.classList.contains("modal-reservacion")){
 
 }catch(error){
 
-    contenido.innerHTML=`
+    console.error("Error cargando modal:", error);
+
+    contenido.innerHTML = `
     <div class="loading">
-        No se encontró un contenido de modal válido.  
+
+    ${error.message}
+
     </div>
     `;
 
-    console.error("Error cargando modal:", error);
-
 }
 
 
     }
+
+/* ==========================
+Cierre del modal
+========================== */
 
     function cerrarModal() {
 
-        overlay.classList.remove("active");
-
-        document.body.style.overflow = "";
-
-        if (document.getElementById("formVentas")) {
-
-    limpiarFormulario();
-
+    if (!overlay.classList.contains("active")) {
+    return;
     }
 
+    overlay.classList.remove("active");
 
-if (document.getElementById("formReservacion")) {
+    document.body.style.overflow = "";
 
+    if (document.getElementById("formVentas")) {
+    limpiarFormulario();
+    }
+
+    if (document.getElementById("formReservacion")) {
     limpiarReservacion();
+    }
 
-}
+modalAbierto = false;
 
-
-
-    contenido.innerHTML = "";
-
+contenido.innerHTML = "";
     }
 
     const botonCerrar = document.getElementById("cerrarModal");
@@ -118,6 +144,10 @@ if (document.getElementById("formReservacion")) {
 
     });
 
+/* ==========================
+Formulario de ventas
+========================== */
+
     function inicializarFormulario(datos){
 
         const producto = document.getElementById("producto");
@@ -132,14 +162,13 @@ if (document.getElementById("formReservacion")) {
         }   
         
 
-        cantidad.addEventListener("input", () => {
+        cantidad.oninput = function(){
 
-            if (Number(cantidad.value) < 1 || isNaN(cantidad.value)) {
-        cantidad.value = 1;
-    }
-            actualizarTotal();
+        cantidad.value = Math.max(1,parseInt(cantidad.value) || 1);
 
-        });
+        actualizarTotal();
+
+        };
 
 
         if(producto && datos.producto){
@@ -159,31 +188,21 @@ if (document.getElementById("formReservacion")) {
 
     if (cancelar) {
 
-        cancelar.addEventListener("click", () => {
+    cancelar.onclick = cerrarModal;
 
-            
+}
 
-            cerrarModal();
+formulario.onsubmit = function(e){
 
-        });
+    e.preventDefault();
 
-        
+    alert("Pedido registrado correctamente.");
 
-            
+    limpiarFormulario();
 
-        formulario.addEventListener("submit", (e) => {
+    cerrarModal();
 
-            e.preventDefault();
-
-            alert("Pedido registrado correctamente.");
-
-            limpiarFormulario();
-
-            cerrarModal();
-
-        });
-
-        };
+};
 
     }
 
@@ -191,24 +210,37 @@ if (document.getElementById("formReservacion")) {
 
     function actualizarTotal(){
 
-        const precio = Number(
-            document.getElementById("precio").value
-        );
+        
+    const precioInput =
+        document.getElementById("precio");
 
-        const cantidad = Number(
-            document.getElementById("cantidad").value
-        );
+    const cantidadInput =
+        document.getElementById("cantidad");
 
-        if (isNaN(precio) || isNaN(cantidad)) {
+    const totalInput =
+        document.getElementById("total");
 
-        document.getElementById("total").value = "";
+    if(!precioInput || !cantidadInput || !totalInput){
 
         return;
 
     }
 
-        document.getElementById("total").value =
-            (precio * cantidad).toFixed(2);
+    const precio = Number(precioInput.value);
+
+    const cantidad = Number(cantidadInput.value);
+
+    if(isNaN(precio) || isNaN(cantidad)){
+
+        totalInput.value = "";
+
+        return;
+
+    }
+
+    totalInput.value =
+        (precio * cantidad).toFixed(2);
+
 
     }   
 
@@ -221,12 +253,21 @@ if (document.getElementById("formReservacion")) {
 
         formulario.reset();
 
-        document.getElementById("producto").value = "";
-        document.getElementById("precio").value = "";
-        document.getElementById("cantidad").value = 1;
-        document.getElementById("total").value = "";
+        const producto = document.getElementById("producto");
+        const precio = document.getElementById("precio");
+        const cantidad = document.getElementById("cantidad");
+        const total = document.getElementById("total");
+
+        if(producto) producto.value = "";
+        if(precio) precio.value = "";
+        if(cantidad) cantidad.value = 1;
+        if(total) total.value = "";
         
     }
+
+/* ==========================
+Formulario de reservaciones
+========================== */
 
     function inicializarReservacion(){
         const formulario =
@@ -238,17 +279,17 @@ if (document.getElementById("formReservacion")) {
 
     }
 
-    formulario.addEventListener("submit",(e)=>{
+    formulario.onsubmit = function(e){
 
-        e.preventDefault();
+    e.preventDefault();
 
-        alert("Reservación registrada correctamente.");
+    alert("Reservación registrada correctamente.");
 
-        limpiarReservacion();
+    limpiarReservacion();
 
-        cerrarModal();
+    cerrarModal();
 
-    });
+};
 
 }
 
