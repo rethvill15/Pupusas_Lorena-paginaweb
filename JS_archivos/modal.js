@@ -279,9 +279,59 @@ Formulario de reservaciones
 
     }
 
+    const fechaInput = document.getElementById("res-date");
+    const horaInput = document.getElementById("res-time");
+
+    // Fecha mínima = hoy
+    const hoy = new Date();
+    const fechaHoy = hoy.toISOString().split("T")[0];
+
+    fechaInput.min = fechaHoy;
+
+    function actualizarHoraMinima(){
+
+        if(fechaInput.value === fechaHoy){
+
+            const ahora = new Date();
+
+            const horas =
+                String(ahora.getHours()).padStart(2,"0");
+
+            const minutos =
+                String(ahora.getMinutes()).padStart(2,"0");
+
+            horaInput.min = `${horas}:${minutos}`;
+
+        }else{
+
+            horaInput.removeAttribute("min");
+
+        }
+
+    }
+
+    actualizarHoraMinima();
+
+    fechaInput.addEventListener("change", actualizarHoraMinima);
+
     formulario.onsubmit = function(e){
 
     e.preventDefault();
+
+    const ahora = new Date();
+    ahora.setMinutes(ahora.getMinutes() + 5);
+
+    const fechaSeleccionada = new Date(
+        fechaInput.value + "T" + horaInput.value
+    );
+
+    if(fechaSeleccionada < ahora){
+
+        alert("No puede reservar una fecha u hora que ya haya pasado.");
+
+        return;
+
+    }
 
     alert("Reservación registrada correctamente.");
 
