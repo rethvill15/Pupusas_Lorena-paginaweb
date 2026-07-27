@@ -159,7 +159,29 @@ Formulario de ventas
         if (!producto || !precio || !cantidad || !total || !formulario) {
         console.error("No se encontraron todos los elementos del formulario.");
         return;
-        }   
+        }
+        
+        const campos = formulario.querySelectorAll(
+        "input, textarea, select"
+        );
+
+        campos.forEach(campo=>{
+
+        actualizarCheck(campo);
+
+        campo.addEventListener("input",()=>{
+
+        actualizarCheck(campo);
+
+        });
+
+        campo.addEventListener("change", ()=>{
+
+        actualizarCheck(campo);
+
+        });
+
+        });
         
 
         cantidad.oninput = function(){
@@ -192,7 +214,7 @@ Formulario de ventas
 
 }
 
-formulario.onsubmit = function(e){
+    formulario.onsubmit = function(e){
 
     e.preventDefault();
 
@@ -205,6 +227,27 @@ formulario.onsubmit = function(e){
 };
 
     }
+
+    function actualizarCheck(campo){
+
+    const contenedor =
+        campo.closest(".input-check");
+
+    if(!contenedor){
+        return;
+    }
+
+    if(campo.value.trim() !== ""){
+
+        contenedor.classList.add("completo");
+
+    }else{
+
+        contenedor.classList.remove("completo");
+
+    }
+
+}
 
 
 

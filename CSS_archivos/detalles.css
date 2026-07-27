@@ -445,3 +445,47 @@
         }
     }
 
+/* ===== Campos completados ===== */
+
+.input-check{
+    position: relative;
+}
+
+.input-check input,
+.input-check select,
+.input-check textarea{
+
+    padding-right:45px;
+
+}
+
+.input-check::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:15px;
+
+    top:50%;
+
+    transform:translateY(-50%) scale(0.6);
+
+    font-size:18px;
+
+    opacity:0;
+
+    transition:.25s;
+
+}
+
+.input-check.completo::after{
+
+    content:"✅";
+
+    opacity:1;
+
+    transform:translateY(-50%) scale(1);
+
+}
+
