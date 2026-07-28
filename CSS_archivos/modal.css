@@ -465,23 +465,19 @@ RESERVACIONES
     min-width:120px;
 }
 
-/* ---------- INPUT CON CHECK ---------- */
+/* ==============================
+CHECK DEL FORMULARIO
+==============================*/
 
-.campo-con-check{
+.input-check{
 
     position:relative;
 
-    display:flex;
-
-    align-items:center;
-
 }
 
-.campo-con-check input{
+.input-check input{
 
-    width:100%;
-
-    padding-right:42px;
+    padding-right:45px;
 
 }
 
@@ -489,7 +485,11 @@ RESERVACIONES
 
     position:absolute;
 
-    right:12px;
+    right:15px;
+
+    top:60%;
+
+    transform: translateY(-10%);
 
     width:18px;
 
@@ -497,31 +497,14 @@ RESERVACIONES
 
     opacity:0;
 
+    transition:.25s;
+
     pointer-events:none;
 
-    transition:.3s;
-
 }
 
-/* Disponible */
-
-.check-icon.activo{
+.check-icon.visible{
 
     opacity:1;
 
-}
-
-/* Reservada */
-
-.check-icon.error{
-
-    opacity:1;
-
-    filter:
-        invert(17%)
-        sepia(98%)
-        saturate(6500%)
-        hue-rotate(352deg)
-        brightness(90%)
-        contrast(105%);
 }

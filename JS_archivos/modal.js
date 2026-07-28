@@ -230,20 +230,25 @@ Formulario de ventas
 
     function actualizarCheck(campo){
 
-    const contenedor =
-        campo.closest(".input-check");
+    const contenedor = campo.closest(".input-check");
 
     if(!contenedor){
         return;
     }
 
+    const check = contenedor.querySelector(".check-icon");
+
+    if(!check){
+        return;
+    }
+
     if(campo.value.trim() !== ""){
 
-        contenedor.classList.add("completo");
+        check.classList.add("visible");
 
     }else{
 
-        contenedor.classList.remove("completo");
+        check.classList.remove("visible");
 
     }
 
@@ -322,6 +327,28 @@ Formulario de reservaciones
 
     }
 
+    const campos = formulario.querySelectorAll(
+    "input, textarea, select"
+    );
+
+    campos.forEach(campo => {
+
+        actualizarCheck(campo);
+
+        campo.addEventListener("input", () => {
+
+        actualizarCheck(campo);
+
+    });
+
+    campo.addEventListener("change", () => {
+
+        actualizarCheck(campo);
+
+    });
+
+    });
+
     const fechaInput = document.getElementById("res-date");
     const horaInput = document.getElementById("res-time");
 
@@ -387,14 +414,23 @@ Formulario de reservaciones
 }
 
 function limpiarReservacion(){
-    const formulario =
-document.getElementById("formReservacion");
 
-if(formulario){
+    const formulario =
+        document.getElementById("formReservacion");
+
+    if(!formulario){
+        return;
+    }
 
     formulario.reset();
 
-}
+    formulario
+        .querySelectorAll(".check-icon")
+        .forEach(icono=>{
+
+            icono.classList.remove("visible");
+
+        });
 
 }
 
