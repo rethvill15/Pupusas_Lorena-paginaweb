@@ -450,3 +450,17 @@ RESERVACIONES
     font-size: 18px;
 }
 
+.campo-fecha{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.estado-fecha{
+    white-space:nowrap;
+    font-size:14px;
+}
+
+.estado-fecha{
+    min-width:120px;
+}
