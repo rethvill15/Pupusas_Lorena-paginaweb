@@ -41,6 +41,49 @@
                         <input type="number" id="res-people" name="res-people" min="1" max="20" placeholder="4" required>
                         <img   class="check-icon"  src="../../Imagenes/Check_logo.png"  alt="Estado">
                     </div>
+
+                    <div class="form-group input-check">
+
+                        <label for="res-kids">
+                            ¿Vendrán niños?
+                        </label>
+
+                        <select id="res-kids" required>
+
+                            <option value="">Seleccione una opción</option>
+
+                            <option value="si">Sí</option>
+
+                            <option value="no">No</option>
+
+                        </select>
+
+                        <img
+                        class="check-icon"
+                        src="../../Imagenes/Check_logo.png"
+                        alt="Estado">
+
+                </div>
+
+                <h3 class="section-title">
+                📍 Ubicación
+                </h3>
+
+               <div class="map-wrapper">
+
+                    <div class="map-container">
+
+                        <iframe
+                            src="https://www.google.com/maps?q=Pupusas+Lorena&output=embed"
+                            loading="lazy"
+                            allowfullscreen>
+                        </iframe>
+
+                    </div>
+
+                        
+
+                    </div>
                     <button type="submit" class="btn-submit btn-primary-check">Confirmar Reserva</button>
                     <button type="submit" class="btn-submits btn-primary-nope">Cancelar</button>
 
