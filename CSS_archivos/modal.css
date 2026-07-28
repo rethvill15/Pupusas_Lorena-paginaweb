@@ -464,3 +464,64 @@ RESERVACIONES
 .estado-fecha{
     min-width:120px;
 }
+
+/* ---------- INPUT CON CHECK ---------- */
+
+.campo-con-check{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+}
+
+.campo-con-check input{
+
+    width:100%;
+
+    padding-right:42px;
+
+}
+
+.check-icon{
+
+    position:absolute;
+
+    right:12px;
+
+    width:18px;
+
+    height:18px;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+}
+
+/* Disponible */
+
+.check-icon.activo{
+
+    opacity:1;
+
+}
+
+/* Reservada */
+
+.check-icon.error{
+
+    opacity:1;
+
+    filter:
+        invert(17%)
+        sepia(98%)
+        saturate(6500%)
+        hue-rotate(352deg)
+        brightness(90%)
+        contrast(105%);
+}

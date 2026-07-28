@@ -20,21 +20,26 @@
 
             <div class="form-group input-check">
                         <label for="res-name">Nombre de la Reserva</label>
-                        <input type="text" id="res-name" name="res-name" placeholder="Ej. Familia Martínez" required>
+                        <input type="text" id="res-name" name="res-name" placeholder="Ej. Familia Martínez" required> 
+                        <img id="nombre-check"  class="check-icon"  src="../../Imagenes/Check_logo.png" alt="Estado">
                     </div>
                     <div class="form-row">
                         <div class="form-group input-check">
                             <label for="res-date">Fecha</label>
                             <input type="date" id="res-date" name="res-date" required>
+                            <img id="fecha-check"  class="check-icon"  src="../../Imagenes/Check_logo.png"  alt="Estado">
                         </div>
                         <div class="form-group input-check">
                             <label for="res-time">Hora</label>
                             <input type="time" id="res-time" name="res-time" required>
+                            <img id="hora-check"  class="check-icon"  src="../../Imagenes/Check_logo.png"  alt="Estado">
+
                         </div>
                     </div>
                     <div class="form-group input-check">
                         <label for="res-people">Cantidad de Personas</label>
                         <input type="number" id="res-people" name="res-people" min="1" max="20" placeholder="4" required>
+                        <img id="cantidad-check"  class="check-icon"  src="../../Imagenes/Check_logo.png"  alt="Estado">
                     </div>
                     <button type="submit" class="btn-submit btn-primary-check">Confirmar Reserva</button>
                     <button type="submit" class="btn-submits btn-primary-nope">Cancelar</button>
