@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS_archivos/modal.css">
     <link rel="stylesheet" href="../CSS_archivos/detalles_historia.css">
+    <link rel="stylesheet" href="../CSS_archivos/carrito.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>Pupusas Lorena</title>
     <link rel="icon" href="../Imagenes/pupusas_logo.png" type="image/x-icon">
 </head>
@@ -25,6 +27,8 @@
             <a href="../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
             <a href="../Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
             <a  class="btn-nav" onclick="abrirModal('../Menu_pupusas/Registro_ventas/modal_ventas.html');return false;">Pide Ahora</a>
+            <div class="cart-btn" id="abrirCarrito" title="Ver carrito"><i class="bi bi-cart4"></i><span class="cart-count" id="cartCount">0 </span></div>
+
         </nav>
     </div>
 </header>
@@ -86,6 +90,61 @@
     </div>
 
 </div>
-    <script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/carrito.js"></script>
+
+<div class="cart-overlay" id="cartOverlay">
+
+<div class="cart-panel">
+
+<div class="cart-header">
+
+<h2>
+
+🛒 Carrito
+
+</h2>
+
+<span class="cart-close" id="cerrarCarrito">
+
+&times;
+
+</span>
+
+</div>
+
+<div class="cart-body" id="cartBody">
+
+<div class="cart-empty">
+
+<h3>
+
+Tu carrito está vacío
+
+</h3>
+
+<p>
+
+Agrega algunas pupusas para comenzar tu pedido.
+
+</p>
+
+</div>
+
+</div>
+
+<div class="cart-footer">
+
+<button>
+
+Finalizar compra
+
+</button>
+
+</div>
+
+</div>
+
+</div>
 </body>
 </html>
