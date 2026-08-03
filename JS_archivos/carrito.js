@@ -16,6 +16,8 @@ const cartCount = document.getElementById("cartCount");
 
 const cartBtn = document.getElementById("abrirCarrito");
 
+const btnFinalizar = document.getElementById("btnFinalizar");
+
 if (abrirCarrito) {
 
     abrirCarrito.addEventListener("click", () => {
@@ -68,7 +70,21 @@ carrito.reduce(
 
 );
 
+cartCount.classList.remove("pop");
+
+void cartCount.offsetWidth;
+
+cartCount.classList.add("pop");
+
 actualizarBotonesProductos();
+
+
+
+if (btnFinalizar) {
+
+    btnFinalizar.disabled = carrito.length === 0;
+
+}
 
 }
 
@@ -108,7 +124,7 @@ function actualizarBotonesProductos(){
 AGREGAR PRODUCTOS
 =========================================*/
 
-function agregarAlCarrito(nombre,precio,imagen){
+function agregarAlCarrito(boton,nombre,precio,imagen){
 
 const existente = carrito.find(
 
