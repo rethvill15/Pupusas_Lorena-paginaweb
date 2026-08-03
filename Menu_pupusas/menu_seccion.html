@@ -46,14 +46,14 @@
                     <div class="product-info">
                         <h3>Combo de Evento</h3>
                         <p>20 pupusas variadas, una porción de curtido gigante, Salsa especial y 2 Botellas de 2 litros a elección.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'20 pupusas, curtido gigante, salsa y 2 botellas de 2 litros.',
-precio:1000
-});
+                        <a href="#"  class="btn-ordenar" data-producto="Combo de Evento" onclick="agregarAlCarrito(
+this,
+'20 pupusas, curtido gigante, salsa y 2 botellas de 2 litros.',
+1000,
+'Imagenes_menu/20_pupusas.JPG'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -61,14 +61,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Combo Familiar</h3>
                         <p>12 pupusas de tu especialidad favorita, una porcion de curtido y acompañadas de 1 Botellas de 2 litros a eleccion.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'12 pupusas, un curtido y 1 botella de 2 litros a seleccion.',
-precio:640
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Combo Familiar" onclick="agregarAlCarrito(
+this,
+'12 pupusas, un curtido y 1 botella de 2 litros a seleccion.',
+640,
+'Imagenes_menu/12_pupusas.png'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
 
                     </div>
                 </div>
@@ -77,14 +77,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Combo Pareja</h3>
                         <p>5 pupusas de tu especialidad favorita, una porcion de curtido y de dos bebidas a eleccion.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'5 pupusas, curtido y 2 bebidas.',
-precio:320
-});
+                        <a href="#" class="btn-ordenar" data-producto="Combo Pareja"  onclick="agregarAlCarrito(
+this,
+'5 pupusas, curtido y 2 bebidas.',
+320,
+'Imagenes_menu/5_pupusas.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
 
                     </div>
                 </div>
@@ -93,14 +93,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Combo Sencillo</h3>
                         <p>3 pupusas de tu especialidad favorita, una porcion de curtido y una bebida a eleccion </p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'3 pupusas, un curtido y una bebida.',
-precio:+200
-});
+                        <a href="#" class="btn-ordenar" data-producto="Combo Sencillo"  onclick="agregarAlCarrito(
+this,
+'3 pupusas, un curtido y una bebida.',
+200,
+'Imagenes_menu/3_pupusas.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
             </div>
@@ -114,14 +114,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa de queso Sencilla</h3>
                         <p>Una pupusa de queso sencillo pero bien disfrutable.</p>
-                        <a href="#"  onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa de Queso',
-precio:45
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa de queso Sencilla"  onclick="agregarAlCarrito(
+this,
+'Pupusa de Queso',
+45,
+'Imagenes_menu/Pupusa_queso_sencilla.png'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -129,14 +129,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa de Pollo</h3>
                         <p>Una pupusa simple, con pollo en su interior.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa de Pollo',
-precio:45
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Pupusa de Pollo"  onclick="agregarAlCarrito(
+this,
+'Pupusa de Pollo',
+45,
+''
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -144,30 +144,30 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Queso en exceso</h3>
                         <p>Una combinación de muchos tipos de queso; quesillo, mozzarella y cheddar.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Queso Mixto',
-precio:65
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Pupusa Queso Mixto" onclick="agregarAlCarrito(
+this,
+'Pupusa Queso Mixto',
+65,
+'Imagenes_menu/Pupusa_queso_3quesos.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
                     
-                    <img src="Imagenes_menu/Pupusa_carnes_mixtas.jpg    " alt="Carnes mixtas" class="product-img">
+                    <img src="Imagenes_menu/Pupusa_carnes_mixtas.jpg" alt="Carnes mixtas" class="product-img">
                     <div class="product-info">
                         <h3>Carnes mixtas</h3>
                         <p>Una combinación de muchos tipos de carne: pollo, chicharrón y chorizo.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Carnes Mixtas',
-precio:65
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Pupusa Carnes mixtas" onclick="agregarAlCarrito(
+this,
+'Pupusa Carnes Mixtas',
+65,
+'Imagenes_menu/Pupusa_carnes_mixtas.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -175,14 +175,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Queso y Pollo</h3>
                         <p>Una mexcla de Queso y Pollo en una pupusa.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Mix Queso y Pollo',
-precio:45
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa Mix de Queso y Pollo" onclick="agregarAlCarrito(
+this,
+'Pupusa Mix Queso y Pollo',
+45,
+'Imagenes_menu/pupusa_pollo_queso.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -190,14 +190,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Queso y Frijol</h3>
                         <p>Una mexcla de Queso y Frijol en una pupusa.</p>
-                        <a href="#"  onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Mix Queso y Frijol',
-precio:45
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa Mix Queso y Frijol" onclick="agregarAlCarrito(
+this,
+'Pupusa Mix Queso y Frijol',
+45,
+'Imagenes_menu/Pupusa_queso_frijol.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -205,14 +205,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Chicharron y Frijol</h3>
                         <p>Una mexcla de Chicharron y Frijol en una pupusa.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Mix Chicharron y Frijol',
-precio:45
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Mix Chicharron y Frijol"  onclick="agregarAlCarrito(
+this,
+'Pupusa Mix Chicharron y Frijol',
+45,
+'Imagenes_menu/Pupusa_chicharron_frijol.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -220,14 +220,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa de Pollo Picante</h3>
                         <p>Una pupusa de pollo junto con pimientos picantes adentro.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa de Pollo Picante',
-precio:45
-});
+                        <a href="#" class="btn-ordenar"  data-producto="Pupusa de Pollo Picante" onclick="agregarAlCarrito(
+this,
+'Pupusa de Pollo Picante',
+45,
+'Imagenes_menu/Pupusa_picante.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -235,14 +235,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Queso y Chicharron</h3>
                         <p>Una mexcla de Queso y Chicharron en una pupusa..</p>
-                        <a onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Mix de Queso y Chicharron',
-precio:45
-});
+                        <a class="btn-ordenar" data-producto="Pupusa Mix de Queso y Chicharron" onclick="agregarAlCarrito(
+this,
+'Pupusa Mix de Queso y Chicharron',
+45,
+'Imagenes_menu/Pupusa_queso_chicharron.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -250,14 +250,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Mix de Pollo y Frijol</h3>
                         <p>Una mexcla de Pollo y Frijol en una pupusa..</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Mix de Pollo y Frijol',
-precio:45
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa Mix de Pollo y Frijol" onclick="agregarAlCarrito(
+this,
+'Pupusa Mix de Pollo y Frijol',
+45,
+'Imagenes_menu/Pupusa_pollo_frijol.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
 
@@ -266,14 +266,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa Toda en Una</h3>
                         <p>Una combinación de cada sabor del menu en una pupusa.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Todas en Una',
-precio:80
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa Todas en Una" onclick="agregarAlCarrito(
+this,
+'Pupusa Todas en Una',
+80,
+'Imagenes_menu/Pupusa_todo_uno.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -281,14 +281,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Pupusa Gigante</h3>
                         <p>El mayor reto para tu estomago, una pupusa de queso del tamaño de un sarten.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Pupusa Gigante',
-precio:300
-});
+                        <a href="#" class="btn-ordenar" data-producto="Pupusa Gigante" onclick="agregarAlCarrito(
+this,
+'Pupusa Gigante',
+300,
+'Imagenes_menu/Pupusa_gigante.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
 
@@ -304,14 +304,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Cheesecake</h3>
                         <p>Un suave y dulce pedazo cheesecake.</p>
-                        <a  onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Cheesecake',
-precio:150
-});
+                        <a class="btn-ordenar" data-producto="Cheesecake" onclick="agregarAlCarrito(
+this,
+'Cheesecake',
+150,
+'Imagenes_menu/Cheesecake.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card">
@@ -319,14 +319,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Bolsa de Picos</h3>
                         <p>Una bolsa de picos.</p>
-                        <a href="#" onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Bolsa de Picos',
-precio:80
-});
+                        <a href="#" class="btn-ordenar" data-producto="Bolsa de Picos" onclick="agregarAlCarrito(
+this,
+'Bolsa de Picos',
+80,
+'Imagenes_menu/Picos_nica.png'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
             </div>
@@ -340,14 +340,14 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Coca Cola</h3>
                         <p>Una botella de 16oz de Coca Cola</p>
-                        <a  onclick="abrirModal(
-'Registro_ventas/modal_ventas.html',
-{
-producto:'Coca Cola',
-precio:30
-});
+                        <a class="btn-ordenar" data-producto="Coca Cola" onclick="agregarAlCarrito(
+this,
+'Coca Cola',
+30,
+'Imagenes_menu/Coca Cola.jpg'
+);
 
-return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card product-drink">
@@ -355,13 +355,13 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Sprite</h3>
                         <p>Una botella de 12oz de Sprite</p>
-                        <a  onclick="abrirModal(
-   'Registro_ventas/modal_ventas.html',
-   {
-      producto:'Sprite',
-      precio:30
-   });
-   return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+                        <a class="btn-ordenar" data-producto="Sprite" onclick="agregarAlCarrito(
+      this,
+      'Sprite',
+      30,
+      'Imagenes_menu/Te Frio_lipton.jpg'
+   );
+   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
 
@@ -370,13 +370,13 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Te Frio</h3>
                         <p>Un vaso de Te Frio.</p>
-                        <a href="#" onclick="abrirModal(
-   'Registro_ventas/modal_ventas.html',
-   {
-      producto:'Te Frio',
-      precio:35
-   });
-   return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+                        <a href="#" class="btn-ordenar" data-producto="Te Frio" onclick="agregarAlCarrito(
+      this,
+      'Te Frio',
+      35,
+      'Imagenes_menu/Te Frio_lipton.jpg'
+   );
+   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
                 <div class="product-card product-drink">
@@ -384,27 +384,27 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Jugo de Naranja</h3>
                         <p>Un vaso de Jugo de Naranja.</p>
-                        <a href="#" onclick="abrirModal(
-   'Registro_ventas/modal_ventas.html',
-   {
-      producto:'Jugo de Naranja',
-      precio:35
-   });
-   return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+                        <a href="#" class="btn-ordenar" data-producto="Jugo de Naranja" onclick="agregarAlCarrito(
+      this,
+      'Jugo de Naranja',
+      35,
+      'Imagenes_menu/Jugo_naranja.jpg'
+   );
+   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
 
                 <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Fresco_Jamaica.jpg" alt="Horchata Artesanal" class="product-img">
+                    <img src="Imagenes_menu/Fresco_Jamaica.jpg" alt="Jamaica" class="product-img">
                     <div class="product-info">
                         <h3>Jamaica</h3>
                         <p>Un vaso de jamaica .</p>
-                        <a href="#"  onclick="abrirModal(
-   'Registro_ventas/modal_ventas.html',
-   {
-      producto:'Vaso de Jamaica',
-      precio:40
-   });
+                        <a href="#" class="btn-ordenar" data-producto="Vaso de Jamaica" onclick="agregarAlCarrito(
+      this,
+      'Vaso de Jamaica',
+      40,
+      'Imagenes_menu/Fresco_Jamaica.jpg'
+   );
    return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
 
                     </div>
@@ -414,13 +414,13 @@ return false;" class="btn-ordenar" style="text-decoration: none; text-align: cen
                     <div class="product-info">
                         <h3>Limonada</h3>
                         <p>Un Vaso de Limonada.</p>
-                        <a href="#"  onclick="abrirModal(
-   'Registro_ventas/modal_ventas.html',
-   {
-      producto:'Vaso de Limonada',
-      precio:40
-   });
-   return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
+                        <a href="#" class="btn-ordenar" data-producto="Vaso de Limonada"  onclick="agregarAlCarrito(
+this,
+'Vaso de Limonada',
+40,
+'Imagenes_menu/Limonada.jpg'
+);
+return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
                     </div>
                 </div>
             </div>
