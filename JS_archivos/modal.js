@@ -534,6 +534,14 @@ function limpiarReservacion(){
 
 }
 
+function obtenerRutaModal(){
+
+    return window.location.pathname.includes("Menu_pupusas")
+    ? "../Registro_ventas/modal_ventas.html"
+    : "Registro_ventas/modal_ventas.html";
+
+}
+
 
 
 

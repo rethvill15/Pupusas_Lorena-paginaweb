@@ -546,7 +546,7 @@ if(btnFinalizar){
 
             abrirModal(
 
-                "../Registro_ventas/modal_ventas.html",
+                obtenerRutaModal(),
 
                 {
                     carrito: carrito
