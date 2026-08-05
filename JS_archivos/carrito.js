@@ -36,13 +36,22 @@ if (abrirCarrito) {
 
 if (cerrarCarrito) {
 
-    cerrarPanelCarrito();
+    cerrarCarrito.addEventListener("click", cerrarPanelCarrito);
 
 }
 
 if (cartOverlay) {
 
-    cerrarPanelCarrito();
+    cartOverlay.addEventListener("click",(e)=>{
+
+        if(e.target===cartOverlay){
+
+            cerrarPanelCarrito();
+
+        }
+
+    });
+
 
 }
 
@@ -193,9 +202,11 @@ function cargarCarrito(){
     actualizarCarrito();
 
 }
-ññ
 
 
+/*=========================================
+ELIMINAR PRODUCTOS
+=========================================*/
 
 
 function vaciarCarrito(){
@@ -214,7 +225,7 @@ function mostrarCarrito(){
 
     if(carrito.length===0){
 
-        
+       
 
         const carritoVacioHTML = `
         <div class="cart-empty">
@@ -227,7 +238,7 @@ function mostrarCarrito(){
 
             <p>
 
-                Agrega algunas pupusas para comenzar tu pedido.;
+                Agrega algunas pupusas para comenzar tu pedido.
 
             </p>
 
@@ -235,21 +246,16 @@ function mostrarCarrito(){
 
         `;
 
-        
+        cartBody.innerHTML = carritoVacioHTML;
 
     }
     
-    else{
-
-            cartBody.innerHTML="";
-
-        }
 
 }
 
 
 /*=========================================
-Cantidad Total
+CANTIDAD TOTAL
 =========================================*/
 
 function obtenerCantidadTotal(){
