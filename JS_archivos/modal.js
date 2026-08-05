@@ -192,18 +192,63 @@ Formulario de ventas
 
         };
 
+/*=========================================
+CARGAR PEDIDO
+=========================================*/
 
-        if(producto && datos.producto){
-            producto.value = datos.producto;
 
-        }
+if(datos.carrito){
 
-        if(precio && datos.precio){
-            precio.value = Number(datos.precio).toFixed(2);
+    producto.value = datos.carrito.map(item => {
 
-        }
+        return `${item.nombre} x${item.cantidad}`;
 
-        actualizarTotal();
+    }).join("\n");
+
+
+    precio.value = datos.carrito.reduce((total,item)=>{
+
+        return total + (item.precio * item.cantidad);
+
+    },0).toFixed(2);
+
+
+    cantidad.value = datos.carrito.reduce((total,item)=>{
+
+    return total + item.cantidad;
+
+    },0);
+
+
+    cantidad.readOnly = true;
+
+    actualizarTotalCarrito(datos.carrito);
+
+
+}else{
+
+
+    cantidad.readOnly = false;
+
+
+    if(producto && datos.producto){
+
+        producto.value = datos.producto;
+
+    }
+
+
+    if(precio && datos.precio){
+
+        precio.value =
+        Number(datos.precio).toFixed(2);
+
+    }
+
+
+    actualizarTotal();
+
+}
 
 
         const cancelar = document.getElementById("cancelar");
@@ -214,17 +259,36 @@ Formulario de ventas
 
 }
 
-    formulario.onsubmit = function(e){
+    formulario.addEventListener("submit",function(e){
 
     e.preventDefault();
 
+
+    if(!formulario.checkValidity()){
+
+        formulario.reportValidity();
+
+        return;
+
+    }
+
+
     alert("Pedido registrado correctamente.");
+
+
+    if(datos.carrito && typeof vaciarCarrito === "function"){
+
+        vaciarCarrito();
+
+    }
+
 
     limpiarFormulario();
 
     cerrarModal();
 
-};
+
+});
 
     }
 
@@ -290,7 +354,43 @@ Formulario de ventas
         (precio * cantidad).toFixed(2);
 
 
-    }   
+    }
+    
+    function actualizarTotalCarrito(carrito){
+
+    const totalInput =
+    document.getElementById("total");
+
+
+    if(!totalInput){
+
+        return;
+
+    }
+
+
+    let subtotal = 0;
+
+
+    carrito.forEach(producto=>{
+
+        subtotal += 
+        producto.precio * producto.cantidad;
+
+    });
+
+
+    const iva = subtotal * 0.15;
+
+
+    const total = subtotal + iva;
+
+
+    totalInput.value =
+    total.toFixed(2);
+
+
+}
 
 
 

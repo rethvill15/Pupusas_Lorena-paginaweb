@@ -197,6 +197,22 @@ function mostrarToast(nombre){
 }
 
 /*=========================================
+RUTAS DE IMÁGENES
+=========================================*/
+
+function obtenerRutaImagen(ruta){
+
+    if(!ruta) return "";
+
+    const nivel = window.location.pathname
+        .split("/")
+        .length - 2;
+
+    return "../".repeat(nivel) + ruta;
+
+}
+
+/*=========================================
 ACTUALIZAR INTERFAZ
 =========================================*/
 
@@ -407,8 +423,8 @@ function mostrarCarrito(){
         <div class="cart-item">
 
     <img
-        src="${producto.imagen}"
-        alt="${producto.nombre}">
+    src="${obtenerRutaImagen(producto.imagen)}"
+    alt="${producto.nombre}">
 
     <div class="cart-item-info">
 
@@ -498,4 +514,46 @@ document.body.style.overflow="";
 INICIALIZACIÓN
 =========================================*/
 
+
 cargarCarrito();
+
+/*=========================================
+FINALIZAR COMPRA
+=========================================*/
+
+if(btnFinalizar){
+
+    btnFinalizar.addEventListener("click",()=>{
+
+        if(carrito.length === 0){
+
+            alert("El carrito está vacío.");
+
+            return;
+
+        }
+
+
+        if(typeof abrirModal !== "function"){
+
+        console.error("La función abrirModal no está disponible.");
+
+        return;
+
+}
+
+        cerrarPanelCarrito();
+
+            abrirModal(
+
+                "../Registro_ventas/modal_ventas.html",
+
+                {
+                    carrito: carrito
+                }
+
+        );
+
+    });
+
+}
