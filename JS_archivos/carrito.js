@@ -8,12 +8,6 @@ const abrirCarrito = document.getElementById("abrirCarrito");
 
 const cerrarCarrito = document.getElementById("cerrarCarrito");
 
-/*=========================================
-ESTADO DEL CARRITO
-=========================================*/
-
-let carrito = [];
-
 const cartBody = document.getElementById("cartBody");
 
 const cartCount = document.getElementById("cartCount");
@@ -21,6 +15,24 @@ const cartCount = document.getElementById("cartCount");
 const cartBtn = document.getElementById("abrirCarrito");
 
 const btnFinalizar = document.getElementById("btnFinalizar");
+
+const cartSubtotal = document.getElementById("cartSubtotal");
+
+const cartIVA = document.getElementById("cartIVA");
+
+const cartTotal = document.getElementById("cartTotal");
+
+const toastCarrito = document.getElementById("toastCarrito");
+
+const toastProducto = document.getElementById("toastProducto");
+
+/*=========================================
+ESTADO DEL CARRITO
+=========================================*/
+
+let carrito = [];
+
+
 
 if (abrirCarrito) {
 
@@ -63,15 +75,23 @@ EVENTOS DEL CARRITO
 
 function actualizarCarrito(){
 
-cartCount.textContent = obtenerCantidadTotal();
+if(cartCount){
 
-if(carrito.length>0){
+    cartCount.textContent = obtenerCantidadTotal();
 
-    cartBtn.classList.add("filled");
+}
 
-}else{
+if(cartBtn){
 
-    cartBtn.classList.remove("filled");
+    if(carrito.length>0){
+
+        cartBtn.classList.add("filled");
+
+    }else{
+
+        cartBtn.classList.remove("filled");
+
+    }
 
 }
 
@@ -85,13 +105,19 @@ actualizarBotonesProductos();
 
 mostrarCarrito();
 
+actualizarTotales();
+
 guardarCarrito();
 
-cartCount.classList.remove("pop");
+if(cartCount){
 
-void cartCount.offsetWidth;
+    cartCount.classList.remove("pop");
 
-cartCount.classList.add("pop");
+    void cartCount.offsetWidth;
+
+    cartCount.classList.add("pop");
+
+}
 
 }
 
@@ -105,6 +131,68 @@ function guardarCarrito(){
         JSON.stringify(carrito)
 
     );
+
+}
+
+/*=========================================
+TOTALES
+=========================================*/
+
+function actualizarTotales(){
+
+    let subtotal = 0;
+
+    carrito.forEach(producto=>{
+
+        subtotal += producto.precio * producto.cantidad;
+
+    });
+
+    const iva = subtotal * 0.15;
+
+    const total = subtotal + iva;
+
+    if(cartSubtotal){
+
+    cartSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+
+    }
+
+    if(cartIVA){
+
+    cartIVA.textContent = `$${iva.toFixed(2)}`;
+
+    }
+
+    if(cartTotal){
+
+    cartTotal.textContent = `$${total.toFixed(2)}`;
+
+    }
+
+}
+
+/*=========================================
+NOTIFICACIÓN
+=========================================*/
+
+let tiempoToast;
+
+function mostrarToast(nombre){
+
+    if(!toastCarrito) return;
+
+    toastProducto.textContent = nombre;
+
+    clearTimeout(tiempoToast);
+
+    toastCarrito.classList.add("show");
+
+    tiempoToast = setTimeout(()=>{
+
+        toastCarrito.classList.remove("show");
+
+    },2500);
 
 }
 
@@ -178,6 +266,8 @@ cantidad:1
 
 actualizarCarrito();
 
+mostrarToast(nombre);
+
 }
 
 /*=========================================
@@ -218,6 +308,65 @@ function vaciarCarrito(){
 }
 
 /*=========================================
+MODIFICAR CANTIDADES
+=========================================*/
+
+function aumentarCantidad(nombre){
+
+    const producto = carrito.find(
+
+        item=>item.nombre===nombre
+
+    );
+
+    if(producto){
+
+        producto.cantidad++;
+
+    }
+
+    actualizarCarrito();
+
+}
+
+function disminuirCantidad(nombre){
+
+    const producto = carrito.find(
+
+        item=>item.nombre===nombre
+
+    );
+
+    if(!producto) return;
+
+    producto.cantidad--;
+
+    if(producto.cantidad<=0){
+
+        eliminarProducto(nombre);
+
+        return;
+
+    }
+
+    actualizarCarrito();
+
+}
+
+function eliminarProducto(nombre){
+
+    carrito = carrito.filter(
+
+        item=>item.nombre!==nombre
+
+    );
+
+    actualizarCarrito();
+
+}
+
+
+/*=========================================
 MOSTRAR CARRITO
 =========================================*/
 
@@ -225,9 +374,8 @@ function mostrarCarrito(){
 
     if(carrito.length===0){
 
-       
+        cartBody.innerHTML=`
 
-        const carritoVacioHTML = `
         <div class="cart-empty">
 
             <h3>
@@ -246,10 +394,71 @@ function mostrarCarrito(){
 
         `;
 
-        cartBody.innerHTML = carritoVacioHTML;
+        return;
 
     }
-    
+
+    cartBody.innerHTML="";
+
+    carrito.forEach(producto=>{
+
+        cartBody.innerHTML += `
+
+        <div class="cart-item">
+
+    <img
+        src="${producto.imagen}"
+        alt="${producto.nombre}">
+
+    <div class="cart-item-info">
+
+        <h4>${producto.nombre}</h4>
+
+        <div class="cart-price">
+
+            $${producto.precio.toFixed(2)}
+
+        </div>
+
+        <div class="cart-controls">
+
+            <button
+                onclick="disminuirCantidad('${producto.nombre}')">
+
+                -
+
+            </button>
+
+            <span>
+
+                ${producto.cantidad}
+
+            </span>
+
+            <button
+                onclick="aumentarCantidad('${producto.nombre}')">
+
+                +
+
+            </button>
+
+        </div>
+
+        <button
+            class="btn-eliminar"
+            onclick="eliminarProducto('${producto.nombre}')">
+
+            Eliminar
+
+        </button>
+
+    </div>
+
+</div>
+
+        `;
+
+    });
 
 }
 

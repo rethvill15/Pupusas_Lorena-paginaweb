@@ -133,7 +133,7 @@ return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
 this,
 'Pupusa de Pollo',
 45,
-''
+'Imagenes_menu/pupusa-de-pollo.png'
 );
 
 return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
@@ -456,8 +456,7 @@ return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
 
 </div>
 
-<script src="../JS_archivos/modal.js"></script>
-<script src="../JS_archivos/carrito.js"></script>
+
  
 
 <div class="cart-overlay" id="cartOverlay">
@@ -500,18 +499,34 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 </div>
 
-<div class="cart-footer">
+<div class="cart-resumen">
 
-<button>
+    <div class="cart-linea">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+    </div>
 
+    <div class="cart-linea">
+        <span>IVA (15%)</span>
+        <span id="cartIVA">$0.00</span>
+    </div>
+
+    <div class="cart-linea total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+    </div>
+
+</div>
+
+<button id="btnFinalizar">
 Finalizar compra
-
 </button>
 
 </div>
 
 </div>
 
-</div>
+<script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/carrito.js"></script>
 </body>
 </html>

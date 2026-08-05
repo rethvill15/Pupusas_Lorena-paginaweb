@@ -127,8 +127,20 @@
 
 </div>
 
-<script src="JS_archivos/modal.js"></script>
-<script src="JS_archivos/carrito.js"></script>
+<div id="toastCarrito" class="toast-carrito">
+
+    <span class="toast-icono">✓</span>
+
+    <div class="toast-info">
+
+        <strong>Producto agregado</strong>
+
+        <p id="toastProducto"></p>
+
+    </div>
+
+</div>
+
 
 <div class="cart-overlay" id="cartOverlay">
 
@@ -138,7 +150,7 @@
 
 <h2>
 
-🛒 Carrito
+Carrito
 
 </h2>
 
@@ -172,16 +184,49 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 <div class="cart-footer">
 
-<button id="btnFinalizar">
+    <div class="cart-resumen">
 
-Finalizar compra
+        <div class="cart-linea">
 
-</button>
+            <span>Subtotal</span>
+
+            <span id="cartSubtotal">$0.00</span>
+
+        </div>
+
+        <div class="cart-linea">
+
+            <span>IVA (15%)</span>
+
+            <span id="cartIVA">$0.00</span>
+
+        </div>
+
+        <div class="cart-linea total">
+
+            <span>Total</span>
+
+            <span id="cartTotal">$0.00</span>
+
+        </div>
+
+    </div>
+
+    <button id="btnFinalizar">
+
+        Finalizar compra
+
+    </button>
 
 </div>
 
 </div>
 
 </div>
+
+<script src="JS_archivos/modal.js"></script>
+<script src="JS_archivos/carrito.js"></script>
+
+
 </body>
 </html>

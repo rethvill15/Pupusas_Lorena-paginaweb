@@ -70,7 +70,6 @@
             <p class="copyright">&copy; 2026 Pupusas Lorena. Sabor y comodidad a cada hora!.</p>
         </div>
     </footer>
-
     <div id="modalOverlay" class="modal-overlay">
 
     <div class="modal-window">
@@ -83,15 +82,14 @@
 
         </button>
 
-        <div id="modalContenido">
-
-        </div>
+        <div id="modalContenido"></div>
 
     </div>
 
 </div>
-<script src="../JS_archivos/modal.js"></script>
-<script src="../JS_archivos/carrito.js"></script>
+
+
+ 
 
 <div class="cart-overlay" id="cartOverlay">
 
@@ -133,18 +131,34 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 </div>
 
-<div class="cart-footer">
+<div class="cart-resumen">
+
+    <div class="cart-linea">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">$0.00</span>
+    </div>
+
+    <div class="cart-linea">
+        <span>IVA (15%)</span>
+        <span id="cartIVA">$0.00</span>
+    </div>
+
+    <div class="cart-linea total">
+        <span>Total</span>
+        <span id="cartTotal">$0.00</span>
+    </div>
+
+</div>
 
 <button id="btnFinalizar">
-
 Finalizar compra
-
 </button>
 
 </div>
 
 </div>
 
-</div>
+<script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/carrito.js"></script>
 </body>
 </html>
