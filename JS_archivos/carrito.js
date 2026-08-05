@@ -1,3 +1,7 @@
+/*=========================================
+REFERENCIAS DEL DOM
+=========================================*/
+
 const cartOverlay = document.getElementById("cartOverlay");
 
 const abrirCarrito = document.getElementById("abrirCarrito");
@@ -32,53 +36,35 @@ if (abrirCarrito) {
 
 if (cerrarCarrito) {
 
-    cerrarCarrito.addEventListener("click", () => {
-
-        cartOverlay.classList.remove("active");
-
-        document.body.style.overflow = "";
-
-    });
+    cerrarPanelCarrito();
 
 }
 
 if (cartOverlay) {
 
-    cartOverlay.addEventListener("click", e => {
-
-        if (e.target === cartOverlay) {
-
-            cartOverlay.classList.remove("active");
-
-            document.body.style.overflow = "";
-
-        }
-
-    });
+    cerrarPanelCarrito();
 
 }
 
+
+
+/*=========================================
+EVENTOS DEL CARRITO
+=========================================*/
+
 function actualizarCarrito(){
 
-cartCount.textContent=
+cartCount.textContent = obtenerCantidadTotal();
 
-carrito.reduce(
+if(carrito.length>0){
 
-(total,item)=>total+item.cantidad,
+    cartBtn.classList.add("filled");
 
-0
+}else{
 
-);
+    cartBtn.classList.remove("filled");
 
-cartCount.classList.remove("pop");
-
-void cartCount.offsetWidth;
-
-cartCount.classList.add("pop");
-
-actualizarBotonesProductos();
-
-
+}
 
 if (btnFinalizar) {
 
@@ -86,7 +72,36 @@ if (btnFinalizar) {
 
 }
 
+actualizarBotonesProductos();
+
+mostrarCarrito();
+
+guardarCarrito();
+
+cartCount.classList.remove("pop");
+
+void cartCount.offsetWidth;
+
+cartCount.classList.add("pop");
+
 }
+
+
+function guardarCarrito(){
+
+    localStorage.setItem(
+
+        "carritoPupusas",
+
+        JSON.stringify(carrito)
+
+    );
+
+}
+
+/*=========================================
+ACTUALIZAR INTERFAZ
+=========================================*/
 
 function actualizarBotonesProductos(){
 
@@ -155,3 +170,117 @@ cantidad:1
 actualizarCarrito();
 
 }
+
+/*=========================================
+LOCAL STORAGE
+=========================================*/
+
+
+function cargarCarrito(){
+
+    const datos = localStorage.getItem("carritoPupusas");
+
+    if(datos){
+
+        carrito = JSON.parse(datos);
+
+    }else{
+
+    carrito=[];
+
+    }
+
+    actualizarCarrito();
+
+}
+ññ
+
+
+
+
+function vaciarCarrito(){
+
+    carrito = [];
+
+    actualizarCarrito();
+
+}
+
+/*=========================================
+MOSTRAR CARRITO
+=========================================*/
+
+function mostrarCarrito(){
+
+    if(carrito.length===0){
+
+        
+
+        const carritoVacioHTML = `
+        <div class="cart-empty">
+
+            <h3>
+
+                Tu carrito está vacío
+
+            </h3>
+
+            <p>
+
+                Agrega algunas pupusas para comenzar tu pedido.;
+
+            </p>
+
+        </div>
+
+        `;
+
+        
+
+    }
+    
+    else{
+
+            cartBody.innerHTML="";
+
+        }
+
+}
+
+
+/*=========================================
+Cantidad Total
+=========================================*/
+
+function obtenerCantidadTotal(){
+
+return carrito.reduce(
+
+(total,item)=>total+item.cantidad,
+
+0
+
+);
+
+}
+
+
+/*=========================================
+UTILIDADES
+=========================================*/
+
+function cerrarPanelCarrito(){
+
+cartOverlay.classList.remove("active");
+
+document.body.style.overflow="";
+
+}
+
+
+
+/*=========================================
+INICIALIZACIÓN
+=========================================*/
+
+cargarCarrito();
