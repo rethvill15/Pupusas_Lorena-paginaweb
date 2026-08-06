@@ -2,13 +2,11 @@
     const contenido = document.getElementById("modalContenido");
     let modalAbierto = false;
 
-
-
 /* ==========================
 Apertura del modal
 ========================== */
 
-    async function abrirModal( datos = {}) {
+    async function abrirModal(url, datos = {}) {
 
     if(!overlay || !contenido){
 
@@ -39,7 +37,7 @@ Apertura del modal
 
 try{
 
-    fetch(obtenerRutaModal());
+    const respuesta = await fetch(url);
 
     if(!respuesta.ok){
         throw new Error("No se pudo cargar el formulario.");
@@ -194,63 +192,18 @@ Formulario de ventas
 
         };
 
-/*=========================================
-CARGAR PEDIDO
-=========================================*/
 
+        if(producto && datos.producto){
+            producto.value = datos.producto;
 
-if(datos.carrito){
+        }
 
-    producto.value = datos.carrito.map(item => {
+        if(precio && datos.precio){
+            precio.value = Number(datos.precio).toFixed(2);
 
-        return `${item.nombre} x${item.cantidad}`;
+        }
 
-    }).join("\n");
-
-
-    precio.value = datos.carrito.reduce((total,item)=>{
-
-        return total + (item.precio * item.cantidad);
-
-    },0).toFixed(2);
-
-
-    cantidad.value = datos.carrito.reduce((total,item)=>{
-
-    return total + item.cantidad;
-
-    },0);
-
-
-    cantidad.readOnly = true;
-
-    actualizarTotalCarrito(datos.carrito);
-
-
-}else{
-
-
-    cantidad.readOnly = false;
-
-
-    if(producto && datos.producto){
-
-        producto.value = datos.producto;
-
-    }
-
-
-    if(precio && datos.precio){
-
-        precio.value =
-        Number(datos.precio).toFixed(2);
-
-    }
-
-
-    actualizarTotal();
-
-}
+        actualizarTotal();
 
 
         const cancelar = document.getElementById("cancelar");
@@ -261,36 +214,17 @@ if(datos.carrito){
 
 }
 
-    formulario.addEventListener("submit",function(e){
+    formulario.onsubmit = function(e){
 
     e.preventDefault();
 
-
-    if(!formulario.checkValidity()){
-
-        formulario.reportValidity();
-
-        return;
-
-    }
-
-
     alert("Pedido registrado correctamente.");
-
-
-    if(datos.carrito && typeof vaciarCarrito === "function"){
-
-        vaciarCarrito();
-
-    }
-
 
     limpiarFormulario();
 
     cerrarModal();
 
-
-});
+};
 
     }
 
@@ -356,43 +290,7 @@ if(datos.carrito){
         (precio * cantidad).toFixed(2);
 
 
-    }
-    
-    function actualizarTotalCarrito(carrito){
-
-    const totalInput =
-    document.getElementById("total");
-
-
-    if(!totalInput){
-
-        return;
-
-    }
-
-
-    let subtotal = 0;
-
-
-    carrito.forEach(producto=>{
-
-        subtotal += 
-        producto.precio * producto.cantidad;
-
-    });
-
-
-    const iva = subtotal * 0.15;
-
-
-    const total = subtotal + iva;
-
-
-    totalInput.value =
-    total.toFixed(2);
-
-
-}
+    }   
 
 
 
@@ -408,6 +306,10 @@ if(datos.carrito){
         const cantidad = document.getElementById("cantidad");
         const total = document.getElementById("total");
 
+        if(producto) producto.value = "";
+        if(precio) precio.value = "";
+        if(cantidad) cantidad.value = 1;
+        if(total) total.value = "";
         
     }
 
@@ -529,18 +431,6 @@ function limpiarReservacion(){
             icono.classList.remove("visible");
 
         });
-
-}
-
-function obtenerRutaModal(){
-
-    if(window.location.pathname.includes("Menu_pupusas")){
-
-        return "../Registro_ventas/modal_ventas.html";
-
-    }
-
-    return "Menu_pupusas/Registro_ventas/modal_ventas.html";
 
 }
 
