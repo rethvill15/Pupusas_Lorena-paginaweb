@@ -414,11 +414,13 @@ function mostrarCarrito(){
 
     }
 
-    cartBody.innerHTML="";
+    
+    let html = "";
+
 
     carrito.forEach(producto=>{
 
-        cartBody.innerHTML += `
+        html += `
 
         <div class="cart-item">
 
@@ -475,6 +477,9 @@ function mostrarCarrito(){
         `;
 
     });
+    
+    cartBody.innerHTML= html;
+
 
 }
 
@@ -546,7 +551,7 @@ if(btnFinalizar){
 
             abrirModal(
 
-                obtenerRutaModal(),
+                "Registro_ventas/modal_ventas.html",
 
                 {
                     carrito: carrito

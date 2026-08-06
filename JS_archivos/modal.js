@@ -2,11 +2,13 @@
     const contenido = document.getElementById("modalContenido");
     let modalAbierto = false;
 
+
+
 /* ==========================
 Apertura del modal
 ========================== */
 
-    async function abrirModal(url, datos = {}) {
+    async function abrirModal( datos = {}) {
 
     if(!overlay || !contenido){
 
@@ -37,7 +39,7 @@ Apertura del modal
 
 try{
 
-    const respuesta = await fetch(url);
+    fetch(obtenerRutaModal());
 
     if(!respuesta.ok){
         throw new Error("No se pudo cargar el formulario.");
@@ -406,10 +408,6 @@ if(datos.carrito){
         const cantidad = document.getElementById("cantidad");
         const total = document.getElementById("total");
 
-        if(producto) producto.value = "";
-        if(precio) precio.value = "";
-        if(cantidad) cantidad.value = 1;
-        if(total) total.value = "";
         
     }
 
@@ -536,9 +534,13 @@ function limpiarReservacion(){
 
 function obtenerRutaModal(){
 
-    return window.location.pathname.includes("Menu_pupusas")
-    ? "../Registro_ventas/modal_ventas.html"
-    : "Registro_ventas/modal_ventas.html";
+    if(window.location.pathname.includes("Menu_pupusas")){
+
+        return "../Registro_ventas/modal_ventas.html";
+
+    }
+
+    return "Menu_pupusas/Registro_ventas/modal_ventas.html";
 
 }
 
