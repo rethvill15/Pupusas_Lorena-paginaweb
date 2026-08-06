@@ -58,6 +58,16 @@ try{
         throw new Error("No se encontró un contenido de modal valido.");
     }
 
+    if(typeof obtenerRutaImagen === "function"){
+
+        nuevoContenido.querySelectorAll("img.check-icon").forEach(icono=>{
+
+            icono.src = obtenerRutaImagen("Imagenes/Check_logo.png");
+
+        });
+
+    }
+
     contenido.innerHTML="";
 
     contenido.appendChild(nuevoContenido);
@@ -184,6 +194,15 @@ Formulario de ventas
         });
         
 
+        const pedidoDesdeCarrito =
+            Array.isArray(datos.carrito) && datos.carrito.length > 0;
+
+        if(pedidoDesdeCarrito){
+
+            cargarPedidoDesdeCarrito(datos.carrito, producto, precio, cantidad, total);
+
+        }else{
+
         cantidad.oninput = function(){
 
         cantidad.value = Math.max(1,parseInt(cantidad.value) || 1);
@@ -205,6 +224,8 @@ Formulario de ventas
 
         actualizarTotal();
 
+        }
+
 
         const cancelar = document.getElementById("cancelar");
 
@@ -220,11 +241,54 @@ Formulario de ventas
 
     alert("Pedido registrado correctamente.");
 
+    if(pedidoDesdeCarrito && typeof vaciarCarrito === "function"){
+
+        vaciarCarrito();
+
+    }
+
     limpiarFormulario();
 
     cerrarModal();
 
 };
+
+    }
+
+/* ==========================
+Cargar pedido completo desde el carrito (Fase 8 - compra múltiple)
+========================== */
+
+    function cargarPedidoDesdeCarrito(carrito, producto, precio, cantidad, total){
+
+        let subtotal = 0;
+        let lineas = "";
+
+        carrito.forEach(item=>{
+
+            const importe = item.precio * item.cantidad;
+
+            subtotal += importe;
+
+            lineas += `${item.cantidad}x ${item.nombre} — $${importe.toFixed(2)}\n`;
+
+        });
+
+        const iva = subtotal * 0.15;
+        const totalConIva = subtotal + iva;
+
+        producto.value = lineas.trim();
+
+        cantidad.value = carrito.reduce(
+            (acumulado,item) => acumulado + item.cantidad,
+            0
+        );
+
+        cantidad.readOnly = true;
+
+        precio.value = subtotal.toFixed(2);
+
+        total.value = totalConIva.toFixed(2);
 
     }
 

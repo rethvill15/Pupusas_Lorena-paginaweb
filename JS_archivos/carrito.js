@@ -551,7 +551,7 @@ if(btnFinalizar){
 
             abrirModal(
 
-                "Registro_ventas/modal_ventas.html",
+                obtenerRutaImagen("Menu_pupusas/Registro_ventas/modal_ventas.html"),
 
                 {
                     carrito: carrito
