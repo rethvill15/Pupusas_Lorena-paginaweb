@@ -6,7 +6,7 @@
     Conectar el menú HTML con la API de productos.
 
     FLUJO:
-    MySQL → productos.php → JSON → menu.js → HTML
+    MySQL → productos.php → JSON → menu.js → HTML → carrito.js
 
     IMPORTANTE:
     - No modifica carrito.js.
@@ -26,7 +26,7 @@
 // hacia:
 // pupusas_lorena/api/productos.php
 //
-// Ajustaremos esta ruta si la estructura de tus carpetas es distinta.
+// Esta ruta ya fue comprobada y actualmente funciona.
 
 const API_PRODUCTOS = "../../pupusas_lorena/api/productos.php";
 
@@ -38,41 +38,67 @@ const API_PRODUCTOS = "../../pupusas_lorena/api/productos.php";
 
     Utilizamos id_producto como identificador para relacionar
     cada producto de MySQL con su imagen correspondiente.
+
+    IMPORTANTE:
+    Estas rutas son relativas a menu_seccion.html.
+
+    menu_seccion.html está dentro de:
+
+        Menu_pupusas/
+
+    y las imágenes están dentro de:
+
+        Menu_pupusas/Imagenes_menu/
 ================================================================*/
 
 const imagenesProductos = {
 
-    // Combos
-    4: "Menu_pupusas/Imagenes_menu/20_pupusas.JPG",
-    5: "Menu_pupusas/Imagenes_menu/12_pupusas.png",
-    6: "Menu_pupusas/Imagenes_menu/5_pupusas.jpg",
-    7: "Menu_pupusas/Imagenes_menu/3_pupusas.jpg",
+    /*-----------------------------------------------------------
+        COMBOS
+    -----------------------------------------------------------*/
 
-    // Pupusas
-    8: "Menu_pupusas/Imagenes_menu/Pupusa_queso_sencilla.png",
-    9: "Menu_pupusas/Imagenes_menu/pupusa-de-pollo.png",
-    10: "Menu_pupusas/Imagenes_menu/Pupusa_queso_3quesos.jpg",
-    11: "Menu_pupusas/Imagenes_menu/Pupusa_carnes_mixtas.jpg",
-    12: "Menu_pupusas/Imagenes_menu/pupusa_pollo_queso.jpg",
-    13: "Menu_pupusas/Imagenes_menu/Pupusa_queso_frijol.jpg",
-    14: "Menu_pupusas/Imagenes_menu/Pupusa_chicharron_frijol.jpg",
-    15: "Menu_pupusas/Imagenes_menu/Pupusa_picante.jpg",
-    16: "Menu_pupusas/Imagenes_menu/Pupusa_queso_chicharron.jpg",
-    17: "Menu_pupusas/Imagenes_menu/Pupusa_pollo_frijol.jpg",
-    18: "Menu_pupusas/Imagenes_menu/Pupusa_todo_uno.jpg",
-    19: "Menu_pupusas/Imagenes_menu/Pupusa_gigante.jpg",
+    4: "Imagenes_menu/20_pupusas.JPG",
+    5: "Imagenes_menu/12_pupusas.png",
+    6: "Imagenes_menu/5_pupusas.jpg",
+    7: "Imagenes_menu/3_pupusas.jpg",
 
-    // Postres
-    20: "Menu_pupusas/Imagenes_menu/Cheesecake.jpg",
-    21: "Menu_pupusas/Imagenes_menu/Picos_nica.png",
 
-    // Bebidas
-    22: "Menu_pupusas/Imagenes_menu/Coca Cola.jpg",
-    23: "Menu_pupusas/Imagenes_menu/Sprite.jpg",
-    24: "Menu_pupusas/Imagenes_menu/Te Frio_lipton.jpg",
-    25: "Menu_pupusas/Imagenes_menu/Jugo_naranja.jpg",
-    26: "Menu_pupusas/Imagenes_menu/Fresco_Jamaica.jpg",
-    27: "Menu_pupusas/Imagenes_menu/Limonada.jpg"
+    /*-----------------------------------------------------------
+        PUPUSAS
+    -----------------------------------------------------------*/
+
+    8:  "Imagenes_menu/Pupusa_queso_sencilla.png",
+    9:  "Imagenes_menu/pupusa-de-pollo.png",
+    10: "Imagenes_menu/Pupusa_queso_3quesos.jpg",
+    11: "Imagenes_menu/Pupusa_carnes_mixtas.jpg",
+    12: "Imagenes_menu/pupusa_pollo_queso.jpg",
+    13: "Imagenes_menu/Pupusa_queso_frijol.jpg",
+    14: "Imagenes_menu/Pupusa_chicharron_frijol.jpg",
+    15: "Imagenes_menu/Pupusa_picante.jpg",
+    16: "Imagenes_menu/Pupusa_queso_chicharron.jpg",
+    17: "Imagenes_menu/Pupusa_pollo_frijol.jpg",
+    18: "Imagenes_menu/Pupusa_todo_uno.jpg",
+    19: "Imagenes_menu/Pupusa_gigante.jpg",
+
+
+    /*-----------------------------------------------------------
+        POSTRES
+    -----------------------------------------------------------*/
+
+    20: "Imagenes_menu/Cheesecake.jpg",
+    21: "Imagenes_menu/Picos_nica.png",
+
+
+    /*-----------------------------------------------------------
+        BEBIDAS
+    -----------------------------------------------------------*/
+
+    22: "Imagenes_menu/Coca Cola.jpg",
+    23: "Imagenes_menu/Sprite.jpg",
+    24: "Imagenes_menu/Te Frio_lipton.jpg",
+    25: "Imagenes_menu/Jugo_naranja.jpg",
+    26: "Imagenes_menu/Fresco_Jamaica.jpg",
+    27: "Imagenes_menu/Limonada.jpg"
 };
 
 
@@ -110,6 +136,27 @@ function escaparHTML(texto) {
     5. OBTENER IMAGEN DEL PRODUCTO
 ================================================================*/
 
+/*
+    IMPORTANTE:
+
+    menu_seccion.html y la carpeta Imagenes_menu están dentro
+    de Menu_pupusas.
+
+    Por eso una imagen debe utilizar:
+
+        Imagenes_menu/nombre.jpg
+
+    NO:
+
+        ../Imagenes_menu/nombre.jpg
+
+    ni:
+
+        ../Menu_pupusas/Imagenes_menu/nombre.jpg
+
+    Esta función solamente devuelve la ruta que utiliza el HTML.
+*/
+
 function obtenerImagenProducto(idProducto) {
 
     const ruta = imagenesProductos[idProducto];
@@ -124,19 +171,7 @@ function obtenerImagenProducto(idProducto) {
         return "";
     }
 
-    /*
-        menu.js está en:
-
-        Pupusa_paginaweb/JS_archivos/
-
-        y las imágenes están en:
-
-        Pupusa_paginaweb/Menu_pupusas/Imagenes_menu/
-
-        Por eso desde menu.js utilizamos ../
-    */
-
-    return "../" + ruta.replace("Menu_pupusas/", "");
+    return ruta;
 }
 
 
@@ -151,6 +186,11 @@ function crearTarjetaProducto(producto) {
     const precio = Number(producto.precio);
 
     const imagen = obtenerImagenProducto(idProducto);
+
+
+    /*-----------------------------------------------------------
+        CREAR TARJETA
+    -----------------------------------------------------------*/
 
     const tarjeta = document.createElement("div");
 
@@ -188,6 +228,7 @@ function crearTarjetaProducto(producto) {
                 <button
                     type="button"
                     class="btn-ordenar"
+                    data-producto="${escaparHTML(producto.nombre)}"
                 >
                     Ordenar
                 </button>
@@ -207,9 +248,9 @@ function crearTarjetaProducto(producto) {
 
     boton.addEventListener("click", function () {
 
-        /*
-            Comprobamos que carrito.js esté cargado.
-        */
+        /*-------------------------------------------------------
+            Comprobar carrito.js
+        -------------------------------------------------------*/
 
         if (typeof agregarAlCarrito !== "function") {
 
@@ -222,19 +263,19 @@ function crearTarjetaProducto(producto) {
         }
 
 
-        /*
-            IMPORTANTE:
+        /*-------------------------------------------------------
+            AGREGAR AL CARRITO
 
-            Seguimos utilizando la función existente del carrito.
+            Utilizamos la función EXISTENTE de carrito.js.
 
-            NO estamos creando otro sistema de carrito.
-        */
+            No creamos otro sistema de carrito.
+        -------------------------------------------------------*/
 
         agregarAlCarrito(
             this,
             producto.nombre,
             precio,
-            imagenesProductos[idProducto]
+            imagen
         );
 
     });
@@ -267,7 +308,9 @@ function mostrarErrorMenu(mensaje) {
             </p>
 
         `;
+
     });
+
 }
 
 
@@ -309,6 +352,7 @@ async function cargarProductos() {
             throw new Error(
                 `Error HTTP ${respuesta.status}`
             );
+
         }
 
 
@@ -338,6 +382,7 @@ async function cargarProductos() {
                 resultado.mensaje ||
                 "La API no devolvió una lista válida de productos."
             );
+
         }
 
 
@@ -376,9 +421,9 @@ async function cargarProductos() {
             const categoria = producto.categoria;
 
 
-            /*
-                Comprobar que la categoría exista en nuestro menú.
-            */
+            /*---------------------------------------------------
+                COMPROBAR CATEGORÍA
+            ---------------------------------------------------*/
 
             if (!categoriasMenu.includes(categoria)) {
 
@@ -391,9 +436,9 @@ async function cargarProductos() {
             }
 
 
-            /*
-                Obtener contenedor de la categoría.
-            */
+            /*---------------------------------------------------
+                OBTENER CONTENEDOR
+            ---------------------------------------------------*/
 
             const contenedor = document.getElementById(
                 `productos-${categoria}`
@@ -411,18 +456,18 @@ async function cargarProductos() {
             }
 
 
-            /*
-                Obtener ID.
-            */
+            /*---------------------------------------------------
+                OBTENER ID DEL PRODUCTO
+            ---------------------------------------------------*/
 
             const idProducto = Number(
                 producto.id_producto
             );
 
 
-            /*
-                Comprobar que tenga imagen.
-            */
+            /*---------------------------------------------------
+                COMPROBAR IMAGEN
+            ---------------------------------------------------*/
 
             if (!imagenesProductos[idProducto]) {
 
@@ -435,18 +480,18 @@ async function cargarProductos() {
             }
 
 
-            /*
-                Crear tarjeta.
-            */
+            /*---------------------------------------------------
+                CREAR TARJETA
+            ---------------------------------------------------*/
 
             const tarjeta = crearTarjetaProducto(
                 producto
             );
 
 
-            /*
-                Insertar tarjeta.
-            */
+            /*---------------------------------------------------
+                INSERTAR TARJETA
+            ---------------------------------------------------*/
 
             contenedor.appendChild(
                 tarjeta
