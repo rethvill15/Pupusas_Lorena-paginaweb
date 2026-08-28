@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,392 +38,30 @@
         <h1 class="menu-title"> Nuestro Menu</h1>
         <p class="menu-subtitle">¡Siéntete libre de escoger lo que tu estómago desee!</p>
 
-        <section class="menu-section">
+        <!-- =========================================================
+             CATÁLOGO DINÁMICO
+             Los productos se cargan desde api/productos.php.
+             Las imágenes continúan almacenadas en el proyecto frontend.
+             ========================================================= -->
+
+        <section class="menu-section" id="seccion-Combos">
             <h2 class="section-category-title">Combos</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="Imagenes_menu/20_pupusas.JPG" alt="Combo Familiar" class="product-img">
-                    <div class="product-info">
-                        <h3>Combo de Evento</h3>
-                        <p>20 pupusas variadas, una porción de curtido gigante, Salsa especial y 2 Botellas de 2 litros a elección.</p>
-                        <a href="javascript:void(0)"  class="btn-ordenar" data-producto="Combo de Evento" onclick="agregarAlCarrito(
-this,
-'Combo de Evento',
-1000,
-'Menu_pupusas/Imagenes_menu/20_pupusas.JPG'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/12_pupusas.png" alt="Combo Pareja" class="product-img">
-                    <div class="product-info">
-                        <h3>Combo Familiar</h3>
-                        <p>12 pupusas de tu especialidad favorita, una porcion de curtido y acompañadas de 1 Botellas de 2 litros a eleccion.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Combo Familiar" onclick="agregarAlCarrito(
-this,
-'Combo Familiar',
-640,
-'Menu_pupusas/Imagenes_menu/12_pupusas.png'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/5_pupusas.jpg" alt="Combo Pareja" class="product-img">
-                    <div class="product-info">
-                        <h3>Combo Pareja</h3>
-                        <p>5 pupusas de tu especialidad favorita, una porcion de curtido y de dos bebidas a eleccion.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Combo Pareja"  onclick="agregarAlCarrito(
-this,
-'Combo Pareja',
-320,
-'Menu_pupusas/Imagenes_menu/5_pupusas.jpg'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/3_pupusas.jpg" alt="Combo Pareja" class="product-img">
-                    <div class="product-info">
-                        <h3>Combo Sencillo</h3>
-                        <p>3 pupusas de tu especialidad favorita, una porcion de curtido y una bebida a eleccion </p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Combo Sencillo"  onclick="agregarAlCarrito(
-this,
-'Combo Sencillo',
-200,
-'Menu_pupusas/Imagenes_menu/3_pupusas.jpg'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-            </div>
+            <div class="products-grid" id="productos-Combos"></div>
         </section>
 
-        <section class="menu-section">
+        <section class="menu-section" id="seccion-Pupusas">
             <h2 class="section-category-title">Pupusas</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_queso_sencilla.png" alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Pupusa de queso Sencilla</h3>
-                        <p>Una pupusa de queso sencillo pero bien disfrutable.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa de Queso Sencilla"  onclick="agregarAlCarrito(
-this,
-'Pupusa de Queso Sencilla',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_queso_sencilla.png'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/pupusa-de-pollo.png" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Pupusa de Pollo</h3>
-                        <p>Una pupusa simple, con pollo en su interior.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Pupusa de Pollo"  onclick="agregarAlCarrito(
-this,
-'Pupusa de Pollo',
-45,
-'Menu_pupusas/Imagenes_menu/pupusa-de-pollo.png'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_queso_3quesos.jpg" alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Queso en exceso</h3>
-                        <p>Una combinación de muchos tipos de queso; quesillo, mozzarella y cheddar.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Pupusa Queso Mixto" onclick="agregarAlCarrito(
-this,
-'Pupusa Queso Mixto',
-65,
-'Menu_pupusas/Imagenes_menu/Pupusa_queso_3quesos.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    
-                    <img src="Imagenes_menu/Pupusa_carnes_mixtas.jpg" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Carnes mixtas</h3>
-                        <p>Una combinación de muchos tipos de carne: pollo, chicharrón y chorizo.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Pupusa Carnes Mixtas" onclick="agregarAlCarrito(
-this,
-'Pupusa Carnes Mixtas',
-65,
-'Menu_pupusas/Imagenes_menu/Pupusa_carnes_mixtas.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/pupusa_pollo_queso.jpg" alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Mix de Queso y Pollo</h3>
-                        <p>Una mexcla de Queso y Pollo en una pupusa.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Mix Queso y Pollo" onclick="agregarAlCarrito(
-this,
-'Pupusa Mix Queso y Pollo',
-45,
-'Menu_pupusas/Imagenes_menu/pupusa_pollo_queso.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_queso_frijol.jpg" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Mix de Queso y Frijol</h3>
-                        <p>Una mexcla de Queso y Frijol en una pupusa.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Mix Queso y Frijol" onclick="agregarAlCarrito(
-this,
-'Pupusa Mix Queso y Frijol',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_queso_frijol.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_chicharron_frijol.jpg" alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Mix de Chicharron y Frijol</h3>
-                        <p>Una mexcla de Chicharron y Frijol en una pupusa.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Pupusa Mix Chicharron y Frijol"  onclick="agregarAlCarrito(
-this,
-'Pupusa Mix Chicharron y Frijol',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_chicharron_frijol.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_picante.jpg" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Pupusa de Pollo Picante</h3>
-                        <p>Una pupusa de pollo junto con pimientos picantes adentro.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar"  data-producto="Pupusa de Pollo Picante" onclick="agregarAlCarrito(
-this,
-'Pupusa de Pollo Picante',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_picante.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_queso_chicharron.jpg " alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Mix de Queso y Chicharron</h3>
-                        <p>Una mexcla de Queso y Chicharron en una pupusa..</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Mix de Queso y Chicharron" onclick="agregarAlCarrito(
-this,
-'Pupusa Mix de Queso y Chicharron',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_queso_chicharron.jpg'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_pollo_frijol.jpg" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Mix de Pollo y Frijol</h3>
-                        <p>Una mexcla de Pollo y Frijol en una pupusa..</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Mix de Pollo y Frijol" onclick="agregarAlCarrito(
-this,
-'Pupusa Mix de Pollo y Frijol',
-45,
-'Menu_pupusas/Imagenes_menu/Pupusa_pollo_frijol.jpg'
-);
-
-return false;"  style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_todo_uno.jpg" alt="Queso en exceso" class="product-img">
-                    <div class="product-info">
-                        <h3>Pupusa Toda en Una</h3>
-                        <p>Una combinación de cada sabor del menu en una pupusa.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Todas en Una" onclick="agregarAlCarrito(
-this,
-'Pupusa Todas en Una',
-80,
-'Menu_pupusas/Imagenes_menu/Pupusa_todo_uno.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Pupusa_gigante.jpg" alt="Carnes mixtas" class="product-img">
-                    <div class="product-info">
-                        <h3>Pupusa Gigante</h3>
-                        <p>El mayor reto para tu estomago, una pupusa de queso del tamaño de un sarten.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Pupusa Gigante" onclick="agregarAlCarrito(
-this,
-'Pupusa Gigante',
-300,
-'Menu_pupusas/Imagenes_menu/Pupusa_gigante.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-
-            </div>
+            <div class="products-grid" id="productos-Pupusas"></div>
         </section>
 
-        
-        <section class="menu-section">
+        <section class="menu-section" id="seccion-Postres">
             <h2 class="section-category-title">Postres</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <img src="Imagenes_menu/Cheesecake.jpg" alt="Empanadas de Plátano" class="product-img">
-                    <div class="product-info">
-                        <h3>Cheesecake</h3>
-                        <p>Un suave y dulce pedazo cheesecake.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Cheesecake" onclick="agregarAlCarrito(
-this,
-'Cheesecake',
-150,
-'Menu_pupusas/Imagenes_menu/Cheesecake.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <img src="Imagenes_menu/Picos_nica.png" alt="Quesadilla Salvadoreña" class="product-img">
-                    <div class="product-info">
-                        <h3>Bolsa de Picos</h3>
-                        <p>Una bolsa de picos.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Bolsa de Picos" onclick="agregarAlCarrito(
-this,
-'Bolsa de Picos',
-80,
-'Menu_pupusas/Imagenes_menu/Picos_nica.png'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-            </div>
+            <div class="products-grid" id="productos-Postres"></div>
         </section>
 
-        <section class="menu-section">
+        <section class="menu-section" id="seccion-Bebidas">
             <h2 class="section-category-title">Bebidas</h2>
-            <div class="products-grid">
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Coca Cola.jpg" alt="Horchata Artesanal" class="product-img">
-                    <div class="product-info">
-                        <h3>Coca Cola</h3>
-                        <p>Una botella de 16oz de Coca Cola</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Coca Cola" onclick="agregarAlCarrito(
-this,
-'Coca Cola',
-30,
-'Menu_pupusas/Imagenes_menu/Coca Cola.jpg'
-);
-
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Sprite.jpg" alt="Jugos Naturales" class="product-img">
-                    <div class="product-info">
-                        <h3>Sprite</h3>
-                        <p>Una botella de 12oz de Sprite</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Sprite" onclick="agregarAlCarrito(
-      this,
-      'Sprite',
-      30,
-      'Menu_pupusas/Imagenes_menu/Sprite.jpg'
-   );
-   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Te Frio_lipton.jpg" alt="Horchata Artesanal" class="product-img">
-                    <div class="product-info">
-                        <h3>Te Frio</h3>
-                        <p>Un vaso de Te Frio.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Te Frio" onclick="agregarAlCarrito(
-      this,
-      'Te Frio',
-      35,
-      'Menu_pupusas/Imagenes_menu/Te Frio_lipton.jpg'
-   );
-   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Jugo_naranja.jpg" alt="Jugos Naturales" class="product-img">
-                    <div class="product-info">
-                        <h3>Jugo de Naranja</h3>
-                        <p>Un vaso de Jugo de Naranja.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Jugo de Naranja" onclick="agregarAlCarrito(
-      this,
-      'Jugo de Naranja',
-      35,
-      'Menu_pupusas/Imagenes_menu/Jugo_naranja.jpg'
-   );
-   return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Fresco_Jamaica.jpg" alt="Jamaica" class="product-img">
-                    <div class="product-info">
-                        <h3>Jamaica</h3>
-                        <p>Un vaso de jamaica .</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Vaso de Jamaica" onclick="agregarAlCarrito(
-      this,
-      'Vaso de Jamaica',
-      40,
-      'Menu_pupusas/Imagenes_menu/Fresco_Jamaica.jpg'
-   );
-   return false;" class="btn-ordenar" style="text-decoration: none; text-align: center;">Ordenar</a>
-
-                    </div>
-                </div>
-                <div class="product-card product-drink">
-                    <img src="Imagenes_menu/Limonada.jpg" alt="Jugos Naturales" class="product-img">
-                    <div class="product-info">
-                        <h3>Limonada</h3>
-                        <p>Un Vaso de Limonada.</p>
-                        <a href="javascript:void(0)" class="btn-ordenar" data-producto="Vaso de Limonada"  onclick="agregarAlCarrito(
-this,
-'Vaso de Limonada',
-40,
-'Menu_pupusas/Imagenes_menu/Limonada.jpg'
-);
-return false;" style="text-decoration: none; text-align: center;">Ordenar</a>
-                    </div>
-                </div>
-            </div>
+            <div class="products-grid" id="productos-Bebidas"></div>
         </section>
 
 
@@ -532,6 +170,7 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 <script src="../JS_archivos/carrito.js"></script>
 <script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/menu.js"></script>
 
 
 </body>
