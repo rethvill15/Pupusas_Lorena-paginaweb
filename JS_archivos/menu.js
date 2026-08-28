@@ -57,48 +57,48 @@ const imagenesProductos = {
         COMBOS
     -----------------------------------------------------------*/
 
-    4: "Imagenes_menu/20_pupusas.JPG",
-    5: "Imagenes_menu/12_pupusas.png",
-    6: "Imagenes_menu/5_pupusas.jpg",
-    7: "Imagenes_menu/3_pupusas.jpg",
+    4: "Menu_pupusas/Imagenes_menu/20_pupusas.JPG",
+    5: "Menu_pupusas/Imagenes_menu/12_pupusas.png",
+    6: "Menu_pupusas/Imagenes_menu/5_pupusas.jpg",
+    7: "Menu_pupusas/Imagenes_menu/3_pupusas.jpg",
 
 
     /*-----------------------------------------------------------
         PUPUSAS
     -----------------------------------------------------------*/
 
-    8:  "Imagenes_menu/Pupusa_queso_sencilla.png",
-    9:  "Imagenes_menu/pupusa-de-pollo.png",
-    10: "Imagenes_menu/Pupusa_queso_3quesos.jpg",
-    11: "Imagenes_menu/Pupusa_carnes_mixtas.jpg",
-    12: "Imagenes_menu/pupusa_pollo_queso.jpg",
-    13: "Imagenes_menu/Pupusa_queso_frijol.jpg",
-    14: "Imagenes_menu/Pupusa_chicharron_frijol.jpg",
-    15: "Imagenes_menu/Pupusa_picante.jpg",
-    16: "Imagenes_menu/Pupusa_queso_chicharron.jpg",
-    17: "Imagenes_menu/Pupusa_pollo_frijol.jpg",
-    18: "Imagenes_menu/Pupusa_todo_uno.jpg",
-    19: "Imagenes_menu/Pupusa_gigante.jpg",
+    8:  "Menu_pupusas/Imagenes_menu/Pupusa_queso_sencilla.png",
+    9:  "Menu_pupusas/Imagenes_menu/pupusa-de-pollo.png",
+    10: "Menu_pupusas/Imagenes_menu/Pupusa_queso_3quesos.jpg",
+    11: "Menu_pupusas/Imagenes_menu/Pupusa_carnes_mixtas.jpg",
+    12: "Menu_pupusas/Imagenes_menu/pupusa_pollo_queso.jpg",
+    13: "Menu_pupusas/Imagenes_menu/Pupusa_queso_frijol.jpg",
+    14: "Menu_pupusas/Imagenes_menu/Pupusa_chicharron_frijol.jpg",
+    15: "Menu_pupusas/Imagenes_menu/Pupusa_picante.jpg",
+    16: "Menu_pupusas/Imagenes_menu/Pupusa_queso_chicharron.jpg",
+    17: "Menu_pupusas/Imagenes_menu/Pupusa_pollo_frijol.jpg",
+    18: "Menu_pupusas/Imagenes_menu/Pupusa_todo_uno.jpg",
+    19: "Menu_pupusas/Imagenes_menu/Pupusa_gigante.jpg",
 
 
     /*-----------------------------------------------------------
         POSTRES
     -----------------------------------------------------------*/
 
-    20: "Imagenes_menu/Cheesecake.jpg",
-    21: "Imagenes_menu/Picos_nica.png",
+    20: "Menu_pupusas/Imagenes_menu/Cheesecake.jpg",
+    21: "Menu_pupusas/Imagenes_menu/Picos_nica.png",
 
 
     /*-----------------------------------------------------------
         BEBIDAS
     -----------------------------------------------------------*/
 
-    22: "Imagenes_menu/Coca Cola.jpg",
-    23: "Imagenes_menu/Sprite.jpg",
-    24: "Imagenes_menu/Te Frio_lipton.jpg",
-    25: "Imagenes_menu/Jugo_naranja.jpg",
-    26: "Imagenes_menu/Fresco_Jamaica.jpg",
-    27: "Imagenes_menu/Limonada.jpg"
+    22: "Menu_pupusas/Imagenes_menu/Coca Cola.jpg",
+    23: "Menu_pupusas/Imagenes_menu/Sprite.jpg",
+    24: "Menu_pupusas/Imagenes_menu/Te Frio_lipton.jpg",
+    25: "Menu_pupusas/Imagenes_menu/Jugo_naranja.jpg",
+    26: "Menu_pupusas/Imagenes_menu/Fresco_Jamaica.jpg",
+    27: "Menu_pupusas/Imagenes_menu/Limonada.jpg"
 };
 
 
