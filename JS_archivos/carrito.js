@@ -204,12 +204,19 @@ function obtenerRutaImagen(ruta){
 
     if(!ruta) return "";
 
-    const nivel = window.location.pathname
-        .split("/")
-        .length - 2;
+    if(ruta.startsWith("/")){
+        return ruta;
+    }
 
-    return "../".repeat(nivel) + ruta;
+    if(ruta.startsWith("Imagenes_menu/")){
+        return "/Pupusas_paginaweb/Pupusa_paginaweb/Menu_pupusas/" + ruta;
+    }
 
+    if(ruta.startsWith("Menu_pupusas/")){
+        return "/Pupusas_paginaweb/Pupusa_paginaweb/" + ruta;
+    }
+
+    return ruta;
 }
 
 /*=========================================
