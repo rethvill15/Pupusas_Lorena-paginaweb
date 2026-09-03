@@ -259,37 +259,35 @@ function actualizarBotonesProductos(){
 AGREGAR PRODUCTOS
 =========================================*/
 
-function agregarAlCarrito(boton,nombre,precio,imagen){
+function agregarAlCarrito(boton,idProducto,nombre,precio,imagen){
 
-const existente = carrito.find(
+    const existente = carrito.find(
 
-producto => producto.nombre===nombre
+        producto => producto.id_producto === idProducto
 
-);
+    );
 
-if(existente){
+    if(existente){
 
-existente.cantidad++;
+        existente.cantidad++;
 
-}else{
+    }else{
 
-carrito.push({
+        carrito.push({
 
-nombre,
+            id_producto: idProducto,
+            nombre,
+            precio,
+            imagen,
+            cantidad:1
 
-precio,
+        });
 
-imagen,
+    }
 
-cantidad:1
+    actualizarCarrito();
 
-});
-
-}
-
-actualizarCarrito();
-
-mostrarToast(nombre);
+    mostrarToast(nombre);
 
 }
 

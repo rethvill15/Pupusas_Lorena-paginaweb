@@ -246,40 +246,42 @@ function crearTarjetaProducto(producto) {
     const boton = tarjeta.querySelector(".btn-ordenar");
 
 
-    boton.addEventListener("click", function () {
 
-        /*-------------------------------------------------------
-            Comprobar carrito.js
-        -------------------------------------------------------*/
+boton.addEventListener("click", function () {
 
-        if (typeof agregarAlCarrito !== "function") {
+    /*-------------------------------------------------------
+        Comprobar carrito.js
+    -------------------------------------------------------*/
 
-            console.error(
-                "ERROR: agregarAlCarrito() no está disponible. " +
-                "Comprueba que carrito.js se cargue antes que menu.js."
-            );
+    if (typeof agregarAlCarrito !== "function") {
 
-            return;
-        }
-
-
-        /*-------------------------------------------------------
-            AGREGAR AL CARRITO
-
-            Utilizamos la función EXISTENTE de carrito.js.
-
-            No creamos otro sistema de carrito.
-        -------------------------------------------------------*/
-
-        agregarAlCarrito(
-            this,
-            producto.nombre,
-            precio,
-            imagen
+        console.error(
+            "ERROR: agregarAlCarrito() no está disponible. " +
+            "Comprueba que carrito.js se cargue antes que menu.js."
         );
 
-    });
+        return;
+    }
 
+
+    /*-------------------------------------------------------
+        AGREGAR AL CARRITO
+
+        Ahora también enviamos id_producto.
+
+        Este ID viene directamente de la API de productos.
+        No lo generamos en JavaScript.
+    -------------------------------------------------------*/
+
+    agregarAlCarrito(
+        this,
+        idProducto,
+        producto.nombre,
+        precio,
+        imagen
+    );
+
+});
 
     return tarjeta;
 }
