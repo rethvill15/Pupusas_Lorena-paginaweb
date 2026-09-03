@@ -98,7 +98,14 @@ const imagenesProductos = {
     21: "Imagenes_menu/Te Frio_lipton.jpg",
     22: "Imagenes_menu/Jugo_naranja.jpg",
     23: "Imagenes_menu/Fresco_Jamaica.jpg",
+    24: "Imagenes_menu/Limonada.jpg",
+    19: "Imagenes_menu/Coca Cola.jpg",
+    20: "Imagenes_menu/Sprite.jpg",
+    21: "Imagenes_menu/Te Frio_lipton.jpg",
+    22: "Imagenes_menu/Jugo_naranja.jpg",
+    23: "Imagenes_menu/Fresco_Jamaica.jpg",
     24: "Imagenes_menu/Limonada.jpg"
+
 };
 
 
