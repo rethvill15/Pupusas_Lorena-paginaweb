@@ -235,21 +235,182 @@ Formulario de ventas
 
 }
 
-    formulario.onsubmit = function(e){
+    formulario.onsubmit = async function(e){
 
     e.preventDefault();
 
-    alert("Pedido registrado correctamente.");
+    const metodoPago = document.getElementById("metodo");
 
-    if(pedidoDesdeCarrito && typeof vaciarCarrito === "function"){
+    const cantidadInput = document.getElementById("cantidad");
 
-        vaciarCarrito();
+    const botonEnviar = formulario.querySelector(
+        'button[type="submit"], input[type="submit"]'
+    );
+
+    /*
+    =========================================
+    FASE 6.4
+    PRUEBA CONTROLADA DE CONEXIÓN CON API
+    =========================================
+
+    Todavía NO usamos los id_producto del carrito.
+
+    Para esta prueba utilizaremos:
+
+    id_producto = 1
+
+    El backend será quien consulte:
+    - nombre
+    - precio
+    - disponibilidad
+    - subtotal
+    - impuesto
+    - total
+    */
+
+    const idProductoPrueba = 1;
+
+    const cantidad = Math.max(
+        1,
+        parseInt(cantidadInput.value) || 1
+    );
+
+    const datosVenta = {
+
+        id_usuario: null,
+
+        metodo_pago: metodoPago
+            ? metodoPago.value
+            : null,
+
+        productos: [
+
+            {
+                id_producto: idProductoPrueba,
+                cantidad: cantidad
+            }
+
+        ]
+
+    };
+
+    try{
+
+        /*
+        =========================================
+        DESACTIVAR BOTÓN DURANTE EL ENVÍO
+        =========================================
+        */
+
+        if(botonEnviar){
+
+            botonEnviar.disabled = true;
+
+        }
+
+        /*
+        =========================================
+        ENVÍO A LA API
+        =========================================
+        */
+
+        const respuesta = await fetch(
+            "/Pupusas_paginaweb/api/ventas.php",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(datosVenta)
+            }
+        );
+
+        /*
+        =========================================
+        LEER RESPUESTA JSON
+        =========================================
+        */
+
+        const resultado = await respuesta.json();
+
+        /*
+        =========================================
+        VERIFICAR RESULTADO
+        =========================================
+        */
+
+        if(!respuesta.ok || !resultado.exito){
+
+            throw new Error(
+                resultado.mensaje ||
+                "No se pudo registrar la venta."
+            );
+
+        }
+
+        /*
+        =========================================
+        VENTA REGISTRADA CORRECTAMENTE
+        =========================================
+        */
+
+        alert(
+            "Venta registrada correctamente.\n\n" +
+            "Factura: #" + resultado.id_factura + "\n" +
+            "Total: $" + resultado.total
+        );
+
+        /*
+        =========================================
+        IMPORTANTE
+
+        En esta fase NO vaciamos el carrito.
+
+        La integración real del carrito
+        llegará en la Fase 6.5.
+        =========================================
+        */
+
+        limpiarFormulario();
+
+        cerrarModal();
+
+    }catch(error){
+
+        console.error(
+            "Error registrando venta:",
+            error
+        );
+
+        alert(
+            "No se pudo registrar la venta.\n\n" +
+            error.message
+        );
+
+        /*
+        =========================================
+        IMPORTANTE
+
+        Si la API falla:
+
+        - NO vaciamos el carrito.
+        - NO cerramos el modal.
+        - Permitimos al usuario corregir
+          o volver a intentar.
+        =========================================
+        */
+
+    }finally{
+
+        if(botonEnviar){
+
+            botonEnviar.disabled = false;
+
+        }
 
     }
-
-    limpiarFormulario();
-
-    cerrarModal();
 
 };
 
