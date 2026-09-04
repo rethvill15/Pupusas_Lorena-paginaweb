@@ -670,7 +670,6 @@ Formulario de reservaciones
     actualizarHoraMinima();
 
     fechaInput.addEventListener("change", actualizarHoraMinima);
-```js
 formulario.onsubmit = async function(e) {
     e.preventDefault();
 
@@ -741,7 +740,7 @@ formulario.onsubmit = async function(e) {
         );
     }
 };
-```
+
 
 }
 
