@@ -670,9 +670,8 @@ Formulario de reservaciones
     actualizarHoraMinima();
 
     fechaInput.addEventListener("change", actualizarHoraMinima);
-
-    formulario.onsubmit = function(e){
-
+```js
+formulario.onsubmit = async function(e) {
     e.preventDefault();
 
     const ahora = new Date();
@@ -682,21 +681,67 @@ Formulario de reservaciones
         fechaInput.value + "T" + horaInput.value
     );
 
-    if(fechaSeleccionada < ahora){
-
+    if (fechaSeleccionada < ahora) {
         alert("No puede reservar una fecha u hora que ya haya pasado.");
-
         return;
-
     }
 
-    alert("Reservación registrada correctamente.");
+    const datosReservacion = {
+        nombre_reserva: document.getElementById("res-name").value.trim(),
+        fecha: fechaInput.value,
+        hora: horaInput.value,
+        cantidad_personas: parseInt(
+            document.getElementById("res-people").value,
+            10
+        ),
+        ninos: document.getElementById("res-kids").value
+    };
 
-    limpiarReservacion();
+    try {
+        const respuesta = await fetch(
+            "/Pupusas_paginaweb/api/reservaciones.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datosReservacion)
+            }
+        );
 
-    cerrarModal();
+        const resultado = await respuesta.json();
 
+        if (!respuesta.ok || !resultado.exito) {
+            alert(
+                resultado.mensaje ||
+                "No se pudo registrar la reservación."
+            );
+            return;
+        }
+
+        alert(
+            resultado.mensaje +
+            "\nNúmero de reservación: " +
+            resultado.id_reservacion
+        );
+
+        limpiarReservacion();
+        cerrarModal();
+
+    } catch (error) {
+
+        console.error(
+            "Error al registrar reservación:",
+            error
+        );
+
+        alert(
+            "No se pudo conectar con el servidor. " +
+            "Inténtelo nuevamente."
+        );
+    }
 };
+```
 
 }
 
