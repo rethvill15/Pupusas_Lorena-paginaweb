@@ -241,25 +241,31 @@ Formulario de ventas
 
     const metodoPago = document.getElementById("metodo");
 
-    const cantidadInput = document.getElementById("cantidad");
-
     const botonEnviar = formulario.querySelector(
         'button[type="submit"], input[type="submit"]'
     );
 
     /*
     =========================================
-    FASE 6.4
-    PRUEBA CONTROLADA DE CONEXIÓN CON API
+    FASE 6.5
+    INTEGRACIÓN REAL DEL CARRITO CON LA API
     =========================================
 
-    Todavía NO usamos los id_producto del carrito.
+    El carrito contiene:
 
-    Para esta prueba utilizaremos:
+    - id_producto
+    - nombre
+    - precio
+    - imagen
+    - cantidad
 
-    id_producto = 1
+    Para la API solamente enviamos:
 
-    El backend será quien consulte:
+    - id_producto
+    - cantidad
+
+    El backend será responsable de consultar:
+
     - nombre
     - precio
     - disponibilidad
@@ -268,12 +274,63 @@ Formulario de ventas
     - total
     */
 
-    const idProductoPrueba = 1;
+    const carritoVenta =
+        Array.isArray(datos.carrito)
+            ? datos.carrito
+            : [];
 
-    const cantidad = Math.max(
-        1,
-        parseInt(cantidadInput.value) || 1
+    if(carritoVenta.length === 0){
+
+        alert("El carrito está vacío.");
+
+        return;
+
+    }
+
+    /*
+    =========================================
+    PREPARAR PRODUCTOS PARA LA API
+    =========================================
+    */
+
+    const productosVenta = carritoVenta.map(item => ({
+
+        id_producto: Number(item.id_producto),
+
+        cantidad: Number(item.cantidad)
+
+    }));
+
+    /*
+    =========================================
+    VALIDAR DATOS DEL CARRITO
+    =========================================
+    */
+
+    const productoInvalido = productosVenta.some(item =>
+
+        !Number.isInteger(item.id_producto) ||
+        item.id_producto <= 0 ||
+        !Number.isInteger(item.cantidad) ||
+        item.cantidad <= 0
+
     );
+
+    if(productoInvalido){
+
+        alert(
+            "El carrito contiene un producto con datos inválidos."
+        );
+
+        return;
+
+    }
+
+    /*
+    =========================================
+    DATOS QUE SE ENVIARÁN AL BACKEND
+    =========================================
+    */
 
     const datosVenta = {
 
@@ -283,16 +340,14 @@ Formulario de ventas
             ? metodoPago.value
             : null,
 
-        productos: [
-
-            {
-                id_producto: idProductoPrueba,
-                cantidad: cantidad
-            }
-
-        ]
+        productos: productosVenta
 
     };
+
+    console.log(
+        "Datos enviados a ventas.php:",
+        datosVenta
+    );
 
     try{
 
@@ -359,6 +414,8 @@ Formulario de ventas
         alert(
             "Venta registrada correctamente.\n\n" +
             "Factura: #" + resultado.id_factura + "\n" +
+            "Subtotal: $" + resultado.subtotal + "\n" +
+            "IVA: $" + resultado.impuesto + "\n" +
             "Total: $" + resultado.total
         );
 
@@ -366,12 +423,20 @@ Formulario de ventas
         =========================================
         IMPORTANTE
 
-        En esta fase NO vaciamos el carrito.
+        SOLO después de que la API confirme
+        la venta:
 
-        La integración real del carrito
-        llegará en la Fase 6.5.
+        - vaciamos el carrito
+        - limpiamos el formulario
+        - cerramos el modal
         =========================================
         */
+
+        if(typeof vaciarCarrito === "function"){
+
+            vaciarCarrito();
+
+        }
 
         limpiarFormulario();
 
@@ -391,14 +456,11 @@ Formulario de ventas
 
         /*
         =========================================
-        IMPORTANTE
+        SI LA API FALLA:
 
-        Si la API falla:
-
-        - NO vaciamos el carrito.
-        - NO cerramos el modal.
-        - Permitimos al usuario corregir
-          o volver a intentar.
+        - NO vaciamos el carrito
+        - NO cerramos el modal
+        - el usuario puede volver a intentar
         =========================================
         */
 
