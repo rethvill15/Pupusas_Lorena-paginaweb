@@ -40,33 +40,106 @@
 
     <!-- CONTENIDO PRINCIPAL -->
     <main class="main-content container">
-        <div class="admin-card">
-            <div class="admin-card-header">
-                <span class="icon-title">👤</span>
-                <h2>Registro de Usuarios</h2>
-                <p>Añade nuevos clientes o administradores al sistema.</p>
-            </div>
-            <form class="admin-form">
-                <div class="form-group input-check">
-                    <label for="username">Nombre Completo</label>
-                    <input type="text" id="username" placeholder="Ej. Juan Pérez" required>
-                </div>
-                <div class="form-group input-check">
-                    <label for="useremail">Correo Electrónico</label>
-                    <input type="email" id="useremail" placeholder="juan@correo.com" required>
-                </div>
-                <div class="form-group input-check">
-                    <label for="userrole">Rol de Usuario</label>
-                    <select id="userrole">
-                        <option value="cliente">Cliente Frecuente</option>
-                        <option value="mesero">Mesero / Personal</option>
-                        <option value="admin">Administrador</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-submit btn-primary">Añadir Usuario</button>
-            </form>
+    <div class="admin-card">
+
+        <div class="admin-card-header">
+            <span class="icon-title">👤</span>
+
+            <h2>Crear una cuenta</h2>
+
+            <p>
+                Regístrate para realizar pedidos y reservaciones en Pupusas Lorena.
+            </p>
         </div>
-    </main>
+
+        <form class="admin-form" id="registroForm">
+
+            <div class="form-group input-check">
+                <label for="nombres">Nombres</label>
+                <input
+                    type="text"
+                    id="nombres"
+                    name="nombres"
+                    placeholder="Ej. Juan"
+                    autocomplete="given-name"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="apellidos">Apellidos</label>
+                <input
+                    type="text"
+                    id="apellidos"
+                    name="apellidos"
+                    placeholder="Ej. Pérez"
+                    autocomplete="family-name"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="correo">Correo Electrónico</label>
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="juan@correo.com"
+                    autocomplete="email"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="telefono">Teléfono</label>
+                <input
+                    type="tel"
+                    id="telefono"
+                    name="telefono"
+                    placeholder="Ej. 8888-8888"
+                    autocomplete="tel"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="direccion">Dirección</label>
+                <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    placeholder="Ej. Managua, Nicaragua"
+                    autocomplete="street-address"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="password">Contraseña</label>
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Mínimo 8 caracteres"
+                    autocomplete="new-password"
+                    required>
+            </div>
+
+            <div class="form-group input-check">
+                <label for="confirmarPassword">Confirmar Contraseña</label>
+                <input
+                    type="password"
+                    id="confirmarPassword"
+                    name="confirmarPassword"
+                    placeholder="Repite tu contraseña"
+                    autocomplete="new-password"
+                    required>
+            </div>
+
+            <button
+                type="submit"
+                class="btn-submit btn-primary">
+                Crear Cuenta
+            </button>
+
+        </form>
+    </div>
+</main>
 
     <footer id="contacto" class="footer">
         <div class="container text-center">
