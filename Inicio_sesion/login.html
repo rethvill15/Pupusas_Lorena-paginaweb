@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Iniciar Sesión - Pupusas Lorena</title>
+
+    <link rel="icon" href="../Imagenes/pupusas_logo.png">
+
+</head>
+
+<body>
+
+    <main>
+
+        <h1>Iniciar Sesión</h1>
+
+        <p>
+            Ingresa a tu cuenta de Pupusas Lorena.
+        </p>
+
+        <form id="loginForm">
+
+            <div>
+                <label for="correo">
+                    Correo Electrónico
+                </label>
+
+                <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="Ej. usuario@correo.com"
+                    autocomplete="email"
+                    required>
+            </div>
+
+
+            <div>
+                <label for="password">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Ingresa tu contraseña"
+                    autocomplete="current-password"
+                    required>
+            </div>
+
+
+            <button type="submit">
+                Iniciar Sesión
+            </button>
+
+        </form>
+
+
+        <p>
+            ¿No tienes una cuenta?
+            <a href="../Registro_usuario/Registro_user.html">
+                Crear una cuenta
+            </a>
+        </p>
+
+    </main>
+
+
+    <script src="../JS_archivos/login.js?v=1"></script>
+
+</body>
+
+</html>

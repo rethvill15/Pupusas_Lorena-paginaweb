@@ -67,18 +67,36 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
 
             const respuesta = await fetch(
-                "../api/usuarios.php",
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify(datos)
-                }
-            );
+                "/Pupusas_paginaweb/api/usuarios.php",
+    {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(datos)
+    }
+);
 
 
-            const resultado = await respuesta.json();
+            const textoRespuesta = await respuesta.text();
+
+console.log("HTTP:", respuesta.status);
+console.log("Respuesta del servidor:", textoRespuesta);
+
+let resultado;
+
+try {
+    resultado = JSON.parse(textoRespuesta);
+} catch (error) {
+    console.error("El servidor no devolvió JSON válido.");
+    console.error(textoRespuesta);
+
+    alert(
+        "El servidor respondió, pero la respuesta no es un JSON válido."
+    );
+
+    return;
+}
 
 
             // ==========================================
@@ -104,13 +122,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } catch (error) {
 
-            console.error("Error al registrar usuario:", error);
+    console.error("Error al registrar usuario:", error);
+    console.error("Nombre del error:", error.name);
+    console.error("Mensaje del error:", error.message);
 
-            alert(
-                "No fue posible comunicarse con el servidor."
-            );
+    alert(
+        "ERROR:\n" +
+        error.name +
+        "\n\n" +
+        error.message
+    );
 
-        }
+}
 
     });
 
