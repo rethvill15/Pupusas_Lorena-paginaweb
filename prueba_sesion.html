@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Prueba de Sesión</title>
+
+</head>
+
+<body>
+
+    <h1>Prueba de sesión</h1>
+
+    <button id="btnSesion">
+        Consultar sesión
+    </button>
+
+
+    <script src="JS_archivos/sesion.js?v=1"></script>
+
+    <script>
+
+        document
+            .getElementById("btnSesion")
+            .addEventListener("click", async function () {
+
+                const resultado = await obtenerSesion();
+
+                console.log(
+                    "Resultado obtenido:",
+                    resultado
+                );
+
+                if (resultado.sesion_activa) {
+
+                    alert(
+                        "Sesión activa.\n" +
+                        "Usuario: " +
+                        resultado.usuario.nombres
+                    );
+
+                } else {
+
+                    alert(
+                        "No hay una sesión iniciada."
+                    );
+
+                }
+
+            });
+
+    </script>
+
+</body>
+
+</html>
