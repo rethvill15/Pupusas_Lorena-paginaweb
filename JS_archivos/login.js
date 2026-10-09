@@ -75,19 +75,23 @@ document.addEventListener("DOMContentLoaded", function () {
             // PROCESAR RESPUESTA
             // ==========================================
 
-            if (resultado.exito) {
+        if (resultado.exito) {
 
-                alert(
-                    resultado.mensaje +
-                    "\nBienvenido/a " +
-                    resultado.usuario.nombres
-                );
+    alert(
+        resultado.mensaje +
+        "\nBienvenido/a " +
+        resultado.usuario.nombres
+    );
 
-            } else {
+    // Redirigir a la sección Mi cuenta.
+    window.location.href =
+        "/Pupusas_paginaweb/Pupusa_paginaweb/Mi_cuenta/mi_cuenta.html";
 
-                alert(resultado.mensaje);
+} else {
 
-            }
+    alert(resultado.mensaje);
+
+}
 
 
         } catch (error) {

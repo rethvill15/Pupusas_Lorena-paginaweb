@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi cuenta - Pupusas Lorena</title>
+</head>
+<body>
+
+    <header>
+        <h1>Mi cuenta</h1>
+        <a href="../pup_lorena.html">Volver a la página principal</a>
+    </header>
+
+    <main>
+        <h2>Mis datos personales</h2>
+
+        <p id="estadoCuenta">Comprobando tu sesión...</p>
+
+        <section id="datosUsuario" hidden>
+            <p><strong>Nombres:</strong> <span id="nombres"></span></p>
+            <p><strong>Apellidos:</strong> <span id="apellidos"></span></p>
+            <p><strong>Correo electrónico:</strong> <span id="correo"></span></p>
+            <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
+            <p><strong>Dirección:</strong> <span id="direccion"></span></p>
+        </section>
+
+        <p id="enlaceLogin" hidden>
+            Para consultar tu cuenta, primero debes
+            <a href="../Inicio_sesion/login.html">iniciar sesión</a>.
+        </p>
+
+        <button type="button" id="cerrarSesion" hidden>
+            Cerrar sesión
+        </button>
+    </main>
+
+    <script src="mi_cuenta.js?v=1"></script>
+</body>
+</html>

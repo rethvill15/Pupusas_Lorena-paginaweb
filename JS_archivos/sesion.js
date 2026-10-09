@@ -1,7 +1,7 @@
+
 /* =========================================================
    SISTEMA DE SESIÓN - PUPUSAS LORENA
    ========================================================= */
-
 
 async function obtenerSesion() {
 
@@ -11,58 +11,45 @@ async function obtenerSesion() {
             "/Pupusas_paginaweb/api/sesion.php",
             {
                 method: "GET",
-                cache: "no-store"
+                cache: "no-store",
+                credentials: "same-origin"
             }
         );
 
+        if (!respuesta.ok) {
+            throw new Error("No fue posible consultar la sesión.");
+        }
 
-        const resultado = await respuesta.json();
-
-
-        console.log(
-            "Estado de sesión:",
-            resultado
-        );
-
-
-        return resultado;
+        return await respuesta.json();
 
     } catch (error) {
 
-        console.error(
-            "No fue posible consultar la sesión:",
-            error
-        );
-
+        console.error("Error al consultar la sesión:", error);
 
         return {
             exito: false,
             sesion_activa: false
         };
-
     }
-
 }
 
 
 /* =========================================================
-   ACTUALIZAR ZONA DEL USUARIO
+   ACTUALIZAR ZONA DEL USUARIO EN LA NAVEGACIÓN
    ========================================================= */
 
 async function actualizarUsuarioNav() {
 
-    const usuarioNav =
-        document.getElementById("usuarioNav");
-
+    const usuarioNav = document.getElementById("usuarioNav");
 
     if (!usuarioNav) {
         return;
     }
 
+    const resultado = await obtenerSesion();
 
-    const resultado =
-        await obtenerSesion();
-
+    // Limpiar las opciones anteriores.
+    usuarioNav.replaceChildren();
 
     /* =====================================================
        USUARIO CON SESIÓN ACTIVA
@@ -74,73 +61,51 @@ async function actualizarUsuarioNav() {
         resultado.usuario
     ) {
 
-        const nombre =
-            resultado.usuario.nombres;
+        // Saludo personalizado.
+        const saludo = document.createElement("span");
+        saludo.className = "nav-item usuario-nombre";
+        saludo.textContent = "Hola, " + resultado.usuario.nombres;
 
+        usuarioNav.appendChild(saludo);
 
-        usuarioNav.innerHTML = `
+        // Enlace a Mi cuenta.
+        const enlaceCuenta = document.createElement("a");
+        enlaceCuenta.href = "Mi_cuenta/mi_cuenta.html";
+        enlaceCuenta.className = "nav-item";
+        enlaceCuenta.textContent = "Mi cuenta";
 
-            <span class="nav-item usuario-nombre">
-                Hola, ${nombre}
-            </span>
+        usuarioNav.appendChild(enlaceCuenta);
 
-            <a
-                href="#"
-                class="nav-item"
-                id="enlaceLogout">
+        // Enlace para cerrar sesión.
+        const enlaceLogout = document.createElement("a");
+        enlaceLogout.href = "#";
+        enlaceLogout.className = "nav-item";
+        enlaceLogout.textContent = "Cerrar sesión";
 
-                Cerrar sesión
+        enlaceLogout.addEventListener("click", cerrarSesion);
 
-            </a>
+        usuarioNav.appendChild(enlaceLogout);
 
-        `;
-
+    } else {
 
         /* =================================================
-           BOTÓN CERRAR SESIÓN
+           USUARIO SIN SESIÓN
            ================================================= */
 
-        const enlaceLogout =
-            document.getElementById("enlaceLogout");
+        const enlaceLogin = document.createElement("a");
+        enlaceLogin.href = "Inicio_sesion/login.html";
+        enlaceLogin.className = "nav-item";
+        enlaceLogin.textContent = "Iniciar sesión";
 
+        usuarioNav.appendChild(enlaceLogin);
 
-        enlaceLogout.addEventListener(
-            "click",
-            cerrarSesion
-        );
+        const enlaceRegistro = document.createElement("a");
+        enlaceRegistro.href = "Registro_usuario/Registro_user.html";
+        enlaceRegistro.className = "nav-item";
+        enlaceRegistro.textContent = "Crear cuenta";
 
-
+        usuarioNav.appendChild(enlaceRegistro);
     }
-
-
-    /* =====================================================
-       USUARIO SIN SESIÓN
-       ===================================================== */
-
-    else {
-
-        usuarioNav.innerHTML = `
-
-            <a
-                href="Inicio_sesion/login.html"
-                class="nav-item">
-
-                Iniciar sesión
-
-            </a>
-
-            <a
-                href="Registro_usuario/Registro_user.html"
-                class="nav-item">
-
-                Crear cuenta
-
-            </a>
-
-        `;
-
-    }
-
 }
 
 
@@ -152,32 +117,25 @@ async function cerrarSesion(event) {
 
     event.preventDefault();
 
-
     try {
 
         const respuesta = await fetch(
             "/Pupusas_paginaweb/api/logout.php",
             {
                 method: "GET",
-                cache: "no-store"
+                cache: "no-store",
+                credentials: "same-origin"
             }
         );
 
+        const resultado = await respuesta.json();
 
-        const resultado =
-            await respuesta.json();
+        if (respuesta.ok && resultado.exito) {
 
-
-        if (resultado.exito) {
-
-            alert(
-                resultado.mensaje
-            );
-
+            alert("Sesión cerrada correctamente.");
 
             window.location.href =
                 "/Pupusas_paginaweb/Pupusa_paginaweb/pup_lorena.html";
-
 
         } else {
 
@@ -185,24 +143,14 @@ async function cerrarSesion(event) {
                 resultado.mensaje ||
                 "No fue posible cerrar la sesión."
             );
-
         }
-
 
     } catch (error) {
 
-        console.error(
-            "Error al cerrar sesión:",
-            error
-        );
+        console.error("Error al cerrar sesión:", error);
 
-
-        alert(
-            "No fue posible comunicarse con el servidor."
-        );
-
+        alert("No fue posible comunicarse con el servidor.");
     }
-
 }
 
 
@@ -214,3 +162,4 @@ document.addEventListener(
     "DOMContentLoaded",
     actualizarUsuarioNav
 );
+
