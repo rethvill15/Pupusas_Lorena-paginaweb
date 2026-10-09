@@ -21,14 +21,73 @@
             <img src="Imagenes/images.png" alt="Logo Pupusas" class="logo-img">
             <span class="logo-texto">Pupusas Lorena</span>
         </a>
-        <nav class="nav-links">
-            <a href="pup_lorena.html" class="nav-item active">Inicio</a>
-            <a href="Menu_pupusas/menu_seccion.html" class="nav-item">Menú</a>
-            <a href="Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
-            <a href="Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
-            <a href="Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
-            <a href="#" class="btn-nav" onclick="abrirModal('Menu_pupusas/Registro_ventas/modal_ventas.html',{ producto: '', precio: 0}); return false;">Pide Ahora</a>
-            <div class="cart-btn" id="abrirCarrito" title="Ver carrito"><i class="bi bi-cart4"></i><span class="cart-count" id="cartCount">0 </span></div>
+       <nav class="nav-links">
+
+    <a href="pup_lorena.html" class="nav-item active">
+        Inicio
+    </a>
+
+    <a href="Menu_pupusas/menu_seccion.html" class="nav-item">
+        Menú
+    </a>
+
+    <a href="Historia_seccion/historia_pagi.html" class="nav-item">
+        Nuestra Historia
+    </a>
+
+    <a href="Eventos/eventos_pagi.html" class="nav-item">
+        Eventos
+    </a>
+
+
+    <!-- ==========================================
+         ZONA DEL USUARIO
+         sesion.js la actualizará automáticamente.
+         ========================================== -->
+
+    <div class="usuario-nav" id="usuarioNav">
+
+        <a
+            href="Inicio_sesion/login.html"
+            class="nav-item"
+            id="enlaceLogin">
+            Iniciar sesión
+        </a>
+
+        <a
+            href="Registro_usuario/Registro_user.html"
+            class="nav-item"
+            id="enlaceRegistro">
+            Crear cuenta
+        </a>
+
+    </div>
+
+
+    <a
+        href="#"
+        class="btn-nav"
+        onclick="abrirModal('Menu_pupusas/Registro_ventas/modal_ventas.html',{ producto: '', precio: 0}); return false;">
+        Pide Ahora
+    </a>
+
+
+    <div
+        class="cart-btn"
+        id="abrirCarrito"
+        title="Ver carrito">
+
+        <i class="bi bi-cart4"></i>
+
+        <span
+            class="cart-count"
+            id="cartCount">
+            0
+        </span>
+
+    </div>
+
+</nav>
     </div>
 </header>
 
@@ -227,5 +286,7 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 <script src="JS_archivos/carrito.js"></script>
 <script src="JS_archivos/modal.js"></script>
+<script src="JS_archivos/sesion.js?v=1"></script>
+
 </body>
 </html>
