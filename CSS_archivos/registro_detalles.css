@@ -273,3 +273,11 @@ body {
     opacity: 0.6;
 }
 
+
+
+/* Rediseño visual de registro: alineado con Login y Mi cuenta */
+.main-content.container{width:min(100% - 32px,760px);max-width:760px;min-height:auto;margin:0 auto;padding:52px 0 58px;display:block}
+.admin-card{width:100%;max-width:760px;padding:clamp(24px,5vw,46px);border:1px solid rgba(217,119,6,.12);border-radius:22px;background:#fff;box-shadow:0 18px 48px rgba(91,62,20,.09)}
+.admin-card-header{text-align:center;margin-bottom:30px}.icon-title{display:grid;place-items:center;width:68px;height:68px;margin:0 auto 15px;border-radius:50%;background:#FFF5E3;color:#D97706;font-size:1.8rem}.etiqueta-registro{display:block;color:#D97706;font-size:.72rem;font-weight:800;letter-spacing:.14em;margin-bottom:7px}.admin-card-header h1{font-family:'Montserrat',sans-serif;color:#1F2937;font-size:clamp(1.8rem,4vw,2.25rem);line-height:1.25;letter-spacing:-.04em;margin:0 0 9px}.admin-card-header p{max-width:480px;margin:0 auto;color:#64748B;font-size:.96rem}
+.admin-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px 18px}.form-group{gap:7px;min-width:0}.admin-form label{color:#374151;font-size:.88rem;font-weight:700}.admin-form input,.admin-form select{width:100%;min-width:0;min-height:48px;padding:12px 14px;border:1px solid #D1D5DB;border-radius:10px;background:#FFFEFC;color:#1F2937;font:inherit;font-size:.93rem;transition:border-color .2s,box-shadow .2s,background .2s}.admin-form input::placeholder{color:#9CA3AF}.admin-form input:focus,.admin-form select:focus{outline:none;border-color:#D97706;box-shadow:0 0 0 3px rgba(217,119,6,.14);background:#fff}.admin-form .btn-submit{grid-column:1/-1;min-height:52px;margin-top:4px;border:0;border-radius:10px;background:#D97706;color:#fff;font:inherit;font-weight:800;box-shadow:0 7px 15px rgba(217,119,6,.15);transition:background .2s,transform .2s}.admin-form .btn-submit:hover{background:#B45309;transform:translateY(-1px)}.admin-form .btn-submit:focus-visible{outline:3px solid rgba(217,119,6,.3);outline-offset:3px}
+@media(max-width:600px){.main-content.container{width:calc(100% - 24px);padding:30px 0 38px}.admin-card{padding:24px 18px;border-radius:17px}.admin-card-header{margin-bottom:24px}.admin-form{grid-template-columns:1fr;gap:16px}.admin-form .btn-submit{grid-column:auto}}
