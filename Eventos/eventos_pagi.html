@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../CSS_archivos/detalles_event.css">
     <link rel="stylesheet" href="../CSS_archivos/modal.css">
     <link rel="stylesheet" href="../CSS_archivos/carrito.css">
+    <link rel="stylesheet" href="../CSS_archivos/nav_usuario.css?v=3">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="icon" href="../Imagenes/pupusas_logo.png" type="image/x-icon">
 </head>
@@ -28,7 +29,7 @@
             <a href="../Menu_pupusas/menu_seccion.html" class="nav-item">Menú</a>
             <a href="../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
             <a href="eventos_pagi.html" class="nav-item active">Eventos</a>
-            <a href="../Registro_usuario/Registro_user.html" class="nav-item">Usuarios</a>
+            <div class="usuario-nav" id="usuarioNav" data-base="../"></div>
             <a  class="btn-nav" onclick="abrirModal('../Menu_pupusas/Registro_ventas/modal_ventas.html');return false;">Pide Ahora</a>
             <div class="cart-btn" id="abrirCarrito" title="Ver carrito"><i class="bi bi-cart4"></i><span class="cart-count" id="cartCount">0 </span></div>
 
@@ -171,5 +172,6 @@ Agrega algunas pupusas para comenzar tu pedido.
 
 <script src="../JS_archivos/carrito.js"></script>
 <script src="../JS_archivos/modal.js"></script>
+<script src="../JS_archivos/nav_usuario.js?v=3"></script>
 </body>
 </html>

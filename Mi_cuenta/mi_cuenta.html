@@ -1,41 +1,91 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
     <title>Mi cuenta - Pupusas Lorena</title>
+    <link rel="icon" href="../Imagenes/pupusas_logo.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS_archivos/detalles.css">
+    <link rel="stylesheet" href="../CSS_archivos/nav_usuario.css?v=2">
+    <link rel="stylesheet" href="mi_cuenta.css?v=2">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
-<body>
+<body class="cuenta-page">
+    <header class="navbar"><div class="nav-container">
+<a href="../pup_lorena.html" class="logo"><img src="../Imagenes/images.png" alt="Logo Pupusas Lorena" class="logo-img"><span class="logo-texto">Pupusas Lorena</span></a>
+<nav class="nav-links" aria-label="Navegación principal"><a href="../pup_lorena.html" class="nav-item">Inicio</a>
+<a href="../Menu_pupusas/menu_seccion.html" class="nav-item">Menú</a>
+<a href="../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
+<a href="../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
+<div class="usuario-nav" id="usuarioNav" data-base="../"><a class="nav-item" href="../Inicio_sesion/login.html">Iniciar sesión</a><a class="nav-item" href="../Registro_usuario/Registro_user.html">Crear cuenta</a></div>
+<a href="../Menu_pupusas/menu_seccion.html" class="btn-nav">Ver menú</a></nav></div></header>
 
-    <header>
-        <h1>Mi cuenta</h1>
-        <a href="../pup_lorena.html">Volver a la página principal</a>
-    </header>
+    <main class="cuenta-main">
+        <div class="introduccion">
+            <span class="etiqueta-superior">TU ESPACIO PERSONAL</span>
+            <h1>Mi cuenta</h1>
+            <p>Consulta la información de tu cuenta de Pupusas Lorena.</p>
+        </div>
 
-    <main>
-        <h2>Mis datos personales</h2>
-
-        <p id="estadoCuenta">Comprobando tu sesión...</p>
-
-        <section id="datosUsuario" hidden>
-            <p><strong>Nombres:</strong> <span id="nombres"></span></p>
-            <p><strong>Apellidos:</strong> <span id="apellidos"></span></p>
-            <p><strong>Correo electrónico:</strong> <span id="correo"></span></p>
-            <p><strong>Teléfono:</strong> <span id="telefono"></span></p>
-            <p><strong>Dirección:</strong> <span id="direccion"></span></p>
-        </section>
-
-        <p id="enlaceLogin" hidden>
-            Para consultar tu cuenta, primero debes
-            <a href="../Inicio_sesion/login.html">iniciar sesión</a>.
+        <p id="estadoCuenta" class="estado-cuenta" role="status" aria-live="polite">
+            <span class="spinner" aria-hidden="true"></span> Comprobando tu sesión...
         </p>
 
-        <button type="button" id="cerrarSesion" hidden>
-            Cerrar sesión
-        </button>
+        <section id="datosUsuario" class="tarjeta-cuenta" aria-labelledby="tituloDatos" hidden>
+            <div class="tarjeta-encabezado">
+                <div class="icono-perfil" aria-hidden="true"><i class="bi bi-person-fill"></i></div>
+                <div>
+                    <h2 id="tituloDatos">Datos personales</h2>
+                    <p>Aquí puedes ver la información de tu cuenta.</p>
+                </div>
+            </div>
+
+            <div class="lista-datos">
+                <div class="fila-dato">
+                    <span class="icono-dato" aria-hidden="true"><i class="bi bi-person-fill"></i></span>
+                    <div class="dato-texto"><span class="dato-etiqueta">Nombre completo</span><strong id="nombreCompleto" class="dato-valor">—</strong></div>
+                </div>
+                <div class="fila-dato">
+                    <span class="icono-dato" aria-hidden="true"><i class="bi bi-envelope-fill"></i></span>
+                    <div class="dato-texto"><span class="dato-etiqueta">Correo electrónico</span><strong id="correo" class="dato-valor">—</strong></div>
+                </div>
+                <div class="fila-dato">
+                    <span class="icono-dato" aria-hidden="true"><i class="bi bi-telephone-fill"></i></span>
+                    <div class="dato-texto"><span class="dato-etiqueta">Teléfono</span><strong id="telefono" class="dato-valor">—</strong></div>
+                </div>
+                <div class="fila-dato">
+                    <span class="icono-dato" aria-hidden="true"><i class="bi bi-geo-alt-fill"></i></span>
+                    <div class="dato-texto"><span class="dato-etiqueta">Dirección</span><strong id="direccion" class="dato-valor">—</strong></div>
+                </div>
+            </div>
+
+            <div class="acciones-cuenta">
+                <button type="button" class="boton-historial" disabled title="Esta función estará disponible próximamente">
+                    <i class="bi bi-bag-check" aria-hidden="true"></i>
+                    <span><strong>Historial de compras</strong><small>Próximamente</small></span>
+                </button>
+                <button type="button" id="cerrarSesion" class="boton-cerrar" hidden>
+                    <i class="bi bi-box-arrow-right" aria-hidden="true"></i> Cerrar sesión
+                </button>
+            </div>
+        </section>
+
+        <section id="enlaceLogin" class="tarjeta-aviso" hidden>
+            <span class="aviso-icono" aria-hidden="true"><i class="bi bi-person-lock"></i></span>
+            <h2>Inicia sesión para continuar</h2>
+            <p>Para consultar tus datos personales, primero debes acceder a tu cuenta.</p>
+            <a class="boton-principal" href="../Inicio_sesion/login.html">Iniciar sesión <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </section>
+
+        <a class="enlace-regreso" href="../pup_lorena.html"><i class="bi bi-house" aria-hidden="true"></i> Volver a Pupusas Lorena</a>
     </main>
 
-    <script src="mi_cuenta.js?v=1"></script>
+    <footer class="cuenta-footer"><p>© Pupusas Lorena · Hecho con cariño</p></footer>
+    <script src="../JS_archivos/nav_usuario.js?v=2"></script>
+    <script src="mi_cuenta.js?v=3"></script>
 </body>
 </html>
