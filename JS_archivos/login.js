@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const formulario = document.getElementById("loginForm");
@@ -21,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // ==========================================
-        // VALIDACIONES BÁSICAS
+        // VALIDACIONES BASICAS
         // ==========================================
 
         if (correo === "" || password === "") {
@@ -37,10 +38,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // ==========================================
 
         const datos = {
-
             correo: correo,
             password: password
-
         };
 
 
@@ -75,23 +74,46 @@ document.addEventListener("DOMContentLoaded", function () {
             // PROCESAR RESPUESTA
             // ==========================================
 
-        if (resultado.exito) {
+            if (resultado.exito) {
 
-    alert(
-        resultado.mensaje +
-        "\nBienvenido/a " +
-        resultado.usuario.nombres
-    );
+                // ======================================
+                // VERIFICAR CAMBIO OBLIGATORIO
+                // ======================================
 
-    // Redirigir a la sección Mi cuenta.
-    window.location.href =
-        "/Pupusas_paginaweb/Pupusa_paginaweb/Mi_cuenta/mi_cuenta.html";
+                if (resultado.requiere_cambio_password) {
 
-} else {
+                    alert(
+                        "Bienvenido/a " +
+                        resultado.usuario.nombres +
+                        ". Por seguridad, debes cambiar tu contraseña temporal antes de continuar."
+                    );
 
-    alert(resultado.mensaje);
+                    window.location.href =
+                        "/Pupusas_paginaweb/Pupusa_paginaweb/Mi_cuenta/cambiar_password.html";
 
-}
+                    return;
+                }
+
+
+                // ======================================
+                // INICIO DE SESIÓN NORMAL
+                // ======================================
+
+                alert(
+                    resultado.mensaje +
+                    "\nBienvenido/a " +
+                    resultado.usuario.nombres
+                );
+
+                window.location.href =
+                    "/Pupusas_paginaweb/Pupusa_paginaweb/Mi_cuenta/mi_cuenta.html";
+
+
+            } else {
+
+                alert(resultado.mensaje);
+
+            }
 
 
         } catch (error) {
