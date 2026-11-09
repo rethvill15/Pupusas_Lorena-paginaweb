@@ -17,13 +17,86 @@ Apertura del modal
     } 
 
 
-    if(modalAbierto){
-
+    if (modalAbierto) {
     return;
+}
+
+modalAbierto = true;
+
+// ==========================================
+// PROTECCIÓN DEL MODAL DE RESERVACIONES
+// ==========================================
+
+const esReservacion = url.includes("modal_reservacion.html");
+
+if (esReservacion) {
+
+    try {
+
+        const respuestaSesion = await fetch(
+            "/Pupusas_paginaweb/api/sesion.php",
+            {
+                method: "GET",
+                cache: "no-store",
+                credentials: "same-origin"
+            }
+        );
+
+        const sesion = await respuestaSesion.json();
+
+        if (!respuestaSesion.ok || !sesion.exito) {
+            throw new Error("No fue posible verificar tu sesión.");
+        }
+
+        // No permitir reservaciones sin iniciar sesión.
+
+        if (!sesion.sesion_activa) {
+
+            modalAbierto = false;
+
+            alert(
+                "Para realizar una reservación debes iniciar sesión o crear una cuenta."
+            );
+
+            return;
+
+        }
+
+        // Verificar cambio obligatorio de contraseña.
+
+        if (sesion.requiere_cambio_password) {
+
+            modalAbierto = false;
+
+            alert(
+                "Debes cambiar tu contraseña antes de realizar una reservación."
+            );
+
+            window.location.href =
+                "/Pupusas_paginaweb/Pupusa_paginaweb/Mi_cuenta/cambiar_password.html";
+
+            return;
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Error verificando la sesión para reservar:",
+            error
+        );
+
+        modalAbierto = false;
+
+        alert(
+            "No fue posible verificar tu sesión. Inténtalo nuevamente."
+        );
+
+        return;
 
     }
 
-    modalAbierto = true;
+}
 
     overlay.classList.add("active");
 
