@@ -19,6 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
         aviso.hidden = false;
         return;
       }
+      // ==========================================
+// VERIFICAR CAMBIO OBLIGATORIO DE CONTRASEÑA
+// ==========================================
+
+if (data.requiere_cambio_password) {
+
+    window.location.href = "cambiar_password.html";
+
+    return;
+}
       const user = data.usuario;
       document.getElementById('nombreCompleto').textContent = [user.nombres,user.apellidos].filter(Boolean).join(' ') || 'No registrado';
       document.getElementById('correo').textContent = user.correo || 'No registrado';

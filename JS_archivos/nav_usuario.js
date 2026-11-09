@@ -22,9 +22,38 @@
       const response = await fetch(apiBase + 'sesion.php', {cache:'no-store', credentials:'same-origin'});
       const data = await response.json();
       if (response.ok && data.exito && data.sesion_activa && data.usuario) {
-        const saludo = document.createElement('span'); saludo.className='nav-item usuario-nombre'; saludo.textContent='Hola, ' + (data.usuario.nombres || 'usuario'); nav.append(saludo);
-        nav.append(link(base+'Mi_cuenta/mi_cuenta.html','Mi cuenta'));
-        const salir = link('#','Cerrar sesión'); salir.addEventListener('click', cerrarSesion); nav.append(salir);
+        const saludo = document.createElement('span');
+saludo.className = 'nav-item usuario-nombre';
+saludo.textContent = 'Hola, ' + (data.usuario.nombres || 'usuario');
+nav.append(saludo);
+
+// ==========================================
+// VERIFICAR CAMBIO OBLIGATORIO DE CONTRASEÑA
+// ==========================================
+
+if (data.requiere_cambio_password) {
+
+    window.location.href = base + 'Mi_cuenta/cambiar_password.html';
+    return;
+
+} else {
+
+    nav.append(
+        link(
+            base + 'Mi_cuenta/mi_cuenta.html',
+            'Mi cuenta'
+        )
+    );
+
+}
+
+// ==========================================
+// CERRAR SESIÓN
+// ==========================================
+
+const salir = link('#', 'Cerrar sesión');
+salir.addEventListener('click', cerrarSesion);
+nav.append(salir);
       } else {
         nav.append(link(base+'Inicio_sesion/login.html','Iniciar sesión'));
         nav.append(link(base+'Registro_usuario/Registro_user.html','Crear cuenta'));
