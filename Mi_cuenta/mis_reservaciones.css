@@ -1,0 +1,372 @@
+/* ==========================================
+   MIS RESERVACIONES - PUPUSAS LORENA
+========================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+.reservaciones-page {
+    min-height: 100vh;
+    margin: 0;
+    background: #FFFBEB;
+    color: #3D3028;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.reservaciones-main {
+    width: min(100% - 32px, 1000px);
+    margin: 45px auto;
+}
+
+/* INTRODUCCIÓN */
+
+.introduccion-reservaciones {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.introduccion-reservaciones h1 {
+    margin: 0 0 12px;
+    color: #A94724;
+    font-size: clamp(26px, 4vw, 36px);
+}
+
+.introduccion-reservaciones p {
+    margin: 0;
+    color: #76665A;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* MENSAJES DE ESTADO */
+
+.estado-reservaciones {
+    margin: 20px 0;
+    color: #665548;
+    text-align: center;
+    font-size: 15px;
+}
+
+.estado-reservaciones:empty {
+    display: none;
+}
+
+/* CONTENEDOR PRINCIPAL */
+
+.contenedor-reservaciones {
+    padding: 28px;
+    background: #FFFFFF;
+    border: 1px solid #F0E2D2;
+    border-radius: 16px;
+    box-shadow: 0 5px 18px rgba(91, 55, 29, 0.08);
+}
+
+.encabezado-lista {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+
+.encabezado-lista h2 {
+    margin: 0;
+    color: #49372C;
+    font-size: 21px;
+}
+
+.total-reservaciones {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 10px;
+    margin-left: 6px;
+    background: #FFF0DF;
+    border-radius: 20px;
+    color: #A94724;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* BOTONES */
+
+.boton-nueva-reservacion,
+.boton-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 11px 18px;
+    background: #C75A2A;
+    border: 1px solid #C75A2A;
+    border-radius: 9px;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.boton-nueva-reservacion:hover,
+.boton-principal:hover {
+    background: #A94724;
+    border-color: #A94724;
+    transform: translateY(-1px);
+}
+
+.boton-nueva-reservacion:focus-visible,
+.boton-principal:focus-visible,
+.boton-cancelar:focus-visible,
+.enlace-regreso:focus-visible {
+    outline: 3px solid #E9A16F;
+    outline-offset: 3px;
+}
+
+/* LISTA DE RESERVACIONES */
+
+.lista-reservaciones {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+}
+
+/* TARJETAS */
+
+.tarjeta-reservacion {
+    padding: 22px;
+    background: #FFFEFA;
+    border: 1px solid #EDE0D2;
+    border-left: 5px solid #D98B4A;
+    border-radius: 12px;
+}
+
+.reservacion-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.reservacion-id {
+    color: #76665A;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+/* ESTADOS */
+
+.estado-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.estado-pendiente {
+    background: #FFF0C2;
+    color: #805600;
+}
+
+.estado-confirmada {
+    background: #DDF3E2;
+    color: #21643A;
+}
+
+.estado-cancelada {
+    background: #FCE1E1;
+    color: #A12D2D;
+}
+
+.estado-finalizada {
+    background: #E8E5F5;
+    color: #55458B;
+}
+
+/* DATOS DE LA RESERVACIÓN */
+
+.datos-reservacion {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.dato-reservacion {
+    min-width: 0;
+}
+
+.dato-reservacion strong {
+    display: block;
+    margin-bottom: 5px;
+    color: #806D5D;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.dato-reservacion span {
+    display: block;
+    color: #49372C;
+    font-size: 15px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.dato-completo {
+    grid-column: 1 / -1;
+}
+
+/* ACCIONES DE CADA RESERVACIÓN */
+
+.acciones-reservacion {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #F0E7DE;
+}
+
+.boton-cancelar {
+    min-height: 40px;
+    padding: 9px 16px;
+    background: #FFFFFF;
+    border: 1px solid #C94B42;
+    border-radius: 8px;
+    color: #B3332B;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.boton-cancelar:hover {
+    background: #FCEBEB;
+}
+
+.boton-cancelar:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ESTADO VACÍO */
+
+.tarjeta-vacia {
+    padding: 38px 20px;
+    text-align: center;
+    background: #FFFEFA;
+    border: 1px dashed #E4CDB8;
+    border-radius: 12px;
+}
+
+.icono-vacio {
+    margin-bottom: 12px;
+    color: #C75A2A;
+    font-size: 38px;
+}
+
+.tarjeta-vacia h3 {
+    margin: 0 0 10px;
+    color: #49372C;
+    font-size: 19px;
+}
+
+.tarjeta-vacia p {
+    margin: 0 0 20px;
+    color: #76665A;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ENLACE DE REGRESO */
+
+.enlace-regreso {
+    display: inline-block;
+    margin-top: 24px;
+    color: #A94724;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.enlace-regreso:hover {
+    color: #80351C;
+    text-decoration: underline;
+}
+
+/* AVISOS Y ELEMENTOS OCULTOS */
+
+#avisoLogin {
+    margin: 20px 0;
+    padding: 18px;
+    background: #FFF0DF;
+    border: 1px solid #F0D1B5;
+    border-radius: 10px;
+    color: #75401F;
+    text-align: center;
+    line-height: 1.6;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ADAPTACIÓN A MÓVILES */
+
+@media (max-width: 600px) {
+    .reservaciones-main {
+        width: min(100% - 22px, 1000px);
+        margin: 28px auto;
+    }
+
+    .contenedor-reservaciones {
+        padding: 18px;
+    }
+
+    .encabezado-lista {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .boton-nueva-reservacion {
+        width: 100%;
+    }
+
+    .tarjeta-reservacion {
+        padding: 17px;
+    }
+
+    .datos-reservacion {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .dato-completo {
+        grid-column: auto;
+    }
+
+    .acciones-reservacion {
+        justify-content: stretch;
+    }
+
+    .boton-cancelar {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
