@@ -1,0 +1,291 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
+
+    <title>Panel de Administrador - Pupusas Lorena</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- CSS del panel -->
+    <link rel="stylesheet" href="CSS/administracion.css?v=1">
+</head>
+
+<body class="administracion-page">
+
+    <!-- ENCABEZADO -->
+    <header class="admin-header">
+
+        <a href="../pup_lorena.html" class="admin-marca">
+
+            <img src="../Imagenes/pupusas_logo.png"
+                 alt="Logo Pupusas Lorena"
+                 class="admin-logo">
+
+            <span>
+                Pupusas <strong>Lorena</strong>
+            </span>
+
+        </a>
+
+        <div class="admin-usuario">
+
+            <span class="admin-rol">
+                <i class="bi bi-shield-lock-fill"></i>
+                Administrador
+            </span>
+
+            <button type="button"
+                    id="btnCerrarSesion"
+                    class="boton-cerrar-sesion">
+
+                <i class="bi bi-box-arrow-right"></i>
+                Cerrar sesión
+
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="admin-main">
+
+        <!-- INTRODUCCIÓN -->
+        <section class="admin-introduccion">
+
+            <span class="admin-etiqueta">
+                ÁREA ADMINISTRATIVA
+            </span>
+
+            <h1>Panel de Administrador</h1>
+
+            <p>
+                Bienvenido. Desde aquí puedes gestionar las
+                operaciones de Pupusas Lorena.
+            </p>
+
+            <div id="estadoAdmin" class="admin-estado">
+
+                <span class="admin-spinner"></span>
+                Verificando sesión...
+
+            </div>
+
+        </section>
+
+
+        <!-- MENSAJE DE ACCESO -->
+        <section id="avisoAcceso"
+                 class="admin-aviso"
+                 hidden>
+
+            <div class="admin-aviso-icono">
+                <i class="bi bi-exclamation-circle"></i>
+            </div>
+
+            <h2 id="tituloAviso">
+                Acceso no disponible
+            </h2>
+
+            <p id="mensajeAviso">
+                No fue posible verificar tus permisos.
+            </p>
+
+            <a href="../Inicio_sesion/login.html"
+               class="admin-boton-principal"
+               id="enlaceLogin">
+
+                Ir a iniciar sesión
+
+            </a>
+
+        </section>
+
+
+        <!-- MÓDULOS ADMINISTRATIVOS -->
+        <section id="modulosAdmin"
+                 class="admin-modulos"
+                 hidden>
+
+            <div class="admin-seccion-titulo">
+
+                <div>
+                    <h2>Gestión del negocio</h2>
+
+                    <p>
+                        Selecciona el módulo que deseas administrar.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="admin-grid">
+
+
+                <!-- RESERVACIONES -->
+                <a href="Reservaciones/reservaciones_admin.html"
+                   class="admin-tarjeta tarjeta-reservaciones">
+
+                    <div class="admin-tarjeta-icono">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <div class="admin-tarjeta-contenido">
+
+                        <h3>Reservaciones</h3>
+
+                        <p>
+                            Consulta, confirma, cancela y gestiona
+                            las solicitudes de reservación.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-tarjeta-enlace">
+
+                        Gestionar reservaciones
+
+                        <i class="bi bi-arrow-right"></i>
+
+                    </span>
+
+                </a>
+
+
+                <!-- USUARIOS -->
+                <article class="admin-tarjeta tarjeta-futura">
+
+                    <div class="admin-tarjeta-icono">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <div class="admin-tarjeta-contenido">
+
+                        <h3>Usuarios</h3>
+
+                        <p>
+                            Administra las cuentas, los roles y
+                            los estados de los usuarios.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-tarjeta-enlace">
+
+                        Próximamente
+
+                        <i class="bi bi-lock"></i>
+
+                    </span>
+
+                </article>
+
+
+                <!-- PRODUCTOS -->
+                <article class="admin-tarjeta tarjeta-futura">
+
+                    <div class="admin-tarjeta-icono">
+                        <i class="bi bi-egg-fried"></i>
+                    </div>
+
+                    <div class="admin-tarjeta-contenido">
+
+                        <h3>Productos</h3>
+
+                        <p>
+                            Administra el catálogo, los precios
+                            y la disponibilidad de los productos.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-tarjeta-enlace">
+
+                        Próximamente
+
+                        <i class="bi bi-lock"></i>
+
+                    </span>
+
+                </article>
+
+
+                <!-- VENTAS -->
+                <article class="admin-tarjeta tarjeta-futura">
+
+                    <div class="admin-tarjeta-icono">
+                        <i class="bi bi-receipt"></i>
+                    </div>
+
+                    <div class="admin-tarjeta-contenido">
+
+                        <h3>Ventas</h3>
+
+                        <p>
+                            Consulta las ventas, facturas y
+                            sus estados de procesamiento.
+                        </p>
+
+                    </div>
+
+                    <span class="admin-tarjeta-enlace">
+
+                        Próximamente
+
+                        <i class="bi bi-lock"></i>
+
+                    </span>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- REGRESAR AL SITIO -->
+        <a href="../pup_lorena.html"
+           class="admin-volver"
+           id="enlaceVolver">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Regresar al sitio web
+
+        </a>
+
+    </main>
+
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="admin-footer">
+
+        <p>
+            © 2026 Pupusas Lorena. Panel administrativo.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="JS/administracion.js?v=1"></script>
+
+</body>
+</html>
+```

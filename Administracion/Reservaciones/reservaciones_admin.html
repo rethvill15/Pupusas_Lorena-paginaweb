@@ -1,0 +1,512 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
+
+    <title>Gestión de reservaciones - Pupusas Lorena</title>
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="reservaciones_admin.css?v=1">
+</head>
+
+<body class="reservaciones-admin-page">
+
+    <!-- =====================================================
+         ENCABEZADO
+    ====================================================== -->
+
+    <header class="admin-res-header">
+
+        <a href="../../pup_lorena.html" class="admin-res-marca">
+            <img src="../../Imagenes/pupusas_logo.png"
+                 alt="Logo de Pupusas Lorena">
+
+            <span>
+                Pupusas <strong>Lorena</strong>
+            </span>
+        </a>
+
+        <div class="admin-res-header-derecha">
+
+            <span class="admin-res-identificador">
+                <i class="bi bi-shield-lock-fill"></i>
+                Administrador
+            </span>
+
+            <a href="../index.html" class="admin-res-volver">
+                <i class="bi bi-grid"></i>
+                Panel principal
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+    ====================================================== -->
+
+    <main class="admin-res-main">
+
+        <!-- Introducción -->
+
+        <section class="admin-res-introduccion">
+
+            <div>
+                <span class="admin-res-etiqueta">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>Gestión de reservaciones</h1>
+
+                <p>
+                    Consulta y administra las reservaciones realizadas
+                    por los clientes.
+                </p>
+            </div>
+
+            <a href="../index.html" class="admin-res-boton-regreso">
+                <i class="bi bi-arrow-left"></i>
+                Volver al panel
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             MENSAJES Y ESTADOS
+        ================================================== -->
+
+        <section id="estadoCarga" class="admin-res-mensaje" aria-live="polite">
+            <span class="admin-res-spinner"></span>
+            Cargando reservaciones...
+        </section>
+
+        <section id="mensajeError"
+                 class="admin-res-alerta admin-res-alerta-error"
+                 role="alert"
+                 hidden>
+
+            <i class="bi bi-exclamation-circle-fill"></i>
+
+            <div>
+                <strong>No se pudieron cargar las reservaciones</strong>
+                <p id="textoError"></p>
+            </div>
+
+            <button type="button" id="btnReintentar">
+                Reintentar
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             CONTENIDO ADMINISTRATIVO
+        ================================================== -->
+
+        <div id="contenidoAdmin" hidden>
+
+
+            <!-- =============================================
+                 CONTADORES
+            ============================================== -->
+
+            <section class="admin-res-contadores"
+                     aria-label="Resumen de reservaciones">
+
+                <article class="admin-res-contador contador-total">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-calendar-week"></i>
+                    </div>
+
+                    <div>
+                        <span>Total</span>
+                        <strong id="totalReservaciones">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-res-contador contador-pendientes">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                    <div>
+                        <span>Pendientes</span>
+                        <strong id="totalPendientes">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-res-contador contador-confirmadas">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                    <div>
+                        <span>Confirmadas</span>
+                        <strong id="totalConfirmadas">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-res-contador contador-canceladas">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-calendar-x"></i>
+                    </div>
+
+                    <div>
+                        <span>Canceladas</span>
+                        <strong id="totalCanceladas">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-res-contador contador-finalizadas">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-check2-circle"></i>
+                    </div>
+
+                    <div>
+                        <span>Finalizadas</span>
+                        <strong id="totalFinalizadas">0</strong>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =============================================
+                 TABLA Y HERRAMIENTAS
+            ============================================== -->
+
+            <section class="admin-res-panel">
+
+                <div class="admin-res-panel-encabezado">
+
+                    <div>
+                        <h2>Reservaciones registradas</h2>
+
+                        <p>
+                            Consulta los datos y actualiza el estado
+                            de cada reservación.
+                        </p>
+                    </div>
+
+                    <button type="button"
+                            id="btnActualizar"
+                            class="admin-res-boton-actualizar">
+
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Actualizar
+
+                    </button>
+
+                </div>
+
+
+                <!-- Buscador y filtros -->
+
+                <div class="admin-res-herramientas">
+
+                    <div class="admin-res-buscador">
+
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="search"
+                            id="buscarReservacion"
+                            placeholder="Buscar por cliente, correo o ID..."
+                            autocomplete="off"
+                            aria-label="Buscar reservaciones">
+
+                    </div>
+
+
+                    <div class="admin-res-filtro">
+
+                        <label for="filtroEstado">
+                            Estado:
+                        </label>
+
+                        <select id="filtroEstado">
+
+                            <option value="Todos">Todos</option>
+                            <option value="Pendiente">Pendientes</option>
+                            <option value="Confirmada">Confirmadas</option>
+                            <option value="Cancelada">Canceladas</option>
+                            <option value="Finalizada">Finalizadas</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Información de resultados -->
+
+                <div class="admin-res-resultados">
+
+                    <span id="textoResultados">
+                        Mostrando 0 reservaciones
+                    </span>
+
+                    <span>
+                        Los registros históricos se conservan.
+                    </span>
+
+                </div>
+
+
+                <!-- Tabla -->
+
+                <div class="admin-res-tabla-contenedor">
+
+                    <table class="admin-res-tabla">
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Correo</th>
+                                <th>Fecha</th>
+                                <th>Hora</th>
+                                <th>Personas</th>
+                                <th>Niños</th>
+                                <th>Estado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaReservaciones">
+
+                            <!-- Las reservaciones se cargarán mediante JavaScript -->
+
+                        </tbody>
+
+                    </table>
+
+                    <div id="sinResultados"
+                         class="admin-res-sin-resultados"
+                         hidden>
+
+                        <i class="bi bi-calendar2-x"></i>
+
+                        <h3>No se encontraron reservaciones</h3>
+
+                        <p>
+                            Prueba con otro término de búsqueda
+                            o cambia el filtro de estado.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL PARA GESTIONAR RESERVACIÓN
+    ====================================================== -->
+
+    <div id="modalReservacion"
+         class="admin-res-modal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modalTitulo"
+         hidden>
+
+        <div class="admin-res-modal-contenido">
+
+            <div class="admin-res-modal-encabezado">
+
+                <div>
+                    <span class="admin-res-etiqueta">
+                        ADMINISTRACIÓN
+                    </span>
+
+                    <h2 id="modalTitulo">
+                        Gestionar reservación
+                    </h2>
+                </div>
+
+                <button type="button"
+                        id="btnCerrarModal"
+                        class="admin-res-modal-cerrar"
+                        aria-label="Cerrar ventana">
+
+                    <i class="bi bi-x-lg"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Información de la reservación -->
+
+            <div class="admin-res-detalles">
+
+                <div class="admin-res-detalle">
+                    <span>Número de reservación</span>
+                    <strong id="detalleId">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>Cliente</span>
+                    <strong id="detalleCliente">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>Correo electrónico</span>
+                    <strong id="detalleCorreo">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>Fecha</span>
+                    <strong id="detalleFecha">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>Hora</span>
+                    <strong id="detalleHora">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>Cantidad de personas</span>
+                    <strong id="detallePersonas">—</strong>
+                </div>
+
+                <div class="admin-res-detalle">
+                    <span>¿Asisten niños?</span>
+                    <strong id="detalleNinos">—</strong>
+                </div>
+
+                <div class="admin-res-detalle detalle-completo">
+                    <span>Observaciones</span>
+                    <strong id="detalleObservaciones">
+                        Sin observaciones
+                    </strong>
+                </div>
+
+                <div class="admin-res-detalle detalle-completo">
+                    <span>Estado actual</span>
+                    <strong id="detalleEstadoActual">—</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Formulario de actualización -->
+
+            <form id="formEstadoReservacion">
+
+                <div class="admin-res-campo">
+
+                    <label for="nuevoEstado">
+                        Nuevo estado
+                    </label>
+
+                    <select id="nuevoEstado" required>
+
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Confirmada">Confirmada</option>
+                        <option value="Cancelada">Cancelada</option>
+                        <option value="Finalizada">Finalizada</option>
+
+                    </select>
+
+                    <small>
+                        Selecciona el estado que deseas asignar
+                        a esta reservación.
+                    </small>
+
+                </div>
+
+
+                <div id="mensajeModal"
+                     class="admin-res-modal-mensaje"
+                     role="alert"
+                     hidden>
+                </div>
+
+
+                <div class="admin-res-modal-acciones">
+
+                    <button type="button"
+                            id="btnCancelarModal"
+                            class="admin-res-boton-secundario">
+
+                        Cancelar
+
+                    </button>
+
+                    <button type="submit"
+                            id="btnGuardarEstado"
+                            class="admin-res-boton-guardar">
+
+                        <i class="bi bi-check-lg"></i>
+                        Guardar cambios
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PIE DE PÁGINA
+    ====================================================== -->
+
+    <footer class="admin-res-footer">
+
+        <p>
+            © 2026 Pupusas Lorena. Gestión administrativa.
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript -->
+
+    <script src="reservaciones_admin.js?v=1"></script>
+
+</body>
+</html>
+```

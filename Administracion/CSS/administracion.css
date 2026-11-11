@@ -1,0 +1,519 @@
+
+/* =========================================================
+   PANEL DE ADMINISTRADOR - PUPUSAS LORENA
+   ========================================================= */
+
+:root {
+    --crema: #FFFBEB;
+    --blanco: #FFFFFF;
+    --naranja: #D97706;
+    --naranja-hover: #B45309;
+    --rojo: #DC2626;
+    --texto: #1F2937;
+    --suave: #64748B;
+    --linea: #F1E7D5;
+    --sombra: 0 18px 48px rgba(91, 62, 20, .09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body.administracion-page {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--crema);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.admin-header {
+    width: 100%;
+    min-height: 78px;
+    padding: 14px clamp(20px, 5vw, 72px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: rgba(255, 255, 255, .94);
+    border-bottom: 1px solid rgba(217, 119, 6, .09);
+}
+
+.admin-marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.22rem;
+    font-weight: 600;
+    letter-spacing: -.04em;
+}
+
+.admin-marca strong {
+    color: var(--naranja);
+}
+
+.admin-logo {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+.admin-usuario {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 18px;
+}
+
+.admin-rol {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 13px;
+    border-radius: 30px;
+    background: #FFF5E3;
+    color: var(--naranja-hover);
+    font-size: .85rem;
+    font-weight: 700;
+}
+
+.admin-rol i {
+    font-size: 1rem;
+}
+
+.boton-cerrar-sesion {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 9px 15px;
+    border: 1px solid var(--rojo);
+    border-radius: 10px;
+    background: var(--blanco);
+    color: var(--rojo);
+    font: inherit;
+    font-size: .88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s, color .2s, transform .2s;
+}
+
+.boton-cerrar-sesion:hover {
+    background: var(--rojo);
+    color: var(--blanco);
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
+.admin-main {
+    width: min(100% - 40px, 1120px);
+    margin: 0 auto;
+    flex: 1;
+    padding: 54px 0 42px;
+}
+
+
+/* =========================================================
+   INTRODUCCIÓN
+   ========================================================= */
+
+.admin-introduccion {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.admin-etiqueta {
+    display: inline-block;
+    margin-bottom: 9px;
+    color: var(--naranja);
+    font-size: .76rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+}
+
+.admin-introduccion h1 {
+    margin: 0 0 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1.2;
+    letter-spacing: -.045em;
+}
+
+.admin-introduccion > p {
+    margin: 0;
+    color: var(--suave);
+    font-size: 1rem;
+}
+
+.admin-estado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px auto 0;
+    color: var(--suave);
+    font-size: .9rem;
+}
+
+.admin-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #F3D7A8;
+    border-top-color: var(--naranja);
+    border-radius: 50%;
+    animation: adminGirar .8s linear infinite;
+}
+
+@keyframes adminGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* =========================================================
+   TÍTULO DE MÓDULOS
+   ========================================================= */
+
+.admin-seccion-titulo {
+    margin-bottom: 20px;
+}
+
+.admin-seccion-titulo h2 {
+    margin: 0 0 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.55rem;
+    letter-spacing: -.025em;
+}
+
+.admin-seccion-titulo p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .94rem;
+}
+
+
+/* =========================================================
+   TARJETAS DE MÓDULOS
+   ========================================================= */
+
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.admin-tarjeta {
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 27px;
+    border: 1px solid rgba(217, 119, 6, .09);
+    border-radius: 20px;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+    text-decoration: none;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+}
+
+.admin-tarjeta-icono {
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    margin-bottom: 18px;
+    border-radius: 16px;
+    background: #FFF5E3;
+    color: var(--naranja);
+    font-size: 1.8rem;
+}
+
+.admin-tarjeta-contenido h3 {
+    margin: 0 0 7px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    letter-spacing: -.02em;
+}
+
+.admin-tarjeta-contenido p {
+    max-width: 390px;
+    margin: 0;
+    color: var(--suave);
+    font-size: .92rem;
+    line-height: 1.6;
+}
+
+.admin-tarjeta-enlace {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: auto;
+    padding-top: 21px;
+    color: var(--naranja-hover);
+    font-size: .9rem;
+    font-weight: 800;
+}
+
+.tarjeta-reservaciones {
+    border-color: rgba(217, 119, 6, .35);
+}
+
+.tarjeta-reservaciones:hover {
+    transform: translateY(-4px);
+    border-color: var(--naranja);
+    box-shadow: 0 22px 42px rgba(91, 62, 20, .13);
+}
+
+.tarjeta-reservaciones:hover .admin-tarjeta-enlace i {
+    transform: translateX(4px);
+}
+
+.admin-tarjeta-enlace i {
+    transition: transform .2s;
+}
+
+.tarjeta-futura {
+    background: #FFFEFA;
+    cursor: default;
+}
+
+.tarjeta-futura .admin-tarjeta-icono {
+    background: #F7F2E9;
+    color: #9A8061;
+}
+
+.tarjeta-futura .admin-tarjeta-enlace {
+    color: #9A8061;
+}
+
+
+/* =========================================================
+   AVISO DE ACCESO
+   ========================================================= */
+
+.admin-aviso {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 35px 28px;
+    border: 1px solid rgba(220, 38, 38, .12);
+    border-radius: 20px;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+    text-align: center;
+}
+
+.admin-aviso-icono {
+    width: 65px;
+    height: 65px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    background: #FEF2F2;
+    color: var(--rojo);
+    font-size: 1.8rem;
+}
+
+.admin-aviso h2 {
+    margin: 0 0 9px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.45rem;
+}
+
+.admin-aviso p {
+    margin: 0;
+    color: var(--suave);
+}
+
+.admin-boton-principal {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    margin-top: 22px;
+    padding: 11px 20px;
+    border: 1px solid var(--naranja);
+    border-radius: 10px;
+    background: var(--naranja);
+    color: var(--blanco);
+    font-weight: 700;
+    text-decoration: none;
+    transition: background .2s, transform .2s;
+}
+
+.admin-boton-principal:hover {
+    background: var(--naranja-hover);
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ENLACE DE REGRESO
+   ========================================================= */
+
+.admin-volver {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 35px auto 0;
+    color: #4B5563;
+    font-size: .92rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s;
+}
+
+.admin-volver:hover {
+    color: var(--naranja);
+}
+
+
+/* =========================================================
+   PIE DE PÁGINA
+   ========================================================= */
+
+.admin-footer {
+    padding: 18px 20px;
+    border-top: 1px solid rgba(217, 119, 6, .09);
+    background: rgba(255, 255, 255, .65);
+    color: #7C7468;
+    text-align: center;
+    font-size: .82rem;
+}
+
+.admin-footer p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+.admin-tarjeta:focus-visible,
+.admin-volver:focus-visible,
+.boton-cerrar-sesion:focus-visible,
+.admin-boton-principal:focus-visible {
+    outline: 3px solid rgba(217, 119, 6, .35);
+    outline-offset: 4px;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================================
+   DISEÑO RESPONSIVO
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .admin-header {
+        padding: 13px 18px;
+        flex-wrap: wrap;
+    }
+
+    .admin-usuario {
+        gap: 9px;
+    }
+
+    .admin-main {
+        width: min(100% - 28px, 1120px);
+        padding: 38px 0 30px;
+    }
+
+    .admin-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-tarjeta {
+        min-height: 215px;
+        padding: 23px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    .admin-header {
+        align-items: flex-start;
+    }
+
+    .admin-marca {
+        font-size: 1rem;
+    }
+
+    .admin-logo {
+        width: 37px;
+        height: 37px;
+    }
+
+    .admin-usuario {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .admin-rol {
+        font-size: .78rem;
+    }
+
+    .boton-cerrar-sesion {
+        min-height: 39px;
+        padding: 8px 11px;
+        font-size: .8rem;
+    }
+
+    .admin-introduccion h1 {
+        font-size: 2rem;
+    }
+
+    .admin-introduccion > p {
+        font-size: .9rem;
+    }
+
+    .admin-seccion-titulo h2 {
+        font-size: 1.35rem;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+
+}
