@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const API_LOGOUT = "../../api/logout.php";
 
     let cerrandoSesion = false;
+    let tokenCsrf = null;
 
 
     /* =====================================================
@@ -153,6 +154,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
             // ---------------------------------------------
+            // 3.1. Validar y guardar el token CSRF
+            // ---------------------------------------------
+
+            if (
+                typeof datos.token_csrf !== "string" ||
+                !/^[a-f0-9]{64}$/.test(datos.token_csrf)
+            ) {
+                throw new Error("No se recibió un token CSRF válido.");
+            }
+
+            tokenCsrf = datos.token_csrf;
+
+
+            // ---------------------------------------------
             // 4. Acceso autorizado
             // ---------------------------------------------
 
@@ -203,6 +218,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         try {
 
+            // Comprobar que exista un token CSRF antes de enviarlo.
+            if (
+                typeof tokenCsrf !== "string" ||
+                !/^[a-f0-9]{64}$/.test(tokenCsrf)
+            ) {
+                throw new Error("El token CSRF no está disponible.");
+            }
+
             const respuesta = await fetch(
                 `${API_LOGOUT}?_=${Date.now()}`,
                 {
@@ -210,7 +233,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     credentials: "same-origin",
                     cache: "no-store",
                     headers: {
-                        "Accept": "application/json"
+                        "Accept": "application/json",
+                        "X-CSRF-Token": tokenCsrf
                     }
                 }
             );
