@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let reservaciones = [];
     let reservacionSeleccionada = null;
     let guardandoEstado = false;
+    let tokenCsrf = null;
 
 
     /* =====================================================
@@ -181,6 +182,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (!datos.sesion_activa || !datos.usuario) {
 
+                tokenCsrf = null;
+
                 alert("Debes iniciar sesión para acceder a esta sección.");
 
                 window.location.replace(
@@ -195,6 +198,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (datos.requiere_cambio_password) {
 
+                tokenCsrf = null;
+
                 window.location.replace(
                     "../../Mi_cuenta/cambiar_password.html"
                 );
@@ -207,6 +212,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (datos.usuario.rol !== "Administrador") {
 
+                tokenCsrf = null;
+
                 alert("No tienes permisos para administrar reservaciones.");
 
                 window.location.replace(
@@ -216,11 +223,28 @@ document.addEventListener("DOMContentLoaded", () => {
                 return false;
             }
 
+
+            // Validar token CSRF recibido del servidor.
+
+            if (
+                typeof datos.token_csrf !== "string" ||
+                !/^[a-f0-9]{64}$/.test(datos.token_csrf)
+            ) {
+
+                throw new Error(
+                    "No se pudo validar el token de seguridad de la sesión."
+                );
+            }
+
+            tokenCsrf = datos.token_csrf;
+
             return true;
 
         } catch (error) {
 
             console.error("Error al verificar permisos:", error);
+
+            tokenCsrf = null;
 
             mostrarError(
                 "No fue posible comprobar tu sesión. Recarga la página e inténtalo nuevamente."
@@ -535,6 +559,22 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
+        // Comprobar que exista un token CSRF válido.
+
+        if (
+            typeof tokenCsrf !== "string" ||
+            !/^[a-f0-9]{64}$/.test(tokenCsrf)
+        ) {
+
+            mostrarMensajeModal(
+                "La sesión no tiene un token de seguridad válido. Recarga la página e inténtalo nuevamente."
+            );
+
+            return;
+        }
+
+
         const estadoAnterior = reservacionSeleccionada.estado;
         const estadoNuevo = nuevoEstado.value;
 
@@ -583,7 +623,8 @@ document.addEventListener("DOMContentLoaded", () => {
                     cache: "no-store",
                     headers: {
                         "Content-Type": "application/json",
-                        "Accept": "application/json"
+                        "Accept": "application/json",
+                        "X-CSRF-Token": tokenCsrf
                     },
                     body: JSON.stringify({
                         accion: "cambiar_estado",

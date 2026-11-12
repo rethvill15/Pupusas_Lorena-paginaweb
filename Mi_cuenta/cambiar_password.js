@@ -1,16 +1,26 @@
 ﻿
 document.addEventListener("DOMContentLoaded", function () {
 
+    /* =====================================================
+       1. ELEMENTOS DEL FORMULARIO
+       ===================================================== */
+
     const formulario = document.getElementById("cambiarPasswordForm");
     const passwordNueva = document.getElementById("passwordNueva");
     const confirmarPassword = document.getElementById("confirmarPassword");
     const estadoCambio = document.getElementById("estadoCambio");
     const boton = document.getElementById("btnCambiarPassword");
 
+    const apiBase = "/Pupusas_paginaweb/api/";
 
-    // ==========================================
-    // VERIFICAR ELEMENTOS
-    // ==========================================
+    let tokenCsrf = null;
+    let sesionVerificada = false;
+    let enviandoFormulario = false;
+
+
+    /* =====================================================
+       2. VERIFICAR ELEMENTOS
+       ===================================================== */
 
     if (
         !formulario ||
@@ -23,57 +33,136 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // ==========================================
-    // FUNCION PARA MOSTRAR MENSAJES
-    // ==========================================
+    /* =====================================================
+       3. MOSTRAR MENSAJES
+       ===================================================== */
 
     function mostrarMensaje(mensaje, tipo) {
 
         estadoCambio.textContent = mensaje;
-        estadoCambio.className = "estado-password " + tipo;
 
+        estadoCambio.className =
+            "estado-password " + tipo;
     }
 
 
-    // ==========================================
-    // VERIFICAR SESION Y CAMBIO OBLIGATORIO
-    // ==========================================
+    /* =====================================================
+       4. VERIFICAR SESIÓN Y OBTENER TOKEN CSRF
+       ===================================================== */
 
     async function verificarSesion() {
+
+        boton.disabled = true;
 
         try {
 
             const respuesta = await fetch(
-                "/Pupusas_paginaweb/api/sesion.php",
+                apiBase + "sesion.php?_=" + Date.now(),
                 {
                     method: "GET",
-                    cache: "no-store"
+
+                    cache: "no-store",
+
+                    credentials: "same-origin",
+
+                    headers: {
+                        "Accept": "application/json"
+                    }
                 }
             );
 
+            if (!respuesta.ok) {
+
+                throw new Error(
+                    "No se pudo verificar la sesión."
+                );
+            }
+
             const resultado = await respuesta.json();
+
+
+            // ==========================================
+            // COMPROBAR SESIÓN ACTIVA
+            // ==========================================
 
             if (
                 !resultado.exito ||
-                !resultado.sesion_activa
+                !resultado.sesion_activa ||
+                !resultado.usuario
             ) {
 
-                alert("Debes iniciar sesión para continuar.");
+                tokenCsrf = null;
 
-                window.location.href =
-                    "../Inicio_sesion/login.html";
+                alert(
+                    "Debes iniciar sesión para continuar."
+                );
+
+                window.location.replace(
+                    "../Inicio_sesion/login.html"
+                );
 
                 return false;
             }
+
+
+            // ==========================================
+            // COMPROBAR CAMBIO OBLIGATORIO
+            // ==========================================
 
             if (!resultado.requiere_cambio_password) {
 
-                window.location.href = "mi_cuenta.html";
+                window.location.replace(
+                    "mi_cuenta.html"
+                );
 
                 return false;
             }
 
+
+            // ==========================================
+            // VALIDAR ROL
+            // ==========================================
+
+            const rol = resultado.usuario.rol;
+
+            if (
+                rol !== "Cliente" &&
+                rol !== "Administrador"
+            ) {
+
+                throw new Error(
+                    "La cuenta tiene un rol no válido."
+                );
+            }
+
+
+            // ==========================================
+            // VALIDAR TOKEN CSRF
+            // ==========================================
+
+            if (
+                typeof resultado.token_csrf !== "string" ||
+                !/^[a-f0-9]{64}$/.test(resultado.token_csrf)
+            ) {
+
+                throw new Error(
+                    "No se recibió un token de seguridad válido."
+                );
+            }
+
+            tokenCsrf = resultado.token_csrf;
+
+            sesionVerificada = true;
+
+            boton.disabled = false;
+
+            mostrarMensaje(
+                "Tu sesión está verificada. Puedes establecer tu nueva contraseña.",
+                "exito"
+            );
+
             return true;
+
 
         } catch (error) {
 
@@ -82,36 +171,61 @@ document.addEventListener("DOMContentLoaded", function () {
                 error
             );
 
+            tokenCsrf = null;
+
+            sesionVerificada = false;
+
             mostrarMensaje(
                 "No fue posible verificar tu sesión. Recarga la página e inténtalo nuevamente.",
                 "error"
             );
 
-            formulario.querySelector("button[type='submit']").disabled = true;
+            boton.disabled = true;
 
             return false;
-
         }
-
     }
 
 
-    // ==========================================
-    // PROCESAR CAMBIO DE CONTRASEÑA
-    // ==========================================
+    /* =====================================================
+       5. PROCESAR CAMBIO DE CONTRASEÑA
+       ===================================================== */
 
     formulario.addEventListener("submit", async function (event) {
 
         event.preventDefault();
+
+        if (enviandoFormulario) return;
+
+
+        // ==========================================
+        // COMPROBAR SESIÓN Y TOKEN
+        // ==========================================
+
+        if (
+            !sesionVerificada ||
+            typeof tokenCsrf !== "string" ||
+            !/^[a-f0-9]{64}$/.test(tokenCsrf)
+        ) {
+
+            mostrarMensaje(
+                "No se pudo validar la seguridad de tu sesión. Recarga la página.",
+                "error"
+            );
+
+            boton.disabled = true;
+
+            return;
+        }
 
 
         const nueva = passwordNueva.value;
         const confirmar = confirmarPassword.value;
 
 
-        // ======================================
-        // VALIDACIONES
-        // ======================================
+        // ==========================================
+        // VALIDAR LONGITUD
+        // ==========================================
 
         if (nueva.length < 8) {
 
@@ -120,9 +234,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 "error"
             );
 
+            passwordNueva.focus();
+
             return;
         }
 
+
+        // ==========================================
+        // VALIDAR CONFIRMACIÓN
+        // ==========================================
 
         if (nueva !== confirmar) {
 
@@ -137,14 +257,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-        // ======================================
-        // DESACTIVAR BOTON
-        // ======================================
+        // ==========================================
+        // DESACTIVAR FORMULARIO
+        // ==========================================
+
+        enviandoFormulario = true;
 
         boton.disabled = true;
 
-        boton.textContent = "Actualizando contraseña...";
-
+        boton.textContent =
+            "Actualizando contraseña...";
 
         mostrarMensaje(
             "Estamos actualizando tu contraseña.",
@@ -154,17 +276,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
 
-            // ==================================
-            // ENVIAR DATOS AL API
-            // ==================================
+            // ======================================
+            // ENVIAR DATOS AL API CON TOKEN CSRF
+            // ======================================
 
             const respuesta = await fetch(
-                "/Pupusas_paginaweb/api/cambiar_password.php",
+                apiBase + "cambiar_password.php",
                 {
                     method: "POST",
 
+                    cache: "no-store",
+
+                    credentials: "same-origin",
+
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-CSRF-Token": tokenCsrf
                     },
 
                     body: JSON.stringify({
@@ -178,16 +306,16 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
 
-            // ==================================
+            // ======================================
             // LEER RESPUESTA
-            // ==================================
+            // ======================================
 
             const resultado = await respuesta.json();
 
 
-            // ==================================
-            // PROCESAR RESULTADO
-            // ==================================
+            // ======================================
+            // COMPROBAR RESULTADO
+            // ======================================
 
             if (!respuesta.ok || !resultado.exito) {
 
@@ -201,22 +329,32 @@ document.addEventListener("DOMContentLoaded", function () {
             }
 
 
+            // ======================================
+            // CAMBIO EXITOSO
+            // ======================================
+
+            tokenCsrf = null;
+
+            sesionVerificada = false;
+
             mostrarMensaje(
-                resultado.mensaje,
+                resultado.mensaje ||
+                "La contraseña se actualizó correctamente.",
                 "exito"
             );
-
 
             alert(
                 "¡Contraseña actualizada correctamente!\nAhora puedes continuar utilizando tu cuenta."
             );
 
 
-            // ==================================
-            // REDIRIGIR A MI CUENTA
-            // ==================================
+            // ======================================
+            // REGRESAR A MI CUENTA
+            // ======================================
 
-            window.location.href = "mi_cuenta.html";
+            window.location.replace(
+                "mi_cuenta.html"
+            );
 
 
         } catch (error) {
@@ -233,19 +371,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
         } finally {
 
-            boton.disabled = false;
+            enviandoFormulario = false;
 
-            boton.innerHTML =
-                '<i class="bi bi-shield-check" aria-hidden="true"></i> Guardar nueva contraseña';
+            if (sesionVerificada) {
 
+                boton.disabled = false;
+
+                boton.innerHTML =
+                    '<i class="bi bi-shield-check" aria-hidden="true"></i> Guardar nueva contraseña';
+            }
         }
 
     });
 
 
-    // ==========================================
-    // INICIAR VERIFICACION
-    // ==========================================
+    /* =====================================================
+       6. INICIAR VERIFICACIÓN
+       ===================================================== */
 
     verificarSesion();
 

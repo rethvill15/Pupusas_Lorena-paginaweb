@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", function () {
 
     // ==========================================
@@ -5,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ==========================================
 
     const API_BASE = "/Pupusas_paginaweb/api/";
+
+    let tokenCsrf = null;
 
     const estadoReservaciones = document.getElementById("estadoReservaciones");
     const contenedorReservaciones = document.getElementById("contenedorReservaciones");
@@ -26,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
+
     // ==========================================
     // FUNCIONES AUXILIARES
     // ==========================================
@@ -34,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         estadoReservaciones.textContent = mensaje;
         estadoReservaciones.style.color = esError ? "#B3332B" : "#665548";
     }
+
 
     function crearElemento(etiqueta, clase, contenido) {
         const elemento = document.createElement(etiqueta);
@@ -46,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return elemento;
     }
+
 
     function formatearFecha(fecha) {
         const partes = fecha.split("-");
@@ -67,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+
     function formatearHora(hora) {
         const partes = hora.split(":");
 
@@ -84,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${horas}:${minutos} ${periodo}`;
     }
 
+
     function obtenerClaseEstado(estado) {
         const clases = {
             "Pendiente": "estado-pendiente",
@@ -94,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return clases[estado] || "";
     }
+
 
     // ==========================================
     // CONSULTAR SESIÓN
@@ -108,7 +117,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     method: "GET",
                     cache: "no-store",
-                    credentials: "same-origin"
+                    credentials: "same-origin",
+                    headers: {
+                        "Accept": "application/json"
+                    }
                 }
             );
 
@@ -118,7 +130,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 throw new Error("No fue posible comprobar la sesión.");
             }
 
+
             if (!sesion.sesion_activa) {
+
+                tokenCsrf = null;
 
                 contenedorReservaciones.hidden = true;
                 avisoLogin.hidden = false;
@@ -131,15 +146,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 return false;
             }
 
+
             if (sesion.requiere_cambio_password) {
+
+                tokenCsrf = null;
 
                 window.location.href = "cambiar_password.html";
 
                 return false;
             }
 
+
             // Esta página es exclusivamente para clientes.
-            if (sesion.usuario.rol !== "Cliente") {
+            if (
+                !sesion.usuario ||
+                sesion.usuario.rol !== "Cliente"
+            ) {
+
+                tokenCsrf = null;
 
                 contenedorReservaciones.hidden = true;
                 avisoLogin.hidden = false;
@@ -151,6 +175,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 return false;
             }
 
+
+            // Validar el token CSRF recibido desde sesion.php.
+            if (
+                typeof sesion.token_csrf !== "string" ||
+                !/^[a-f0-9]{64}$/i.test(sesion.token_csrf)
+            ) {
+
+                throw new Error(
+                    "No se pudo obtener un token de seguridad válido. Recarga la página."
+                );
+            }
+
+            tokenCsrf = sesion.token_csrf;
+
+
             avisoLogin.hidden = true;
             contenedorReservaciones.hidden = false;
 
@@ -160,17 +199,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
             console.error("Error al comprobar sesión:", error);
 
+            tokenCsrf = null;
+
             contenedorReservaciones.hidden = true;
             avisoLogin.hidden = false;
 
             mostrarEstado(
-                "No fue posible comprobar tu sesión. Intenta nuevamente.",
+                error.message || "No fue posible comprobar tu sesión. Intenta nuevamente.",
                 true
             );
 
             return false;
         }
     }
+
 
     // ==========================================
     // CONSULTAR RESERVACIONES
@@ -190,7 +232,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     method: "GET",
                     cache: "no-store",
-                    credentials: "same-origin"
+                    credentials: "same-origin",
+                    headers: {
+                        "Accept": "application/json"
+                    }
                 }
             );
 
@@ -209,6 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             totalReservaciones.textContent = reservaciones.length;
 
+
             if (reservaciones.length === 0) {
 
                 sinReservaciones.hidden = false;
@@ -218,9 +264,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
 
+
             mostrarEstado(
                 "Estas son las reservaciones asociadas a tu cuenta."
             );
+
 
             reservaciones.forEach(function (reservacion) {
 
@@ -240,6 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
         }
     }
+
 
     // ==========================================
     // CREAR TARJETA DE RESERVACIÓN
@@ -261,6 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
             )
         );
 
+
         const estado = crearElemento(
             "span",
             "estado-badge " + obtenerClaseEstado(reservacion.estado),
@@ -271,8 +321,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         tarjeta.appendChild(encabezado);
 
+
         const datos = document.createElement("div");
         datos.className = "datos-reservacion";
+
 
         const campos = [
             {
@@ -297,6 +349,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         ];
 
+
         if (reservacion.observaciones) {
 
             campos.push({
@@ -306,6 +359,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
         }
+
 
         campos.forEach(function (campo) {
 
@@ -329,7 +383,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         });
 
+
         tarjeta.appendChild(datos);
+
 
         // Solo se permite solicitar la cancelación
         // cuando la reservación está pendiente.
@@ -363,6 +419,7 @@ document.addEventListener("DOMContentLoaded", function () {
         return tarjeta;
     }
 
+
     // ==========================================
     // CANCELAR RESERVACIÓN
     // ==========================================
@@ -377,8 +434,24 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
+
+        // Comprobar que exista un token CSRF antes de modificar.
+        if (
+            typeof tokenCsrf !== "string" ||
+            !/^[a-f0-9]{64}$/i.test(tokenCsrf)
+        ) {
+
+            alert(
+                "Tu sesión de seguridad no está disponible. Recarga la página e inténtalo nuevamente."
+            );
+
+            return;
+        }
+
+
         boton.disabled = true;
         boton.textContent = "Cancelando...";
+
 
         try {
 
@@ -387,9 +460,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 {
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-CSRF-Token": tokenCsrf
                     },
                     credentials: "same-origin",
+                    cache: "no-store",
                     body: JSON.stringify({
                         accion: "cambiar_estado",
                         id_reservacion: Number(idReservacion),
@@ -397,6 +473,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     })
                 }
             );
+
 
             const resultado = await respuesta.json();
 
@@ -406,6 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     resultado.mensaje || "No fue posible cancelar la reservación."
                 );
             }
+
 
             alert("La reservación fue cancelada correctamente.");
 
@@ -423,6 +501,7 @@ document.addEventListener("DOMContentLoaded", function () {
             boton.textContent = "Cancelar reservación";
         }
     }
+
 
     // ==========================================
     // INICIO
