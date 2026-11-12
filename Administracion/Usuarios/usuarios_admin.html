@@ -1,0 +1,676 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
+
+    <title>Gestión de usuarios - Pupusas Lorena</title>
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilos del módulo -->
+    <link rel="stylesheet" href="usuarios_admin.css?v=1">
+</head>
+
+<body class="usuarios-admin-page">
+
+    <!-- =====================================================
+         ENCABEZADO
+         ===================================================== -->
+
+    <header class="admin-usu-header">
+
+        <a href="../../pup_lorena.html" class="admin-usu-marca">
+            <i class="bi bi-egg-fried" aria-hidden="true"></i>
+            <span>Pupusas <strong>Lorena</strong></span>
+        </a>
+
+        <div class="admin-usu-header-derecha">
+
+            <span class="admin-usu-identificador">
+                <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+                Administrador
+            </span>
+
+            <a href="../index.html" class="admin-usu-volver">
+                <i class="bi bi-grid-fill" aria-hidden="true"></i>
+                Panel principal
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         CONTENIDO PRINCIPAL
+         ===================================================== -->
+
+    <main class="admin-usu-main">
+
+        <!-- Introducción -->
+
+        <section class="admin-usu-introduccion">
+
+            <div>
+                <span class="admin-usu-etiqueta">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>Gestión de usuarios</h1>
+
+                <p>
+                    Consulta y administra las cuentas registradas
+                    en Pupusas Lorena.
+                </p>
+            </div>
+
+            <a href="../index.html" class="admin-usu-boton-regreso">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                Volver al panel
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             ESTADO DE CARGA
+             ================================================= -->
+
+        <div id="mensajeCarga" class="admin-usu-mensaje">
+            <span class="admin-usu-spinner" aria-hidden="true"></span>
+            <span>Cargando usuarios...</span>
+        </div>
+
+
+        <!-- =================================================
+             MENSAJE DE ERROR
+             ================================================= -->
+
+        <div id="alertaError" class="admin-usu-alerta admin-usu-alerta-error" hidden>
+
+            <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+
+            <div>
+                <strong>No se pudieron cargar los usuarios</strong>
+                <p id="textoError">
+                    Ocurrió un problema al consultar las cuentas.
+                </p>
+            </div>
+
+            <button type="button" id="btnReintentar">
+                <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                Reintentar
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTENIDO DEL MÓDULO
+             ================================================= -->
+
+        <div id="contenidoUsuarios" hidden>
+
+
+            <!-- =============================================
+                 CONTADORES
+                 ============================================= -->
+
+            <section class="admin-usu-contadores" aria-label="Resumen de usuarios">
+
+                <article class="admin-usu-contador contador-total">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-people-fill" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Total de usuarios</span>
+                        <strong id="totalUsuarios">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-usu-contador contador-clientes">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-person-fill" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Clientes</span>
+                        <strong id="totalClientes">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-usu-contador contador-admins">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-shield-fill-check" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Administradores</span>
+                        <strong id="totalAdministradores">0</strong>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- =============================================
+                 PANEL DE USUARIOS
+                 ============================================= -->
+
+            <section class="admin-usu-panel">
+
+                <!-- Encabezado del panel -->
+
+                <div class="admin-usu-panel-encabezado">
+
+                    <div>
+                        <h2>Cuentas registradas</h2>
+
+                        <p>
+                            Administra los roles y el acceso de los usuarios.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="btnActualizar"
+                        class="admin-usu-boton-actualizar">
+
+                        <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                        Actualizar
+
+                    </button>
+
+                </div>
+
+
+                <!-- =========================================
+                     BUSCADOR Y FILTROS
+                     ========================================= -->
+
+                <div class="admin-usu-herramientas">
+
+                    <div class="admin-usu-buscador">
+
+                        <i class="bi bi-search" aria-hidden="true"></i>
+
+                        <input
+                            type="search"
+                            id="buscadorUsuarios"
+                            placeholder="Buscar por nombre, correo o ID..."
+                            autocomplete="off"
+                            aria-label="Buscar usuarios">
+
+                    </div>
+
+
+                    <div class="admin-usu-filtros">
+
+                        <div class="admin-usu-filtro">
+
+                            <label for="filtroRol">Rol:</label>
+
+                            <select id="filtroRol">
+                                <option value="">Todos los roles</option>
+                                <option value="Cliente">Cliente</option>
+                                <option value="Administrador">Administrador</option>
+                            </select>
+
+                        </div>
+
+
+                        <div class="admin-usu-filtro">
+
+                            <label for="filtroEstado">Estado:</label>
+
+                            <select id="filtroEstado">
+                                <option value="">Todos los estados</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =========================================
+                     INFORMACIÓN DE RESULTADOS
+                     ========================================= -->
+
+                <div class="admin-usu-resultados">
+
+                    <span id="textoResultados">
+                        Mostrando 0 usuarios
+                    </span>
+
+                    <span>
+                        Ordenados del más reciente al más antiguo
+                    </span>
+
+                </div>
+
+
+                <!-- =========================================
+                     TABLA DE USUARIOS
+                     ========================================= -->
+
+                <div
+                    class="admin-usu-tabla-contenedor"
+                    tabindex="0"
+                    role="region"
+                    aria-label="Tabla de usuarios registrados">
+
+                    <table class="admin-usu-tabla">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre completo</th>
+                                <th scope="col">Correo electrónico</th>
+                                <th scope="col">Teléfono</th>
+                                <th scope="col">Rol</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Fecha de registro</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaUsuarios">
+
+                            <!-- Las filas se generan mediante JavaScript -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- =========================================
+                     SIN RESULTADOS
+                     ========================================= -->
+
+                <div id="sinResultados" class="admin-usu-sin-resultados" hidden>
+
+                    <i class="bi bi-person-x" aria-hidden="true"></i>
+
+                    <h3>No se encontraron usuarios</h3>
+
+                    <p>
+                        No hay cuentas que coincidan con la búsqueda
+                        o los filtros seleccionados.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         MODAL: GESTIONAR USUARIO
+         ===================================================== -->
+
+    <div
+        id="modalGestionUsuario"
+        class="admin-usu-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloModalUsuario"
+        hidden>
+
+        <div class="admin-usu-modal-contenido">
+
+            <div class="admin-usu-modal-encabezado">
+
+                <div>
+                    <span class="admin-usu-etiqueta">
+                        ADMINISTRACIÓN DE CUENTAS
+                    </span>
+
+                    <h2 id="tituloModalUsuario">
+                        Gestionar usuario
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    id="cerrarModalUsuario"
+                    class="admin-usu-modal-cerrar"
+                    aria-label="Cerrar ventana">
+
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- Información del usuario -->
+
+            <div class="admin-usu-detalles">
+
+                <div class="admin-usu-detalle">
+                    <span>ID de usuario</span>
+                    <strong id="detalleId">—</strong>
+                </div>
+
+                <div class="admin-usu-detalle">
+                    <span>Nombre completo</span>
+                    <strong id="detalleNombre">—</strong>
+                </div>
+
+                <div class="admin-usu-detalle detalle-completo">
+                    <span>Correo electrónico</span>
+                    <strong id="detalleCorreo">—</strong>
+                </div>
+
+                <div class="admin-usu-detalle">
+                    <span>Teléfono</span>
+                    <strong id="detalleTelefono">—</strong>
+                </div>
+
+                <div class="admin-usu-detalle">
+                    <span>Estado actual</span>
+                    <strong id="detalleEstado">—</strong>
+                </div>
+
+            </div>
+
+
+            <!-- Gestión del rol -->
+
+            <section class="admin-usu-seccion-gestion">
+
+                <div class="admin-usu-seccion-titulo">
+                    <i class="bi bi-shield-fill" aria-hidden="true"></i>
+
+                    <div>
+                        <h3>Rol de la cuenta</h3>
+                        <p>
+                            Define los permisos que tendrá este usuario.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="admin-usu-campo">
+
+                    <label for="nuevoRol">Seleccionar rol</label>
+
+                    <select id="nuevoRol">
+                        <option value="Cliente">Cliente</option>
+                        <option value="Administrador">Administrador</option>
+                    </select>
+
+                </div>
+
+                <button
+                    type="button"
+                    id="btnGuardarRol"
+                    class="admin-usu-boton-accion">
+
+                    <i class="bi bi-shield-check" aria-hidden="true"></i>
+                    Guardar cambio de rol
+
+                </button>
+
+            </section>
+
+
+            <!-- Gestión del estado -->
+
+            <section class="admin-usu-seccion-gestion">
+
+                <div class="admin-usu-seccion-titulo">
+                    <i class="bi bi-person-check-fill" aria-hidden="true"></i>
+
+                    <div>
+                        <h3>Estado de la cuenta</h3>
+                        <p>
+                            Controla si el usuario puede iniciar sesión.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="admin-usu-estado-actual">
+                    Estado actual:
+                    <strong id="textoEstadoCuenta">—</strong>
+                </div>
+
+                <button
+                    type="button"
+                    id="btnCambiarEstado"
+                    class="admin-usu-boton-accion">
+
+                    <i class="bi bi-person-fill-slash" aria-hidden="true"></i>
+                    Desactivar cuenta
+
+                </button>
+
+                <small class="admin-usu-ayuda">
+                    Desactivar una cuenta no elimina su historial
+                    de compras ni sus reservaciones.
+                </small>
+
+            </section>
+
+
+            <!-- Restablecer contraseña -->
+
+            <section class="admin-usu-seccion-gestion admin-usu-seccion-password">
+
+                <div class="admin-usu-seccion-titulo">
+                    <i class="bi bi-key-fill" aria-hidden="true"></i>
+
+                    <div>
+                        <h3>Restablecer contraseña</h3>
+                        <p>
+                            Genera una contraseña temporal para esta cuenta.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="admin-usu-advertencia">
+                    <i class="bi bi-exclamation-circle-fill" aria-hidden="true"></i>
+                    La contraseña temporal tendrá una vigencia de 24 horas.
+                    El usuario deberá cambiarla al iniciar sesión.
+                </p>
+
+                <button
+                    type="button"
+                    id="btnRestablecerPassword"
+                    class="admin-usu-boton-accion boton-password">
+
+                    <i class="bi bi-arrow-repeat" aria-hidden="true"></i>
+                    Restablecer contraseña
+
+                </button>
+
+            </section>
+
+
+            <!-- Mensaje de operaciones -->
+
+            <div
+                id="mensajeModalUsuario"
+                class="admin-usu-modal-mensaje"
+                role="alert"
+                hidden>
+            </div>
+
+
+            <!-- Acciones del modal -->
+
+            <div class="admin-usu-modal-acciones">
+
+                <button
+                    type="button"
+                    id="cancelarModalUsuario"
+                    class="admin-usu-boton-secundario">
+
+                    Cerrar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MODAL: CONTRASEÑA TEMPORAL
+         ===================================================== -->
+
+    <div
+        id="modalPasswordTemporal"
+        class="admin-usu-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloPasswordTemporal"
+        hidden>
+
+        <div class="admin-usu-modal-contenido admin-usu-modal-password">
+
+            <div class="admin-usu-password-icono">
+                <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+            </div>
+
+            <div class="admin-usu-password-encabezado">
+
+                <span class="admin-usu-etiqueta">
+                    RESTABLECIMIENTO COMPLETADO
+                </span>
+
+                <h2 id="tituloPasswordTemporal">
+                    Contraseña temporal generada
+                </h2>
+
+                <p>
+                    Comparte esta contraseña con el usuario de forma segura.
+                    No volverá a mostrarse después de cerrar esta ventana.
+                </p>
+
+            </div>
+
+
+            <div class="admin-usu-password-campo">
+
+                <label for="passwordTemporal">
+                    Contraseña temporal
+                </label>
+
+                <div class="admin-usu-password-valor">
+
+                    <input
+                        type="text"
+                        id="passwordTemporal"
+                        readonly
+                        autocomplete="off"
+                        spellcheck="false"
+                        aria-label="Contraseña temporal generada">
+
+                    <button
+                        type="button"
+                        id="btnCopiarPassword"
+                        aria-label="Copiar contraseña temporal"
+                        title="Copiar contraseña">
+
+                        <i class="bi bi-clipboard" aria-hidden="true"></i>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-usu-password-aviso">
+
+                <i class="bi bi-clock-history" aria-hidden="true"></i>
+
+                <p>
+                    Esta contraseña vence en 24 horas y el usuario deberá
+                    establecer una nueva contraseña al iniciar sesión.
+                </p>
+
+            </div>
+
+
+            <div
+                id="mensajeCopiarPassword"
+                class="admin-usu-copia-mensaje"
+                role="status"
+                aria-live="polite"
+                hidden>
+            </div>
+
+
+            <div class="admin-usu-modal-acciones">
+
+                <button
+                    type="button"
+                    id="cerrarModalPassword"
+                    class="admin-usu-boton-guardar">
+
+                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                    Entendido, cerrar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PIE DE PÁGINA
+         ===================================================== -->
+
+    <footer class="admin-usu-footer">
+
+        <p>
+            &copy; 2026 Pupusas Lorena.
+            Panel de administración.
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript del módulo -->
+    <script src="usuarios_admin.js?v=1"></script>
+
+</body>
+</html>
