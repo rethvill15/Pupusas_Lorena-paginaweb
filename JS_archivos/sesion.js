@@ -11,16 +11,24 @@ async function obtenerSesion() {
             "/Pupusas_paginaweb/api/sesion.php",
             {
                 method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
                 cache: "no-store",
                 credentials: "same-origin"
             }
         );
 
-        if (!respuesta.ok) {
-            throw new Error("No fue posible consultar la sesión.");
+        const resultado = await respuesta.json();
+
+        if (!respuesta.ok || !resultado.exito) {
+            throw new Error(
+                resultado.mensaje ||
+                "No fue posible consultar la sesión."
+            );
         }
 
-        return await respuesta.json();
+        return resultado;
 
     } catch (error) {
 
@@ -48,7 +56,6 @@ async function actualizarUsuarioNav() {
 
     const resultado = await obtenerSesion();
 
-    // Limpiar las opciones anteriores.
     usuarioNav.replaceChildren();
 
     /* =====================================================
@@ -61,14 +68,12 @@ async function actualizarUsuarioNav() {
         resultado.usuario
     ) {
 
-        // Saludo personalizado.
         const saludo = document.createElement("span");
         saludo.className = "nav-item usuario-nombre";
         saludo.textContent = "Hola, " + resultado.usuario.nombres;
 
         usuarioNav.appendChild(saludo);
 
-        // Enlace a Mi cuenta.
         const enlaceCuenta = document.createElement("a");
         enlaceCuenta.href = "Mi_cuenta/mi_cuenta.html";
         enlaceCuenta.className = "nav-item";
@@ -76,7 +81,6 @@ async function actualizarUsuarioNav() {
 
         usuarioNav.appendChild(enlaceCuenta);
 
-        // Enlace para cerrar sesión.
         const enlaceLogout = document.createElement("a");
         enlaceLogout.href = "#";
         enlaceLogout.className = "nav-item";
@@ -110,7 +114,7 @@ async function actualizarUsuarioNav() {
 
 
 /* =========================================================
-   CERRAR SESIÓN
+   CERRAR SESIÓN CON PROTECCIÓN CSRF
    ========================================================= */
 
 async function cerrarSesion(event) {
@@ -119,10 +123,38 @@ async function cerrarSesion(event) {
 
     try {
 
+        // Consultar la sesión y obtener un token CSRF vigente.
+        const sesion = await obtenerSesion();
+
+        if (
+            !sesion.exito ||
+            !sesion.sesion_activa
+        ) {
+            alert("No hay una sesión activa.");
+            window.location.reload();
+            return;
+        }
+
+        const tokenCsrf = sesion.token_csrf;
+
+        if (
+            typeof tokenCsrf !== "string" ||
+            !/^[a-f0-9]{64}$/i.test(tokenCsrf)
+        ) {
+            throw new Error(
+                "No se pudo obtener un token de seguridad válido."
+            );
+        }
+
+        // Cerrar sesión mediante POST y enviar el token CSRF.
         const respuesta = await fetch(
             "/Pupusas_paginaweb/api/logout.php",
             {
-                method: "GET",
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "X-CSRF-Token": tokenCsrf
+                },
                 cache: "no-store",
                 credentials: "same-origin"
             }
@@ -149,7 +181,10 @@ async function cerrarSesion(event) {
 
         console.error("Error al cerrar sesión:", error);
 
-        alert("No fue posible comunicarse con el servidor.");
+        alert(
+            error.message ||
+            "No fue posible comunicarse con el servidor."
+        );
     }
 }
 
@@ -162,4 +197,3 @@ document.addEventListener(
     "DOMContentLoaded",
     actualizarUsuarioNav
 );
-

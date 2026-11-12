@@ -1,0 +1,593 @@
+
+/* =========================================================
+   HISTORIAL DE COMPRAS - PUPUSAS LORENA
+   Estilos exclusivos de la página de historial
+========================================================= */
+
+:root {
+    --crema: #FFFBEB;
+    --blanco: #FFFFFF;
+    --naranja: #D97706;
+    --naranja-hover: #B45309;
+    --rojo: #DC2626;
+    --rojo-hover: #B91C1C;
+    --texto: #1F2937;
+    --suave: #64748B;
+    --linea: #F1E7D5;
+    --sombra: 0 18px 48px rgba(91, 62, 20, .09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+}
+
+body.historial-page {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--crema);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: inherit;
+}
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+========================================================= */
+
+.historial-main {
+    width: min(100% - 36px, 960px);
+    margin: 0 auto;
+    flex: 1;
+    padding: 52px 0 44px;
+}
+
+.introduccion-historial {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.etiqueta-superior {
+    display: inline-block;
+    color: var(--naranja);
+    font-size: .75rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    margin-bottom: 8px;
+}
+
+.introduccion-historial h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1.2;
+    letter-spacing: -.045em;
+    margin: 0 0 10px;
+}
+
+.introduccion-historial p {
+    margin: 0;
+    color: var(--suave);
+    font-size: 1rem;
+}
+
+/* =========================================================
+   ESTADO DE CARGA
+========================================================= */
+
+.estado-historial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    text-align: center;
+    color: var(--suave);
+    padding: 16px;
+    margin: 0 auto 18px;
+    max-width: 600px;
+}
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #F3D7A8;
+    border-top-color: var(--naranja);
+    border-radius: 50%;
+    animation: girar .8s linear infinite;
+}
+
+@keyframes girar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================================================
+   CONTENEDOR DEL HISTORIAL
+========================================================= */
+
+.contenedor-historial {
+    background: var(--blanco);
+    border: 1px solid rgba(217, 119, 6, .08);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: clamp(22px, 4.5vw, 40px);
+}
+
+.encabezado-lista {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--linea);
+}
+
+.encabezado-lista h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    margin: 0 0 4px;
+    letter-spacing: -.025em;
+}
+
+.encabezado-lista p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .92rem;
+}
+
+/* =========================================================
+   LISTA DE FACTURAS
+========================================================= */
+
+.lista-facturas {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    padding-top: 24px;
+}
+
+.factura-card {
+    border: 1px solid var(--linea);
+    border-radius: 16px;
+    overflow: hidden;
+    background: #FFFEFC;
+    transition: box-shadow .2s, transform .2s;
+}
+
+.factura-card:hover {
+    box-shadow: 0 10px 25px rgba(91, 62, 20, .08);
+    transform: translateY(-2px);
+}
+
+/* Encabezado de cada factura */
+
+.factura-encabezado {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 20px 22px;
+    background: #FFF7E9;
+    border-bottom: 1px solid var(--linea);
+}
+
+.factura-identificacion {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.factura-icono {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #FFFFFF;
+    color: var(--naranja);
+    font-size: 1.45rem;
+}
+
+.factura-identificacion h3 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.08rem;
+    line-height: 1.4;
+}
+
+.factura-fecha {
+    display: block;
+    color: var(--suave);
+    font-size: .84rem;
+    margin-top: 3px;
+}
+
+/* =========================================================
+   ESTADOS DE FACTURA
+========================================================= */
+
+.estado-factura {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: .78rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    color: #92400E;
+    background: #FEF3C7;
+}
+
+.estado-pagado {
+    color: #166534;
+    background: #DCFCE7;
+}
+
+.estado-anulado {
+    color: #991B1B;
+    background: #FEE2E2;
+}
+
+.estado-desconocido {
+    color: #475569;
+    background: #E2E8F0;
+}
+
+/* =========================================================
+   INFORMACIÓN DE LA FACTURA
+========================================================= */
+
+.factura-contenido {
+    padding: 22px;
+}
+
+.factura-metadatos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 22px;
+}
+
+.metadato {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.metadato span {
+    color: var(--suave);
+    font-size: .82rem;
+}
+
+.metadato strong {
+    font-size: .94rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+/* =========================================================
+   PRODUCTOS DE CADA COMPRA
+========================================================= */
+
+.factura-subtitulo {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    margin: 0 0 13px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--linea);
+}
+
+.lista-productos {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.producto-factura {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 15px;
+    padding: 13px 0;
+    border-bottom: 1px solid #F5F0E7;
+}
+
+.producto-factura:last-child {
+    border-bottom: none;
+}
+
+.producto-informacion {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 3px;
+}
+
+.producto-nombre {
+    font-weight: 600;
+    font-size: .94rem;
+    overflow-wrap: anywhere;
+}
+
+.producto-cantidad {
+    color: var(--suave);
+    font-size: .83rem;
+}
+
+.producto-precio {
+    text-align: right;
+    font-weight: 700;
+    font-size: .94rem;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   RESUMEN ECONÓMICO
+========================================================= */
+
+.factura-resumen {
+    margin-top: 20px;
+    padding: 18px;
+    background: #FFFBF3;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+}
+
+.resumen-fila {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 5px 0;
+    color: #4B5563;
+    font-size: .91rem;
+}
+
+.resumen-fila strong {
+    color: var(--texto);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.resumen-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 12px;
+    padding-top: 13px;
+    border-top: 1px solid #E9DCC7;
+    color: var(--texto);
+    font-size: 1.05rem;
+    font-weight: 800;
+}
+
+.resumen-total strong {
+    color: var(--naranja-hover);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   TARJETAS VACÍAS Y AVISOS
+========================================================= */
+
+.tarjeta-vacia {
+    background: var(--blanco);
+    border: 1px solid rgba(217, 119, 6, .08);
+    border-radius: 22px;
+    box-shadow: var(--sombra);
+    padding: clamp(28px, 5vw, 48px);
+    text-align: center;
+    max-width: 650px;
+    margin: 0 auto;
+}
+
+.icono-vacio {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    background: #FFF5E3;
+    color: var(--naranja);
+    border-radius: 50%;
+    font-size: 1.8rem;
+}
+
+.tarjeta-vacia h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.3rem, 3vw, 1.8rem);
+    line-height: 1.3;
+    margin: 0 0 8px;
+}
+
+.tarjeta-vacia p {
+    margin: 0;
+    color: var(--suave);
+}
+
+.boton-principal {
+    min-height: 52px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 20px;
+    margin: 22px auto 0;
+    border-radius: 12px;
+    background: var(--naranja);
+    color: #FFFFFF;
+    border: 1px solid var(--naranja);
+    font: inherit;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .18s, background-color .18s, box-shadow .18s;
+}
+
+.boton-principal:hover {
+    background: var(--naranja-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 16px rgba(180, 83, 9, .16);
+}
+
+/* =========================================================
+   REGRESO Y PIE DE PÁGINA
+========================================================= */
+
+.enlace-regreso {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 28px auto 0;
+    text-decoration: none;
+    font-size: .92rem;
+    font-weight: 600;
+    color: #4B5563;
+    transition: color .2s;
+}
+
+.enlace-regreso:hover {
+    color: var(--naranja);
+}
+
+.historial-footer {
+    text-align: center;
+    color: #7C7468;
+    font-size: .82rem;
+    padding: 18px 20px;
+}
+
+.historial-footer p {
+    margin: 0;
+}
+
+/* =========================================================
+   ACCESIBILIDAD
+========================================================= */
+
+[hidden] {
+    display: none !important;
+}
+
+:focus-visible {
+    outline: 3px solid rgba(217, 119, 6, .4);
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   DISEÑO RESPONSIVE
+========================================================= */
+
+@media (max-width: 620px) {
+
+    .historial-main {
+        width: min(100% - 28px, 960px);
+        padding: 36px 0 30px;
+    }
+
+    .introduccion-historial {
+        margin-bottom: 22px;
+    }
+
+    .introduccion-historial p {
+        font-size: .92rem;
+    }
+
+    .contenedor-historial {
+        padding: 22px 16px;
+        border-radius: 17px;
+    }
+
+    .encabezado-lista {
+        padding-bottom: 18px;
+    }
+
+    .lista-facturas {
+        gap: 17px;
+        padding-top: 18px;
+    }
+
+    .factura-encabezado {
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 17px;
+        gap: 12px;
+    }
+
+    .factura-contenido {
+        padding: 17px;
+    }
+
+    .factura-metadatos {
+        grid-template-columns: 1fr;
+        gap: 11px;
+    }
+
+    .producto-factura {
+        gap: 8px;
+    }
+
+    .producto-nombre {
+        font-size: .88rem;
+    }
+
+    .producto-precio {
+        font-size: .88rem;
+    }
+
+    .factura-resumen {
+        padding: 14px;
+    }
+
+    .resumen-total {
+        font-size: .98rem;
+    }
+
+    .resumen-total strong {
+        font-size: 1.1rem;
+    }
+
+    .tarjeta-vacia {
+        padding: 26px 18px;
+        border-radius: 17px;
+    }
+
+    .historial-footer {
+        font-size: .78rem;
+    }
+}
+
+/* =========================================================
+   MOVIMIENTO REDUCIDO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+}

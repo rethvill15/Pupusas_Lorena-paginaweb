@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
+
+    <title>Historial de compras - Pupusas Lorena</title>
+
+    <link rel="icon" href="../Imagenes/pupusas_logo.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../CSS_archivos/detalles.css">
+    <link rel="stylesheet" href="../CSS_archivos/nav_usuario.css?v=2">
+    <link rel="stylesheet" href="historial_compras.css?v=1">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body class="historial-page">
+
+    <header class="navbar">
+        <div class="nav-container">
+
+            <a href="../pup_lorena.html" class="logo">
+                <img src="../Imagenes/images.png" alt="Logo Pupusas Lorena" class="logo-img">
+                <span class="logo-texto">Pupusas Lorena</span>
+            </a>
+
+            <nav class="nav-links" aria-label="Navegación principal">
+
+                <a href="../pup_lorena.html" class="nav-item">Inicio</a>
+
+                <a href="../Menu_pupusas/menu_seccion.html" class="nav-item">Menú</a>
+
+                <a href="../Historia_seccion/historia_pagi.html" class="nav-item">Nuestra Historia</a>
+
+                <a href="../Eventos/eventos_pagi.html" class="nav-item">Eventos</a>
+
+                <div class="usuario-nav" id="usuarioNav" data-base="../">
+                    <a class="nav-item" href="../Inicio_sesion/login.html">Iniciar sesión</a>
+                    <a class="nav-item" href="../Registro_usuario/Registro_user.html">Crear cuenta</a>
+                </div>
+
+                <a href="../Menu_pupusas/menu_seccion.html" class="btn-nav">Ver menú</a>
+
+            </nav>
+        </div>
+    </header>
+
+
+    <main class="historial-main">
+
+        <section class="introduccion-historial">
+
+            <span class="etiqueta-superior">TU ESPACIO PERSONAL</span>
+
+            <h1>Historial de compras</h1>
+
+            <p>Consulta tus facturas y los productos de tus compras en Pupusas Lorena.</p>
+
+        </section>
+
+
+        <p id="estadoHistorial" class="estado-historial" role="status" aria-live="polite">
+            <span class="spinner" aria-hidden="true"></span>
+            Cargando tu historial de compras...
+        </p>
+
+
+        <section id="contenedorHistorial" class="contenedor-historial" aria-label="Historial de facturas" hidden>
+
+            <div class="encabezado-lista">
+                <div>
+                    <h2>Mis compras</h2>
+                    <p id="totalFacturas">Facturas registradas</p>
+                </div>
+            </div>
+
+            <div id="listaFacturas" class="lista-facturas"></div>
+
+        </section>
+
+
+        <section id="sinCompras" class="tarjeta-vacia" hidden>
+
+            <span class="icono-vacio" aria-hidden="true">
+                <i class="bi bi-bag-x"></i>
+            </span>
+
+            <h2>Aún no tienes compras</h2>
+
+            <p>Cuando realices una compra con tu cuenta iniciada, aparecerá aquí tu historial.</p>
+
+            <a href="../Menu_pupusas/menu_seccion.html" class="boton-principal">
+                Explorar el menú
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+
+        </section>
+
+
+        <section id="avisoLogin" class="tarjeta-vacia" hidden>
+
+            <span class="icono-vacio" aria-hidden="true">
+                <i class="bi bi-person-lock"></i>
+            </span>
+
+            <h2>Inicia sesión para continuar</h2>
+
+            <p>Para consultar tu historial de compras, primero debes acceder a tu cuenta.</p>
+
+            <a class="boton-principal" href="../Inicio_sesion/login.html">
+                Iniciar sesión
+                <i class="bi bi-arrow-right" aria-hidden="true"></i>
+            </a>
+
+        </section>
+
+
+        <a class="enlace-regreso" href="mi_cuenta.html">
+            <i class="bi bi-arrow-left" aria-hidden="true"></i>
+            Volver a Mi cuenta
+        </a>
+
+    </main>
+
+
+    <footer class="historial-footer">
+        <p>© Pupusas Lorena · Hecho con cariño</p>
+    </footer>
+
+
+    <script src="../JS_archivos/nav_usuario.js?v=2"></script>
+    <script src="historial_compras.js?v=1"></script>
+
+</body>
+</html>
