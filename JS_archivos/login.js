@@ -46,6 +46,60 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
 
             // ==========================================
+            // OBTENER TOKEN CSRF DE LA SESIÓN
+            // ==========================================
+
+            const respuestaSesion = await fetch(
+                "/Pupusas_paginaweb/api/sesion.php",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept": "application/json"
+                    },
+
+                    cache: "no-store",
+
+                    credentials: "same-origin"
+                }
+            );
+
+
+            const sesion = await respuestaSesion.json();
+
+
+            if (
+                !respuestaSesion.ok ||
+                !sesion.exito
+            ) {
+
+                throw new Error(
+                    "No fue posible obtener la sesión de seguridad."
+                );
+
+            }
+
+
+            // ==========================================
+            // VALIDAR TOKEN CSRF
+            // ==========================================
+
+            if (
+                typeof sesion.token_csrf !== "string" ||
+                !/^[a-f0-9]{64}$/i.test(sesion.token_csrf)
+            ) {
+
+                throw new Error(
+                    "El token de seguridad no es válido."
+                );
+
+            }
+
+
+            const tokenCsrf = sesion.token_csrf;
+
+
+            // ==========================================
             // ENVIAR DATOS AL API
             // ==========================================
 
@@ -55,8 +109,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     method: "POST",
 
                     headers: {
-                        "Content-Type": "application/json"
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "X-CSRF-Token": tokenCsrf
                     },
+
+                    credentials: "same-origin",
+
+                    cache: "no-store",
 
                     body: JSON.stringify(datos)
                 }
@@ -75,6 +135,23 @@ document.addEventListener("DOMContentLoaded", function () {
             // ==========================================
 
             if (resultado.exito) {
+
+
+                // ======================================
+                // VERIFICAR TOKEN DE LA NUEVA SESIÓN
+                // ======================================
+
+                if (
+                    typeof resultado.token_csrf !== "string" ||
+                    !/^[a-f0-9]{64}$/i.test(resultado.token_csrf)
+                ) {
+
+                    throw new Error(
+                        "No se recibió el nuevo token de seguridad."
+                    );
+
+                }
+
 
                 // ======================================
                 // VERIFICAR CAMBIO OBLIGATORIO
@@ -111,7 +188,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             } else {
 
-                alert(resultado.mensaje);
+                alert(
+                    resultado.mensaje ||
+                    "No fue posible iniciar sesión."
+                );
 
             }
 
@@ -124,7 +204,9 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             alert(
-                "No fue posible comunicarse con el servidor."
+                error.message === "Failed to fetch"
+                    ? "No fue posible comunicarse con el servidor."
+                    : error.message
             );
 
         }
