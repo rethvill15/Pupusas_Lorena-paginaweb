@@ -1,0 +1,1210 @@
+
+/* =========================================================
+   GESTIÓN ADMINISTRATIVA DE VENTAS
+   PUPUSAS LORENA
+   ========================================================= */
+
+:root {
+    --crema: #FFFBEB;
+    --blanco: #FFFFFF;
+    --naranja: #D97706;
+    --naranja-hover: #B45309;
+    --rojo: #DC2626;
+    --rojo-hover: #B91C1C;
+    --texto: #1F2937;
+    --suave: #64748B;
+    --linea: #F1E7D5;
+    --sombra: 0 18px 48px rgba(91, 62, 20, .09);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body.ventas-admin-page {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--crema);
+    color: var(--texto);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button,
+a,
+select {
+    -webkit-tap-highlight-color: transparent;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+
+/* =========================================================
+   ENCABEZADO
+   ========================================================= */
+
+.admin-ven-header {
+    min-height: 76px;
+    padding: 12px clamp(18px, 5vw, 65px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--blanco);
+    border-bottom: 1px solid var(--linea);
+}
+
+.admin-ven-marca {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--texto);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -.04em;
+}
+
+.admin-ven-marca > i {
+    color: var(--naranja);
+    font-size: 1.8rem;
+}
+
+.admin-ven-marca strong {
+    color: var(--naranja);
+}
+
+.admin-ven-header-derecha {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.admin-ven-identificador,
+.admin-ven-volver {
+    min-height: 40px;
+    padding: 8px 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border-radius: 10px;
+    font-size: .85rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.admin-ven-identificador {
+    background: #FFF5E3;
+    color: var(--naranja-hover);
+}
+
+.admin-ven-volver {
+    border: 1px solid var(--linea);
+    background: var(--blanco);
+    color: var(--texto);
+    transition: .2s;
+}
+
+.admin-ven-volver:hover {
+    border-color: var(--naranja);
+    color: var(--naranja-hover);
+}
+
+
+/* =========================================================
+   CONTENIDO PRINCIPAL
+   ========================================================= */
+
+.admin-ven-main {
+    width: min(100% - 40px, 1450px);
+    margin: 0 auto;
+    padding: 40px 0 55px;
+    flex: 1;
+}
+
+.admin-ven-introduccion {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.admin-ven-etiqueta {
+    display: inline-block;
+    margin-bottom: 7px;
+    color: var(--naranja);
+    font-size: .74rem;
+    font-weight: 800;
+    letter-spacing: .15em;
+}
+
+.admin-ven-introduccion h1 {
+    margin: 0 0 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.45rem);
+    line-height: 1.2;
+    letter-spacing: -.04em;
+}
+
+.admin-ven-introduccion p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .94rem;
+}
+
+.admin-ven-boton-regreso {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--linea);
+    border-radius: 10px;
+    background: var(--blanco);
+    color: var(--texto);
+    font-size: .88rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: .2s;
+}
+
+.admin-ven-boton-regreso:hover {
+    border-color: var(--naranja);
+    color: var(--naranja-hover);
+}
+
+
+/* =========================================================
+   ESTADOS DE CARGA Y ERRORES
+   ========================================================= */
+
+.admin-ven-mensaje {
+    min-height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: var(--suave);
+    font-size: .92rem;
+}
+
+.admin-ven-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #F3D7A8;
+    border-top-color: var(--naranja);
+    border-radius: 50%;
+    animation: venGirar .8s linear infinite;
+}
+
+@keyframes venGirar {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.admin-ven-alerta {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 17px 20px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}
+
+.admin-ven-alerta-error {
+    border: 1px solid #FECACA;
+    background: #FEF2F2;
+    color: #991B1B;
+}
+
+.admin-ven-alerta > i {
+    font-size: 1.4rem;
+}
+
+.admin-ven-alerta strong {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.admin-ven-alerta p {
+    margin: 0;
+    font-size: .88rem;
+}
+
+.admin-ven-alerta button {
+    margin-left: auto;
+    padding: 8px 13px;
+    border: 1px solid #DC2626;
+    border-radius: 8px;
+    background: var(--blanco);
+    color: #991B1B;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-alerta button:hover {
+    background: #FEE2E2;
+}
+
+
+/* =========================================================
+   CONTADORES
+   ========================================================= */
+
+.admin-ven-contadores {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 27px;
+}
+
+.admin-ven-contador {
+    min-height: 105px;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid rgba(217, 119, 6, .09);
+    border-radius: 15px;
+    background: var(--blanco);
+    box-shadow: 0 8px 25px rgba(91, 62, 20, .045);
+}
+
+.contador-icono {
+    width: 45px;
+    height: 45px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 13px;
+    font-size: 1.35rem;
+}
+
+.admin-ven-contador span {
+    display: block;
+    color: var(--suave);
+    font-size: .78rem;
+    font-weight: 600;
+}
+
+.admin-ven-contador strong {
+    display: block;
+    margin-top: 2px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+.contador-total .contador-icono {
+    background: #FFF5E3;
+    color: var(--naranja);
+}
+
+.contador-pendientes .contador-icono {
+    background: #FEF3C7;
+    color: #B45309;
+}
+
+.contador-pagadas .contador-icono {
+    background: #DCFCE7;
+    color: #15803D;
+}
+
+.contador-anuladas .contador-icono {
+    background: #FEE2E2;
+    color: #DC2626;
+}
+
+
+/* =========================================================
+   PANEL DE FACTURAS
+   ========================================================= */
+
+.admin-ven-panel {
+    overflow: hidden;
+    border: 1px solid rgba(217, 119, 6, .10);
+    border-radius: 18px;
+    background: var(--blanco);
+    box-shadow: var(--sombra);
+}
+
+.admin-ven-panel-encabezado {
+    padding: 23px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid var(--linea);
+}
+
+.admin-ven-panel-encabezado h2 {
+    margin: 0 0 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.25rem;
+}
+
+.admin-ven-panel-encabezado p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .86rem;
+}
+
+.admin-ven-boton-actualizar {
+    min-height: 41px;
+    padding: 9px 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--linea);
+    border-radius: 9px;
+    background: var(--blanco);
+    color: var(--texto);
+    font-size: .85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-boton-actualizar:hover {
+    border-color: var(--naranja);
+    color: var(--naranja-hover);
+}
+
+.admin-ven-boton-actualizar:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+
+/* =========================================================
+   BUSCADOR Y FILTROS
+   ========================================================= */
+
+.admin-ven-herramientas {
+    padding: 18px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid var(--linea);
+}
+
+.admin-ven-buscador {
+    width: min(100%, 500px);
+    min-height: 43px;
+    padding: 0 13px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #E5E0D7;
+    border-radius: 9px;
+    background: #FFFEFA;
+}
+
+.admin-ven-buscador > i {
+    color: var(--suave);
+}
+
+.admin-ven-buscador input {
+    width: 100%;
+    min-width: 0;
+    height: 41px;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: var(--texto);
+    font-size: .86rem;
+}
+
+.admin-ven-buscador:focus-within {
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, .10);
+}
+
+.admin-ven-filtros {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-ven-filtro {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+.admin-ven-filtro label {
+    color: var(--suave);
+    font-size: .86rem;
+    font-weight: 600;
+}
+
+.admin-ven-filtro select {
+    min-height: 42px;
+    padding: 8px 32px 8px 11px;
+    border: 1px solid #E5E0D7;
+    border-radius: 9px;
+    background: #FFFEFA;
+    color: var(--texto);
+    font-size: .86rem;
+    cursor: pointer;
+}
+
+.admin-ven-filtro select:focus,
+.admin-ven-campo select:focus {
+    outline: 0;
+    border-color: var(--naranja);
+    box-shadow: 0 0 0 3px rgba(217, 119, 6, .10);
+}
+
+
+/* =========================================================
+   INFORMACIÓN DE RESULTADOS
+   ========================================================= */
+
+.admin-ven-resultados {
+    padding: 13px 25px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    color: var(--suave);
+    font-size: .78rem;
+    border-bottom: 1px solid var(--linea);
+}
+
+
+/* =========================================================
+   TABLA DE FACTURAS
+   ========================================================= */
+
+.admin-ven-tabla-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-ven-tabla {
+    width: 100%;
+    min-width: 1100px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-ven-tabla thead,
+.admin-ven-tabla-detalles thead {
+    background: #FFFBF2;
+}
+
+.admin-ven-tabla th,
+.admin-ven-tabla-detalles th {
+    padding: 14px 13px;
+    color: #786B59;
+    font-size: .75rem;
+    font-weight: 800;
+    white-space: nowrap;
+    text-transform: uppercase;
+    letter-spacing: .035em;
+}
+
+.admin-ven-tabla td,
+.admin-ven-tabla-detalles td {
+    padding: 15px 13px;
+    border-top: 1px solid #F5F0E7;
+    color: var(--texto);
+    font-size: .83rem;
+    vertical-align: middle;
+}
+
+.admin-ven-tabla tbody tr {
+    transition: background .15s;
+}
+
+.admin-ven-tabla tbody tr:hover {
+    background: #FFFEFA;
+}
+
+.admin-ven-tabla td:first-child {
+    font-weight: 800;
+    color: var(--naranja-hover);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+.admin-ven-cliente {
+    min-width: 160px;
+    font-weight: 700;
+}
+
+.admin-ven-fecha {
+    min-width: 155px;
+    white-space: nowrap;
+    color: var(--suave) !important;
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-ven-metodo,
+.admin-ven-canal {
+    white-space: nowrap;
+}
+
+.admin-ven-total {
+    white-space: nowrap;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-ven-acciones {
+    white-space: nowrap;
+}
+
+.admin-ven-boton-detalle {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 11px;
+    border: 1px solid #F2D7AB;
+    border-radius: 8px;
+    background: #FFF8EA;
+    color: #9A5800;
+    font-size: .79rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-boton-detalle:hover {
+    border-color: var(--naranja);
+    background: var(--naranja);
+    color: var(--blanco);
+}
+
+
+/* =========================================================
+   ETIQUETAS DE ESTADO
+   ========================================================= */
+
+.admin-ven-estado {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border-radius: 30px;
+    font-size: .73rem;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.estado-pendiente {
+    background: #FEF3C7;
+    color: #92400E;
+}
+
+.estado-pagado {
+    background: #DCFCE7;
+    color: #166534;
+}
+
+.estado-anulado {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+
+/* =========================================================
+   TABLA VACÍA
+   ========================================================= */
+
+.admin-ven-sin-resultados {
+    padding: 55px 20px;
+    text-align: center;
+}
+
+.admin-ven-sin-resultados > i {
+    color: #C6B69D;
+    font-size: 2.5rem;
+}
+
+.admin-ven-sin-resultados h3 {
+    margin: 12px 0 5px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+}
+
+.admin-ven-sin-resultados p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .87rem;
+}
+
+
+/* =========================================================
+   MODAL
+   ========================================================= */
+
+.admin-ven-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    padding: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    background: rgba(31, 41, 55, .58);
+    backdrop-filter: blur(3px);
+}
+
+.admin-ven-modal[hidden] {
+    display: none !important;
+}
+
+.admin-ven-modal-contenido {
+    width: min(100%, 760px);
+    max-height: calc(100vh - 44px);
+    overflow-y: auto;
+    padding: 25px;
+    border: 1px solid rgba(217, 119, 6, .12);
+    border-radius: 18px;
+    background: var(--blanco);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, .20);
+    animation: venAparecer .18s ease-out;
+}
+
+@keyframes venAparecer {
+    from {
+        opacity: 0;
+        transform: translateY(9px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.admin-ven-modal-encabezado {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 21px;
+}
+
+.admin-ven-modal-encabezado h2 {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.35rem;
+}
+
+.admin-ven-modal-cerrar {
+    width: 37px;
+    height: 37px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--linea);
+    border-radius: 9px;
+    background: var(--blanco);
+    color: var(--suave);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-modal-cerrar:hover {
+    border-color: var(--rojo);
+    color: var(--rojo);
+}
+
+
+/* =========================================================
+   SECCIONES DEL MODAL
+   ========================================================= */
+
+.admin-ven-seccion-detalle,
+.admin-ven-seccion-productos,
+.admin-ven-seccion-estado {
+    margin-top: 18px;
+    padding: 18px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    background: var(--blanco);
+}
+
+.admin-ven-seccion-detalle h3,
+.admin-ven-seccion-productos h3 {
+    margin: 0 0 15px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .98rem;
+}
+
+.admin-ven-seccion-detalle h3 > i,
+.admin-ven-seccion-productos h3 > i {
+    color: var(--naranja);
+    font-size: 1.1rem;
+}
+
+
+/* =========================================================
+   DETALLES GENERALES DE LA FACTURA
+   ========================================================= */
+
+.admin-ven-detalles {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.admin-ven-detalle {
+    min-width: 0;
+}
+
+.admin-ven-detalle span {
+    display: block;
+    margin-bottom: 3px;
+    color: var(--suave);
+    font-size: .74rem;
+}
+
+.admin-ven-detalle strong {
+    display: block;
+    font-size: .87rem;
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   TABLA DE PRODUCTOS DE LA FACTURA
+   ========================================================= */
+
+.admin-ven-tabla-detalles-contenedor {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.admin-ven-tabla-detalles {
+    width: 100%;
+    min-width: 520px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.admin-ven-tabla-detalles th {
+    padding: 11px 10px;
+    font-size: .70rem;
+}
+
+.admin-ven-tabla-detalles td {
+    padding: 12px 10px;
+    font-size: .80rem;
+}
+
+.admin-ven-tabla-detalles td:nth-child(n+2) {
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-ven-tabla-detalles td:last-child {
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   TOTALES
+   ========================================================= */
+
+.admin-ven-totales {
+    width: min(100%, 360px);
+    margin: 18px 0 0 auto;
+    padding: 15px 18px;
+    border: 1px solid var(--linea);
+    border-radius: 12px;
+    background: #FFFEFA;
+}
+
+.admin-ven-totales > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 7px 0;
+    color: var(--suave);
+    font-size: .84rem;
+}
+
+.admin-ven-totales strong {
+    color: var(--texto);
+    font-variant-numeric: tabular-nums;
+}
+
+.admin-ven-total-final {
+    margin-top: 7px;
+    padding-top: 13px !important;
+    border-top: 1px solid var(--linea);
+    color: var(--texto) !important;
+    font-weight: 800;
+}
+
+.admin-ven-total-final strong {
+    color: var(--naranja-hover);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.1rem;
+}
+
+
+/* =========================================================
+   ADMINISTRACIÓN DEL ESTADO
+   ========================================================= */
+
+.admin-ven-seccion-estado {
+    background: #FFFEFA;
+}
+
+.admin-ven-seccion-titulo {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.admin-ven-seccion-titulo > i {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: #FFF5E3;
+    color: var(--naranja);
+    font-size: 1.15rem;
+}
+
+.admin-ven-seccion-titulo h3 {
+    margin: 0 0 3px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .98rem;
+}
+
+.admin-ven-seccion-titulo p {
+    margin: 0;
+    color: var(--suave);
+    font-size: .81rem;
+}
+
+.admin-ven-campo {
+    margin-bottom: 13px;
+}
+
+.admin-ven-campo label {
+    display: block;
+    margin-bottom: 7px;
+    font-size: .85rem;
+    font-weight: 800;
+}
+
+.admin-ven-campo select {
+    width: 100%;
+    min-height: 44px;
+    padding: 9px 12px;
+    border: 1px solid #E5E0D7;
+    border-radius: 9px;
+    background: var(--blanco);
+    color: var(--texto);
+    cursor: pointer;
+}
+
+.admin-ven-ayuda {
+    display: block;
+    margin-bottom: 14px;
+    color: var(--suave);
+    font-size: .76rem;
+}
+
+.admin-ven-boton-guardar {
+    min-height: 42px;
+    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid var(--naranja);
+    border-radius: 9px;
+    background: var(--naranja);
+    color: var(--blanco);
+    font-size: .84rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-boton-guardar:hover {
+    border-color: var(--naranja-hover);
+    background: var(--naranja-hover);
+}
+
+.admin-ven-boton-guardar:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+
+/* =========================================================
+   MENSAJE DEL MODAL
+   ========================================================= */
+
+.admin-ven-modal-mensaje {
+    margin-top: 15px;
+    padding: 11px 13px;
+    border-radius: 9px;
+    background: #FEF2F2;
+    color: #991B1B;
+    font-size: .84rem;
+}
+
+.admin-ven-modal-mensaje.mensaje-exito {
+    border: 1px solid #BBF7D0;
+    background: #F0FDF4;
+    color: #166534;
+}
+
+.admin-ven-modal-mensaje.mensaje-error {
+    border: 1px solid #FECACA;
+    background: #FEF2F2;
+    color: #991B1B;
+}
+
+
+/* =========================================================
+   ACCIONES DEL MODAL
+   ========================================================= */
+
+.admin-ven-modal-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.admin-ven-boton-secundario {
+    min-height: 43px;
+    padding: 10px 15px;
+    border: 1px solid var(--linea);
+    border-radius: 9px;
+    background: var(--blanco);
+    color: var(--texto);
+    font-size: .86rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.admin-ven-boton-secundario:hover {
+    background: #F9F6F0;
+}
+
+
+/* =========================================================
+   PIE DE PÁGINA
+   ========================================================= */
+
+.admin-ven-footer {
+    padding: 18px 20px;
+    border-top: 1px solid var(--linea);
+    background: rgba(255, 255, 255, .65);
+    color: #7C7468;
+    text-align: center;
+    font-size: .8rem;
+}
+
+.admin-ven-footer p {
+    margin: 0;
+}
+
+
+/* =========================================================
+   ACCESIBILIDAD
+   ========================================================= */
+
+.ventas-admin-page a:focus-visible,
+.ventas-admin-page button:focus-visible,
+.ventas-admin-page input:focus-visible,
+.ventas-admin-page select:focus-visible {
+    outline: 3px solid rgba(217, 119, 6, .30);
+    outline-offset: 3px;
+}
+
+.admin-ven-tabla-contenedor:focus-visible,
+.admin-ven-tabla-detalles-contenedor:focus-visible {
+    outline: 2px solid var(--naranja);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .admin-ven-contadores {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-ven-herramientas {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-ven-buscador {
+        width: 100%;
+    }
+
+}
+
+@media (max-width: 700px) {
+
+    .admin-ven-header {
+        flex-wrap: wrap;
+        padding: 12px 18px;
+    }
+
+    .admin-ven-header-derecha {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .admin-ven-main {
+        width: min(100% - 28px, 1450px);
+        padding: 30px 0 40px;
+    }
+
+    .admin-ven-introduccion {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-ven-contador {
+        min-height: 90px;
+        padding: 13px;
+    }
+
+    .admin-ven-panel-encabezado {
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    .admin-ven-herramientas {
+        padding: 16px 18px;
+    }
+
+    .admin-ven-filtros {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .admin-ven-filtro {
+        justify-content: space-between;
+    }
+
+    .admin-ven-filtro select {
+        flex: 1;
+    }
+
+    .admin-ven-resultados {
+        padding: 12px 18px;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .admin-ven-modal {
+        padding: 12px;
+    }
+
+    .admin-ven-modal-contenido {
+        padding: 19px;
+        max-height: calc(100vh - 24px);
+    }
+
+}
+
+@media (max-width: 420px) {
+
+    .admin-ven-contador {
+        gap: 9px;
+    }
+
+    .admin-ven-contador strong {
+        font-size: 1.3rem;
+    }
+
+    .contador-icono {
+        width: 37px;
+        height: 37px;
+        font-size: 1.1rem;
+    }
+
+    .admin-ven-identificador,
+    .admin-ven-volver {
+        padding: 8px 10px;
+        font-size: .77rem;
+    }
+
+    .admin-ven-panel-encabezado {
+        flex-direction: column;
+    }
+
+    .admin-ven-detalles {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-ven-modal-acciones {
+        flex-direction: column-reverse;
+    }
+
+    .admin-ven-boton-secundario,
+    .admin-ven-boton-guardar {
+        width: 100%;
+    }
+
+    .admin-ven-filtro {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .admin-ven-filtro select {
+        width: 100%;
+    }
+
+    .admin-ven-totales {
+        width: 100%;
+    }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+    }
+
+}

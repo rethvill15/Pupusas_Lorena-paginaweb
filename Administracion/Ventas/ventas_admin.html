@@ -1,0 +1,565 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#FFFBEB">
+
+    <title>Gestión de ventas - Pupusas Lorena</title>
+
+    <!-- Tipografías -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Estilos del módulo -->
+    <link rel="stylesheet" href="ventas_admin.css?v=1">
+</head>
+
+<body class="ventas-admin-page">
+
+    <!-- ENCABEZADO -->
+
+    <header class="admin-ven-header">
+
+        <a href="../../pup_lorena.html" class="admin-ven-marca">
+            <i class="bi bi-egg-fried" aria-hidden="true"></i>
+            <span>Pupusas <strong>Lorena</strong></span>
+        </a>
+
+        <div class="admin-ven-header-derecha">
+
+            <span class="admin-ven-identificador">
+                <i class="bi bi-shield-lock-fill" aria-hidden="true"></i>
+                Administrador
+            </span>
+
+            <a href="../index.html" class="admin-ven-volver">
+                <i class="bi bi-grid-fill" aria-hidden="true"></i>
+                Panel principal
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+
+    <main class="admin-ven-main">
+
+        <!-- INTRODUCCIÓN -->
+
+        <section class="admin-ven-introduccion">
+
+            <div>
+                <span class="admin-ven-etiqueta">
+                    ADMINISTRACIÓN
+                </span>
+
+                <h1>Gestión de ventas</h1>
+
+                <p>
+                    Consulta las facturas, revisa sus detalles y administra
+                    el estado de las ventas de Pupusas Lorena.
+                </p>
+            </div>
+
+            <a href="../index.html" class="admin-ven-boton-regreso">
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
+                Volver al panel
+            </a>
+
+        </section>
+
+
+        <!-- ESTADO DE CARGA -->
+
+        <div id="mensajeCarga" class="admin-ven-mensaje">
+            <span class="admin-ven-spinner" aria-hidden="true"></span>
+            <span>Cargando ventas...</span>
+        </div>
+
+
+        <!-- MENSAJE DE ERROR -->
+
+        <div id="alertaError" class="admin-ven-alerta admin-ven-alerta-error" hidden>
+
+            <i class="bi bi-exclamation-triangle-fill" aria-hidden="true"></i>
+
+            <div>
+                <strong>No se pudieron cargar las ventas</strong>
+                <p id="textoError">
+                    Ocurrió un problema al consultar las facturas.
+                </p>
+            </div>
+
+            <button type="button" id="btnReintentar">
+                <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                Reintentar
+            </button>
+
+        </div>
+
+
+        <!-- CONTENIDO DEL MÓDULO -->
+
+        <div id="contenidoVentas" hidden>
+
+
+            <!-- CONTADORES -->
+
+            <section class="admin-ven-contadores" aria-label="Resumen de ventas">
+
+                <article class="admin-ven-contador contador-total">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-receipt-cutoff" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Total de facturas</span>
+                        <strong id="totalFacturas">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-ven-contador contador-pendientes">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-clock-history" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Pendientes</span>
+                        <strong id="totalPendientes">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-ven-contador contador-pagadas">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Pagadas</span>
+                        <strong id="totalPagadas">0</strong>
+                    </div>
+
+                </article>
+
+
+                <article class="admin-ven-contador contador-anuladas">
+
+                    <div class="contador-icono">
+                        <i class="bi bi-x-circle-fill" aria-hidden="true"></i>
+                    </div>
+
+                    <div>
+                        <span>Anuladas</span>
+                        <strong id="totalAnuladas">0</strong>
+                    </div>
+
+                </article>
+
+            </section>
+
+
+            <!-- PANEL DE FACTURAS -->
+
+            <section class="admin-ven-panel">
+
+                <!-- ENCABEZADO -->
+
+                <div class="admin-ven-panel-encabezado">
+
+                    <div>
+                        <h2>Facturas registradas</h2>
+
+                        <p>
+                            Consulta las compras realizadas por clientes y visitantes.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        id="btnActualizar"
+                        class="admin-ven-boton-actualizar">
+
+                        <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+                        Actualizar
+
+                    </button>
+
+                </div>
+
+
+                <!-- BUSCADOR Y FILTROS -->
+
+                <div class="admin-ven-herramientas">
+
+                    <div class="admin-ven-buscador">
+
+                        <i class="bi bi-search" aria-hidden="true"></i>
+
+                        <input
+                            type="search"
+                            id="buscadorVentas"
+                            placeholder="Buscar por factura, cliente o correo..."
+                            autocomplete="off"
+                            aria-label="Buscar facturas">
+
+                    </div>
+
+
+                    <div class="admin-ven-filtros">
+
+                        <div class="admin-ven-filtro">
+
+                            <label for="filtroEstado">Estado:</label>
+
+                            <select id="filtroEstado">
+                                <option value="">Todos los estados</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Pagado">Pagado</option>
+                                <option value="Anulado">Anulado</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- RESULTADOS -->
+
+                <div class="admin-ven-resultados">
+
+                    <span id="textoResultados">
+                        Mostrando 0 facturas
+                    </span>
+
+                    <span>
+                        Ordenadas de la más reciente a la más antigua
+                    </span>
+
+                </div>
+
+
+                <!-- TABLA -->
+
+                <div
+                    class="admin-ven-tabla-contenedor"
+                    tabindex="0"
+                    role="region"
+                    aria-label="Tabla de facturas registradas">
+
+                    <table class="admin-ven-tabla">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Factura</th>
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Cliente</th>
+                                <th scope="col">Método de pago</th>
+                                <th scope="col">Canal</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaVentas">
+
+                            <!-- Las filas se generan mediante JavaScript -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+                <!-- SIN RESULTADOS -->
+
+                <div id="sinResultados" class="admin-ven-sin-resultados" hidden>
+
+                    <i class="bi bi-receipt" aria-hidden="true"></i>
+
+                    <h3>No se encontraron facturas</h3>
+
+                    <p>
+                        No hay facturas que coincidan con la búsqueda
+                        o el estado seleccionado.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- MODAL: DETALLES DE FACTURA -->
+
+    <div
+        id="modalDetalleVenta"
+        class="admin-ven-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="tituloModalVenta"
+        hidden>
+
+        <div class="admin-ven-modal-contenido">
+
+            <!-- ENCABEZADO DEL MODAL -->
+
+            <div class="admin-ven-modal-encabezado">
+
+                <div>
+                    <span class="admin-ven-etiqueta">
+                        INFORMACIÓN DE LA VENTA
+                    </span>
+
+                    <h2 id="tituloModalVenta">
+                        Detalles de factura
+                    </h2>
+                </div>
+
+                <button
+                    type="button"
+                    id="cerrarModalVenta"
+                    class="admin-ven-modal-cerrar"
+                    aria-label="Cerrar ventana">
+
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- INFORMACIÓN GENERAL -->
+
+            <section class="admin-ven-seccion-detalle">
+
+                <h3>
+                    <i class="bi bi-receipt" aria-hidden="true"></i>
+                    Información general
+                </h3>
+
+                <div class="admin-ven-detalles">
+
+                    <div class="admin-ven-detalle">
+                        <span>Número de factura</span>
+                        <strong id="detalleIdFactura">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Fecha de venta</span>
+                        <strong id="detalleFecha">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Cliente</span>
+                        <strong id="detalleCliente">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Correo electrónico</span>
+                        <strong id="detalleCorreo">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Método de pago</span>
+                        <strong id="detalleMetodoPago">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Canal de venta</span>
+                        <strong id="detalleCanal">—</strong>
+                    </div>
+
+                    <div class="admin-ven-detalle">
+                        <span>Estado actual</span>
+                        <strong id="detalleEstado">—</strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- PRODUCTOS DE LA FACTURA -->
+
+            <section class="admin-ven-seccion-productos">
+
+                <h3>
+                    <i class="bi bi-basket-fill" aria-hidden="true"></i>
+                    Productos de la factura
+                </h3>
+
+                <div
+                    class="admin-ven-tabla-detalles-contenedor"
+                    tabindex="0"
+                    role="region"
+                    aria-label="Productos incluidos en la factura">
+
+                    <table class="admin-ven-tabla-detalles">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Precio unitario</th>
+                                <th scope="col">Subtotal</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaDetalleProductos">
+
+                            <!-- Los productos se generan mediante JavaScript -->
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- TOTALES -->
+
+            <section class="admin-ven-totales">
+
+                <div>
+                    <span>Subtotal</span>
+                    <strong id="detalleSubtotal">C$ 0.00</strong>
+                </div>
+
+                <div>
+                    <span>Impuesto</span>
+                    <strong id="detalleImpuesto">C$ 0.00</strong>
+                </div>
+
+                <div class="admin-ven-total-final">
+                    <span>Total de la factura</span>
+                    <strong id="detalleTotal">C$ 0.00</strong>
+                </div>
+
+            </section>
+
+
+            <!-- CAMBIO DE ESTADO -->
+
+            <section class="admin-ven-seccion-estado">
+
+                <div class="admin-ven-seccion-titulo">
+
+                    <i class="bi bi-pencil-square" aria-hidden="true"></i>
+
+                    <div>
+                        <h3>Administrar estado de la venta</h3>
+                        <p>
+                            Actualiza el estado de esta factura.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="admin-ven-campo">
+
+                    <label for="nuevoEstado">
+                        Seleccionar nuevo estado
+                    </label>
+
+                    <select id="nuevoEstado">
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Pagado">Pagado</option>
+                        <option value="Anulado">Anulado</option>
+                    </select>
+
+                </div>
+
+                <small class="admin-ven-ayuda">
+                    Esta operación solamente modifica el estado.
+                    Los importes y los productos de la factura se conservan.
+                </small>
+
+                <button
+                    type="button"
+                    id="btnGuardarEstado"
+                    class="admin-ven-boton-guardar">
+
+                    <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
+                    Guardar estado
+
+                </button>
+
+            </section>
+
+
+            <!-- MENSAJE DE OPERACIONES -->
+
+            <div
+                id="mensajeModalVenta"
+                class="admin-ven-modal-mensaje"
+                role="alert"
+                hidden>
+            </div>
+
+
+            <!-- CERRAR MODAL -->
+
+            <div class="admin-ven-modal-acciones">
+
+                <button
+                    type="button"
+                    id="cancelarModalVenta"
+                    class="admin-ven-boton-secundario">
+
+                    Cerrar
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PIE DE PÁGINA -->
+
+    <footer class="admin-ven-footer">
+
+        <p>
+            &copy; 2026 Pupusas Lorena.
+            Panel de administración.
+        </p>
+
+    </footer>
+
+
+    <!-- JavaScript del módulo -->
+    <script src="ventas_admin.js?v=1"></script>
+
+</body>
+</html>
