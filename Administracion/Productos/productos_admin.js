@@ -231,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             actualizarContadores(datos);
             cargarOpcionesProveedores();
+            cargarOpcionesCategorias();
             aplicarFiltros();
 
             mensajeCarga.hidden = true;
@@ -291,7 +292,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
+    
     // =====================================================
     // 7.1. CARGAR CATEGORÍAS EN EL FILTRO
     // =====================================================
